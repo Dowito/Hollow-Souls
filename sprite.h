@@ -7,13 +7,19 @@ class Sprite : public QObject, public QGraphicsPixmapItem
     Q_OBJECT
 public:
     explicit Sprite(QObject *parent = nullptr);
+
+    void setSprite(QString spriteName);
     /*!
-     * \brief setSize estable el tamaño de los frames en pixiles
-     * \param w pixiles de ancho
-     * \param h pixiles de largo
+     * \brief setSize establece el tamaño de los frames en pixeles
+     * \param w pixeles de ancho
+     * \param h pixeles de largo
      */
     void setSize(unsigned int w, unsigned int h);
-    void setSprite(QString spriteName);
+    /*!
+     * \brief setFrame recorta del sprite el frame a mostar en pantalla.
+     * \param typeX el tipo en x, si es 2, seria el frame de la segunda columna del sprite
+     * \param typeY el tipo en y, si es 2, seria el frame de la segunda fila del sprite
+     */
     void setFrame(unsigned int typeX, unsigned int typeY);
 
 
@@ -22,7 +28,6 @@ private:
     QPixmap frame;
     unsigned int w;
     unsigned int h;
-
 };
 
 #endif // SPRITE_H
