@@ -11,11 +11,13 @@ CONFIG += c++11
 SOURCES += \
     game.cpp \
     main.cpp \
+    planet.cpp \
     sprite.cpp
 
 HEADERS += \
     game.h \
     macros.h \
+    planet.h \
     sprite.h
 
 # Default rules for deployment.
