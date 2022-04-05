@@ -1,0 +1,8 @@
+<RCC>
+    <qresource prefix="/new/sprites">
+        <file>sprites/demonio.png</file>
+        <file>sprites/furro.png</file>
+        <file>sprites/hombre_lobo.png</file>
+        <file>sprites/personaje.png</file>
+    </qresource>
+</RCC>

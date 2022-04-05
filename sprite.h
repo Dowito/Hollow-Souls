@@ -20,7 +20,7 @@ public:
      * \param typeX el tipo en x, si es 2, seria el frame de la segunda columna del sprite
      * \param typeY el tipo en y, si es 2, seria el frame de la segunda fila del sprite
      */
-    void setFrame(unsigned int typeX, unsigned int typeY);
+    void setFrame(unsigned int typeX = 0, unsigned int typeY = 0);
 
 
 private:

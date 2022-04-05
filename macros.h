@@ -6,7 +6,7 @@
 #define CLOCK_GAME 10
 
 //Movimiento - Simulacion fisica
-#define TTT 10
-#define GRAVEDAD 9.8
+#define TTT 1
+#define GRAVEDAD 0
 
 #endif // MACROS_H

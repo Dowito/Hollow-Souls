@@ -11,16 +11,16 @@ CONFIG += c++11
 SOURCES += \
     game.cpp \
     main.cpp \
-    mainwindow.cpp \
     motion.cpp \
-    sprite.cpp
+    sprite.cpp \
+    thebox.cpp
 
 HEADERS += \
     game.h \
     macros.h \
-    mainwindow.h \
     motion.h \
-    sprite.h
+    sprite.h \
+    thebox.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin
@@ -28,4 +28,7 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 FORMS += \
-    mainwindow.ui
+    thebox.ui
+
+RESOURCES += \
+    sprites.qrc

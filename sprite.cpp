@@ -13,7 +13,7 @@ void Sprite::setSprite(QString spriteName)
 
 void Sprite::setFrame(unsigned int typeX, unsigned int typeY)
 {
-    frame = sprite.copy(typeX*w, typeY*h, w, h).scaled(GAME_SCALE, GAME_SCALE);
+    frame = sprite.copy(typeX*w, typeY*h, w, h).scaled(w*GAME_SCALE,h*GAME_SCALE);
     setPixmap(frame);
 }
 

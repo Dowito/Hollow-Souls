@@ -1,13 +1,14 @@
 #include <QApplication>
 #include <game.h>
-#include <mainwindow.h>
+#include <thebox.h>
+#include "ui_thebox.h"
 Game *game;
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
-    game = new Game;
-    game->show();
-    MainWindow *mainwindow = new MainWindow;
-    mainwindow->show();
+    game = new Game();
+    //game->show();
+    TheBox *thebox = new TheBox(game->scene());
+    thebox->show();
     return a.exec();
 }

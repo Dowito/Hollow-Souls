@@ -11,10 +11,20 @@ public:
     Motion();
     Motion(QVector2D r, QVector2D v, QVector2D a);
 
+    void setR(const QVector2D &newR);
+
+    void setA(const QVector2D &newA);
+    void setV(const QVector2D &newV);
+
+    void setPeriodo(float newPeriodo);
+
+    const QVector2D &getR() const;
+
 private slots:
     void move();
 
 private:
+    float periodo;
     QVector2D a; //vector aceleracion
     QVector2D v; //vector velocidad
     QVector2D r; //vector posicion

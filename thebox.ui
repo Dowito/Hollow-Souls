@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>MainWindow</class>
- <widget class="QMainWindow" name="MainWindow">
+ <class>TheBox</class>
+ <widget class="QMainWindow" name="TheBox">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -17,33 +17,26 @@
    <widget class="QGraphicsView" name="graphicsView">
     <property name="geometry">
      <rect>
-      <x>11</x>
-      <y>11</y>
-      <width>256</width>
-      <height>192</height>
+      <x>0</x>
+      <y>10</y>
+      <width>961</width>
+      <height>481</height>
      </rect>
     </property>
    </widget>
-   <widget class="QWidget" name="">
+   <widget class="QWidget" name="layoutWidget">
     <property name="geometry">
      <rect>
-      <x>40</x>
-      <y>570</y>
-      <width>851</width>
-      <height>140</height>
+      <x>173</x>
+      <y>581</y>
+      <width>833</width>
+      <height>113</height>
      </rect>
     </property>
     <layout class="QHBoxLayout" name="horizontalLayout_11">
      <item>
       <layout class="QFormLayout" name="LayoutInfinito">
-       <item row="0" column="0">
-        <widget class="QLabel" name="label_7">
-         <property name="text">
-          <string>Planetas:</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0" colspan="2">
+       <item row="0" column="0" colspan="2">
         <layout class="QVBoxLayout" name="verticalLayout_5">
          <item>
           <layout class="QHBoxLayout" name="horizontalLayout_9">
@@ -68,6 +61,9 @@
                    <property name="maximum">
                     <double>1000000.000000000000000</double>
                    </property>
+                   <property name="value">
+                    <double>50.000000000000000</double>
+                   </property>
                   </widget>
                  </item>
                 </layout>
@@ -88,6 +84,9 @@
                    </property>
                    <property name="maximum">
                     <double>1000000.000000000000000</double>
+                   </property>
+                   <property name="value">
+                    <double>360.000000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -148,12 +147,18 @@
                  <item>
                   <widget class="QLabel" name="label_5">
                    <property name="text">
-                    <string>Masa:</string>
+                    <string>ax:</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="rMasa">
+                  <widget class="QDoubleSpinBox" name="rax">
+                   <property name="decimals">
+                    <number>2</number>
+                   </property>
+                   <property name="minimum">
+                    <double>-1000000.000000000000000</double>
+                   </property>
                    <property name="maximum">
                     <double>1000000.000000000000000</double>
                    </property>
@@ -166,17 +171,23 @@
                  <item>
                   <widget class="QLabel" name="label_6">
                    <property name="text">
-                    <string>Radio:</string>
+                    <string>ay:</string>
                    </property>
                   </widget>
                  </item>
                  <item>
-                  <widget class="QDoubleSpinBox" name="rRadio">
+                  <widget class="QDoubleSpinBox" name="ray">
                    <property name="decimals">
                     <number>2</number>
                    </property>
+                   <property name="minimum">
+                    <double>-1000000.000000000000000</double>
+                   </property>
                    <property name="maximum">
                     <double>1000000.000000000000000</double>
+                   </property>
+                   <property name="singleStep">
+                    <double>0.100000000000000</double>
                    </property>
                   </widget>
                  </item>
@@ -233,13 +244,6 @@
          </item>
         </layout>
        </item>
-       <item row="0" column="1">
-        <widget class="QLabel" name="numPlanets">
-         <property name="text">
-          <string>0</string>
-         </property>
-        </widget>
-       </item>
       </layout>
      </item>
      <item>
@@ -280,19 +284,65 @@
      </item>
     </layout>
    </widget>
+   <widget class="QWidget" name="">
+    <property name="geometry">
+     <rect>
+      <x>70</x>
+      <y>590</y>
+      <width>95</width>
+      <height>65</height>
+     </rect>
+    </property>
+    <layout class="QVBoxLayout" name="verticalLayout_7">
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_12">
+       <item>
+        <widget class="QLabel" name="label_7">
+         <property name="text">
+          <string>ms: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QSpinBox" name="rClockMs">
+         <property name="maximum">
+          <number>2000</number>
+         </property>
+         <property name="value">
+          <number>10</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+     <item>
+      <layout class="QHBoxLayout" name="horizontalLayout_13">
+       <item>
+        <widget class="QLabel" name="label_8">
+         <property name="text">
+          <string>T: </string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QDoubleSpinBox" name="rPeriodo">
+         <property name="minimum">
+          <double>0.000000000000000</double>
+         </property>
+         <property name="singleStep">
+          <double>0.100000000000000</double>
+         </property>
+         <property name="stepType">
+          <enum>QAbstractSpinBox::DefaultStepType</enum>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </item>
+    </layout>
+   </widget>
   </widget>
  </widget>
- <tabstops>
-  <tabstop>graphicsView</tabstop>
-  <tabstop>ZoomPlus</tabstop>
-  <tabstop>ZoomMinus</tabstop>
-  <tabstop>rY</tabstop>
-  <tabstop>rVx</tabstop>
-  <tabstop>rVy</tabstop>
-  <tabstop>rMasa</tabstop>
-  <tabstop>rRadio</tabstop>
-  <tabstop>rX</tabstop>
- </tabstops>
  <resources/>
  <connections/>
 </ui>
