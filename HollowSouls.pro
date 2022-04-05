@@ -11,12 +11,14 @@ CONFIG += c++11
 SOURCES += \
     game.cpp \
     main.cpp \
+    mainwindow.cpp \
     motion.cpp \
     sprite.cpp
 
 HEADERS += \
     game.h \
     macros.h \
+    mainwindow.h \
     motion.h \
     sprite.h
 
@@ -24,3 +26,6 @@ HEADERS += \
 qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
+
+FORMS += \
+    mainwindow.ui
