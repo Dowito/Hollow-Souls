@@ -1,0 +1,11 @@
+\babel@toc {spanish}{}\relax 
+\contentsline {section}{\numberline {1}Hollow Souls}{2}{}%
+\contentsline {subsection}{\numberline {1.1}Mecánicas principales}{2}{}%
+\contentsline {subsection}{\numberline {1.2}Filosofía de diseño de niveles}{2}{}%
+\contentsline {subsection}{\numberline {1.3}Objetivos deseados}{2}{}%
+\contentsline {section}{\numberline {2}Vista general de las clases}{3}{}%
+\contentsline {subsection}{\numberline {2.1}Fundamentales}{3}{}%
+\contentsline {subsection}{\numberline {2.2}Florituras}{3}{}%
+\contentsline {section}{\numberline {3}Descripción detallada de clases}{4}{}%
+\contentsline {subsection}{\numberline {3.1}Clases Abstractas/logicas}{4}{}%
+\contentsline {subsection}{\numberline {3.2}Clases físicas/graficas}{5}{}%
