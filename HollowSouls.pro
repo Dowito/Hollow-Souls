@@ -12,6 +12,7 @@ SOURCES += \
     game.cpp \
     main.cpp \
     motion.cpp \
+    player.cpp \
     sprite.cpp \
     thebox.cpp
 
@@ -19,6 +20,7 @@ HEADERS += \
     game.h \
     macros.h \
     motion.h \
+    player.h \
     sprite.h \
     thebox.h
 

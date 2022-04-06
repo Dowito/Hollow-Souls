@@ -17,5 +17,5 @@ Game::Game(QWidget *parent):
     prueba->setPos(360,360);
     connect(timer, SIGNAL(timeout()), prueba, SLOT(move()));
     scene()->addItem(prueba);
-    //timer->start(CLOCK_GAME);
+    timer->start(CLOCK_GAME);
 }

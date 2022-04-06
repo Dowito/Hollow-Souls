@@ -6,19 +6,16 @@
 namespace Ui {
 class TheBox;
 }
-
+class Player;
 class TheBox : public QMainWindow
 {
     Q_OBJECT
 
 public:
-    explicit TheBox(QGraphicsScene *scene, QWidget *parent = nullptr);
+    explicit TheBox(QWidget *parent = nullptr);
     ~TheBox();
 
     Ui::TheBox *getUi() const;
-
-    QGraphicsScene *getScene() const;
-    void setScene(QGraphicsScene *newScene);
 
 private slots:
     void on_ZoomPlus_clicked();
@@ -40,7 +37,9 @@ private slots:
     void on_pushButton_2_clicked();
 
 private:
+    Player *prueba;
     unsigned int *clockMs;
+    QGraphicsScene *scene;
     Ui::TheBox *ui;
 };
 

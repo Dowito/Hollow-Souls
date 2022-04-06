@@ -2,10 +2,13 @@
 #include "ui_thebox.h"
 #include <game.h>
 #include <QTimer>
+#include <player.h>
+#include <QDebug>
 extern Game *game;
-TheBox::TheBox(QGraphicsScene *scene, QWidget *parent) :
+TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
     clockMs(new unsigned int),
+    scene(new QGraphicsScene),
     ui(new Ui::TheBox)
 {
     ui->setupUi(this);
@@ -14,7 +17,11 @@ TheBox::TheBox(QGraphicsScene *scene, QWidget *parent) :
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setScene(scene);
-    game->timer->stop();
+    ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
+    scene->addItem(prueba = new Player);
+    prueba->setA({0,0.1});
+    prueba->setFocus();
+    //game->timer->stop();
 }
 
 TheBox::~TheBox()
@@ -48,11 +55,13 @@ void TheBox::on_Iniciar_clicked()
     ui->rax->setEnabled(false);
     ui->ray->setEnabled(false);
     ui->rClockMs->setEnabled(false);
-    game->prueba->setR({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
-    game->prueba->setV({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
-    game->prueba->setA({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
-    game->prueba->setPeriodo(ui->rPeriodo->value());
+    prueba->setR({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
+    prueba->setV({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
+    prueba->setA({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
+    prueba->setPeriodo(ui->rPeriodo->value());
     *clockMs = ui->rClockMs->value();
+    prueba->setPos(prueba->getR().toPointF());
+    prueba->setFocus();
     game->timer->start(*clockMs);
 }
 
@@ -73,11 +82,11 @@ void TheBox::on_Detener_clicked()
 
 void TheBox::on_Ingresar_clicked()
 {
-    game->prueba->setR({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
-    game->prueba->setV({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
-    game->prueba->setA({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
-    game->prueba->setPeriodo(ui->rPeriodo->value());
-    game->prueba->setPos(game->prueba->getR().toPointF());
+    prueba->setR({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
+    prueba->setV({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
+    prueba->setA({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
+    prueba->setPeriodo(ui->rPeriodo->value());
+    prueba->setPos(game->prueba->getR().toPointF());
     *clockMs = ui->rClockMs->value();
 }
 

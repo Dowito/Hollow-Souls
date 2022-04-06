@@ -4,6 +4,7 @@
 #include <sprite.h>
 #include <QVector2D>
 #include <math.h>
+#include <QTimer>
 class Motion : public Sprite
 {
     Q_OBJECT
@@ -20,10 +21,10 @@ public:
 
     const QVector2D &getR() const;
 
-private slots:
-    void move();
+public slots:
+    virtual void move();
 
-private:
+protected:
     float periodo;
     QVector2D a; //vector aceleracion
     QVector2D v; //vector velocidad
