@@ -15,7 +15,8 @@ SOURCES += \
     motion.cpp \
     player.cpp \
     sprite.cpp \
-    thebox.cpp
+    thebox.cpp \
+    weapon.cpp
 
 HEADERS += \
     block.h \
@@ -24,7 +25,8 @@ HEADERS += \
     motion.h \
     player.h \
     sprite.h \
-    thebox.h
+    thebox.h \
+    weapon.h
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

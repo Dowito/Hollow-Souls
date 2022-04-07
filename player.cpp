@@ -1,8 +1,10 @@
 #include "player.h"
 #include <game.h>
 #include <block.h>
+#include <weapon.h>
 #include <QDebug>
 extern Game *game;
+extern float *gravityTest;
 Player::Player()
 {
     blocks = game->blocks;
@@ -11,7 +13,7 @@ Player::Player()
     setFrame(2,2);
     setFlags(ItemIsFocusable);
     setFocus();
-    a = {0,GRAVEDAD};
+    a = {0, 0};
     v = {0,0};
     connect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
 }
@@ -19,8 +21,7 @@ Player::Player()
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
 {
     static unsigned int control = 0;
-    static int aceleration = 1;
-    a.setY(aceleration);
+    calculateAcelerationTest();
     v.setY(v.y()+(a.y()*periodo));
     setY(y()+(v.y()*periodo));
     for (int i = 0; i < blocks->size(); i++) {
@@ -40,6 +41,11 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
             break;
         }
     }
+}
+
+void Player::calculateAcelerationTest()
+{
+    a.setY(*gravityTest);
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -64,17 +70,25 @@ void Player::keyPressEvent(QKeyEvent *event)
             }
         }
     }
-    else if (event->key() == Qt::Key_X) {
-        v.setY(-10);
+    else if (event->key() == Qt::Key_C) {
+        v.setY(-6);
     }
+    else if (event->key() == Qt::Key_X){
+        weapon->attack();
+    }
+}
+
+void Player::setWeapon(Weapon *newWeapon)
+{
+    weapon = newWeapon;
 }
 
 bool Player::getAir() const
 {
-    return air;
+    return jump;
 }
 
 void Player::setAir(bool newAir)
 {
-    air = newAir;
+    jump = newAir;
 }

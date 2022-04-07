@@ -4,5 +4,6 @@
         <file>sprites/furro.png</file>
         <file>sprites/hombre_lobo.png</file>
         <file>sprites/personaje.png</file>
+        <file>sprites/sword.png</file>
     </qresource>
 </RCC>

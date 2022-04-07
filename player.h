@@ -4,6 +4,7 @@
 #include <motion.h>
 #include <QKeyEvent>
 #include <QVector>
+class Weapon;
 class Block;
 class Player : public Motion
 {
@@ -14,12 +15,16 @@ public:
     bool getAir() const;
     void setAir(bool newAir);
 
+    void setWeapon(Weapon *newWeapon);
+
 private slots:
     virtual void move();
+    void calculateAcelerationTest();
 
 private:
     void keyPressEvent(QKeyEvent *event);
-    bool air;
+    bool jump;
+    Weapon *weapon;
     QVector<Block*> *blocks;
 };
 

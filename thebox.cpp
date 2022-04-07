@@ -4,8 +4,11 @@
 #include <QTimer>
 #include <player.h>
 #include <block.h>
+#include <weapon.h>
 #include <QDebug>
+#include <QVector2D>
 extern Game *game;
+float *gravityTest = new float;
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
     prueba (new Player),
@@ -13,6 +16,7 @@ TheBox::TheBox(QWidget *parent) :
     scene(new QGraphicsScene),
     ui(new Ui::TheBox)
 {
+    *gravityTest = GRAVEDAD;
     ui->setupUi(this);
     setGeometry(0,0,1280,720);
     ui->graphicsView->setGeometry(0,0,width(),height());
@@ -21,8 +25,8 @@ TheBox::TheBox(QWidget *parent) :
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
     scene->addItem(prueba);
+    prueba->setWeapon(new Weapon(prueba));
     prueba->setPos(144,144);
-    prueba->setAce({0,1});
     generateSandBox();
     //game->timer->stop();
 }
@@ -60,7 +64,8 @@ void TheBox::on_Iniciar_clicked()
     ui->rClockMs->setEnabled(false);
     prueba->setPos({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
     prueba->setVel({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
-    prueba->setAce({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
+    //prueba->setAce({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
+    *gravityTest = ui->ray->value();
     prueba->setPeriodo(ui->rPeriodo->value());
     *clockMs = ui->rClockMs->value();   
     prueba->setFocus();
@@ -147,7 +152,7 @@ void TheBox::generateSandBox()
     generateCol(12,20,0);
     generateFil(10,3,2);
     generateFil(18,1,10);
-    generateGrid();
+    //generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
         game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
