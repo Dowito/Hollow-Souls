@@ -7,7 +7,7 @@ Motion::Motion()
 
 Motion::Motion(QVector2D r, QVector2D v, QVector2D a)
 {
-    this->r = r;
+    setPos(r.toPointF());
     this->v = v;
     this->a = a;
 }
@@ -15,13 +15,7 @@ Motion::Motion(QVector2D r, QVector2D v, QVector2D a)
 void Motion::move()
 {
     v = v+(a*periodo); //v = v+(a*TTT);
-    r = r+(v*periodo); //v = v+(a*TTT);
-    setPos(r.toPointF());
-}
-
-const QVector2D &Motion::getR() const
-{
-    return r;
+    setPos(pos() + v.toPointF()); //v = v+(a*TTT);
 }
 
 void Motion::setPeriodo(float newPeriodo)
@@ -29,17 +23,12 @@ void Motion::setPeriodo(float newPeriodo)
     periodo = newPeriodo;
 }
 
-void Motion::setA(const QVector2D &newA)
+void Motion::setAce(const QVector2D &newA)
 {
     a = newA;
 }
 
-void Motion::setV(const QVector2D &newV)
+void Motion::setVel(const QVector2D &newV)
 {
     v = newV;
-}
-
-void Motion::setR(const QVector2D &newR)
-{
-    r = newR;
 }

@@ -19,7 +19,7 @@ TheBox::TheBox(QWidget *parent) :
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
     scene->addItem(prueba = new Player);
-    prueba->setA({0,0.1});
+    prueba->setAce({0,0.1});
     prueba->setFocus();
     //game->timer->stop();
 }
@@ -55,12 +55,11 @@ void TheBox::on_Iniciar_clicked()
     ui->rax->setEnabled(false);
     ui->ray->setEnabled(false);
     ui->rClockMs->setEnabled(false);
-    prueba->setR({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
-    prueba->setV({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
-    prueba->setA({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
+    prueba->setPos({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
+    prueba->setVel({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
+    prueba->setAce({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
     prueba->setPeriodo(ui->rPeriodo->value());
-    *clockMs = ui->rClockMs->value();
-    prueba->setPos(prueba->getR().toPointF());
+    *clockMs = ui->rClockMs->value();   
     prueba->setFocus();
     game->timer->start(*clockMs);
 }
@@ -82,11 +81,10 @@ void TheBox::on_Detener_clicked()
 
 void TheBox::on_Ingresar_clicked()
 {
-    prueba->setR({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
-    prueba->setV({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
-    prueba->setA({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
+    prueba->setPos({static_cast<float>(ui->rX->value()),static_cast<float>(ui->rY->value())});
+    prueba->setVel({static_cast<float>(ui->rVx->value()),static_cast<float>(ui->rVy->value())});
+    prueba->setAce({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
     prueba->setPeriodo(ui->rPeriodo->value());
-    prueba->setPos(game->prueba->getR().toPointF());
     *clockMs = ui->rClockMs->value();
 }
 

@@ -13,6 +13,7 @@ private slots:
     virtual void move();
 
 private:
+    bool air;
     void keyPressEvent(QKeyEvent *event);
 };
 

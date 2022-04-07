@@ -12,13 +12,11 @@ Player::Player()
     a = {0,GRAVEDAD};
     v = {0,0};
     connect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
-    connect(game->timer, SIGNAL(timeout()), this, SLOT(focuson()));
-
 }
 
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
 {
-    v.setY(v.y()+(a.y()*periodo)); //v = v+(a*TTT);
+    v.setY(v.y()+(a.y()*periodo));
     setY(y()+(v.y()*periodo));
 }
 
@@ -31,6 +29,6 @@ void Player::keyPressEvent(QKeyEvent *event)
         setX(x()+1);
     }
     else if (event->key() == Qt::Key_X) {
-        v.setY(-20);
+        v.setY(-10);
     }
 }
