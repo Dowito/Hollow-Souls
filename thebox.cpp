@@ -4,6 +4,7 @@
 #include <QTimer>
 #include <player.h>
 #include <block.h>
+#include <healthbar.h>
 #include <weapon.h>
 #include <QDebug>
 #include <QVector2D>
@@ -11,7 +12,6 @@ extern Game *game;
 float *gravityTest = new float;
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
-    prueba (new Player),
     clockMs(new unsigned int),
     scene(new QGraphicsScene),
     ui(new Ui::TheBox)
@@ -24,10 +24,11 @@ TheBox::TheBox(QWidget *parent) :
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
-    scene->addItem(prueba);
-    prueba->setWeapon(new Weapon(prueba));
-    prueba->setPos(144,144);
     generateSandBox();
+    scene->addItem(prueba = new Player);
+    prueba->setPos(144,144);
+    prueba->setWeapon(new Weapon(prueba));
+    prueba->setHealth(new HealthBar(prueba));
     //game->timer->stop();
 }
 
@@ -156,7 +157,6 @@ void TheBox::generateSandBox()
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
         game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
-        qDebug() << "Bloque agregado a al escena";
     }
 }
 
@@ -167,5 +167,11 @@ void TheBox::generateGrid()
             scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE), prueba));
         }
     }
+}
+
+
+void TheBox::on_pushButton_clicked()
+{
+    prueba->getHealth()->damage(20);
 }
 

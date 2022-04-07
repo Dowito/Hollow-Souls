@@ -11,7 +11,9 @@ public:
     Weapon(Player *owner, QObject *parent = nullptr);
     void attack();
 
-private slots:    
+    bool getUsable() const;
+
+private slots:
     void animation();
 
 private:

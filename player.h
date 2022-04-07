@@ -6,6 +6,7 @@
 #include <QVector>
 class Weapon;
 class Block;
+class HealthBar;
 class Player : public Motion
 {
     Q_OBJECT
@@ -17,6 +18,10 @@ public:
 
     void setWeapon(Weapon *newWeapon);
 
+    void setHealth(HealthBar *newHealth);
+
+    HealthBar *getHealth() const;
+
 private slots:
     virtual void move();
     void calculateAcelerationTest();
@@ -24,6 +29,7 @@ private slots:
 private:
     void keyPressEvent(QKeyEvent *event);
     bool jump;
+    HealthBar *health;
     Weapon *weapon;
     QVector<Block*> *blocks;
 };

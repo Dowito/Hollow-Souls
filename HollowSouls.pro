@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     block.cpp \
     game.cpp \
+    healthbar.cpp \
     main.cpp \
     motion.cpp \
     player.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 HEADERS += \
     block.h \
     game.h \
+    healthbar.h \
     macros.h \
     motion.h \
     player.h \
