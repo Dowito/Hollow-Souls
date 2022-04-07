@@ -2,7 +2,8 @@
 #include <motion.h>
 #include <QTimer>
 Game::Game(QWidget *parent):
-    timer(new QTimer)
+    timer(new QTimer),
+    blocks(new QVector<Block*>)
 {
     setParent(parent);
     setGeometry(0,0,1280,720);

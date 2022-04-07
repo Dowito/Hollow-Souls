@@ -2,6 +2,7 @@
 #define MACROS_H
 
 //Parametros generales del juego
+#define SIZE_BLOCK 48
 #define GAME_SCALE 1
 #define CLOCK_GAME 100
 

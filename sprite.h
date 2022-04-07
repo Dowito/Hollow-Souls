@@ -23,7 +23,7 @@ public:
     void setFrame(unsigned int typeX = 0, unsigned int typeY = 0);
 
 
-private:
+protected:
     QPixmap sprite;
     QPixmap frame;
     unsigned int w;

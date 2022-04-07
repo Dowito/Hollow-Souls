@@ -3,10 +3,12 @@
 #include <game.h>
 #include <QTimer>
 #include <player.h>
+#include <block.h>
 #include <QDebug>
 extern Game *game;
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
+    prueba (new Player),
     clockMs(new unsigned int),
     scene(new QGraphicsScene),
     ui(new Ui::TheBox)
@@ -18,9 +20,10 @@ TheBox::TheBox(QWidget *parent) :
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
-    scene->addItem(prueba = new Player);
-    prueba->setAce({0,0.1});
-    prueba->setFocus();
+    scene->addItem(prueba);
+    prueba->setPos(144,144);
+    prueba->setAce({0,1});
+    generateSandBox();
     //game->timer->stop();
 }
 
@@ -122,5 +125,42 @@ void TheBox::on_pushButton_2_clicked()
                                             ui->graphicsView->scene()->sceneRect().y()+10,
                                             ui->graphicsView->scene()->sceneRect().width(),
                                             ui->graphicsView->scene()->sceneRect().height());
+}
+
+void TheBox::generateCol(int num, int mx, int my)
+{
+    for (int i = 0; i<num; i++) {
+        game->blocks->push_back(new Block({static_cast<qreal>(mx)*SIZE_BLOCK, static_cast<qreal>((my+i)*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
+    }
+}
+
+void TheBox::generateFil(int num, int mx, int my)
+{
+    for (int i = 0; i<num; i++) {
+        game->blocks->push_back(new Block({static_cast<qreal>((mx+i)*SIZE_BLOCK), static_cast<qreal>(my*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
+    }
+}
+
+void TheBox::generateSandBox()
+{
+    generateCol(10,1,1);
+    generateCol(12,20,0);
+    generateFil(10,3,2);
+    generateFil(18,1,10);
+    generateGrid();
+    for (int i = 0; i<game->blocks->size();i++ ) {
+        scene->addItem(game->blocks->at(i));
+        game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
+        qDebug() << "Bloque agregado a al escena";
+    }
+}
+
+void TheBox::generateGrid()
+{
+    for (int i = 0; i< 1280/(SIZE_BLOCK*GAME_SCALE); i++) {
+        for (int j = 0; j< 720/(SIZE_BLOCK*GAME_SCALE); j++) {
+            scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE), prueba));
+        }
+    }
 }
 

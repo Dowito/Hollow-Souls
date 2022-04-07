@@ -19,6 +19,6 @@ void Sprite::setFrame(unsigned int typeX, unsigned int typeY)
 
 void Sprite::setSize(unsigned int w, unsigned int h)
 {
-    this->w = w;
-    this->h = h;
+    this->w = w; //*GAME_SCALE
+    this->h = h; //*GAME_SCALE
 }

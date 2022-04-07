@@ -37,6 +37,10 @@ private slots:
     void on_pushButton_2_clicked();
 
 private:
+    void generateCol(int num, int mx, int my);
+    void generateFil(int num, int mx, int my);
+    void generateSandBox();
+    void generateGrid();
     Player *prueba;
     unsigned int *clockMs;
     QGraphicsScene *scene;
