@@ -10,6 +10,7 @@ CONFIG += c++11
 
 SOURCES += \
     block.cpp \
+    enemy.cpp \
     game.cpp \
     healthbar.cpp \
     main.cpp \
@@ -21,6 +22,7 @@ SOURCES += \
 
 HEADERS += \
     block.h \
+    enemy.h \
     game.h \
     healthbar.h \
     macros.h \

@@ -29,6 +29,7 @@ private slots:
 private:
     void keyPressEvent(QKeyEvent *event);
     bool jump;
+    bool inmu;
     HealthBar *health;
     Weapon *weapon;
     QVector<Block*> *blocks;

@@ -15,6 +15,7 @@ Player::Player()
     setFlags(ItemIsFocusable);
     setFocus();
     jump = false;
+    inmu = false;
     a = {0, 0};
     v = {0,0};
     connect(game->timer, SIGNAL(timeout()), this, SLOT(move()));

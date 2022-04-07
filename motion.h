@@ -20,6 +20,7 @@ public slots:
     virtual void move();
 
 protected:
+
     float periodo;
     QVector2D a; //vector aceleracion
     QVector2D v; //vector velocidad

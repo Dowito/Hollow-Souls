@@ -172,6 +172,6 @@ void TheBox::generateGrid()
 
 void TheBox::on_pushButton_clicked()
 {
-    prueba->getHealth()->damage(20);
+    prueba->setRotation(prueba->rotation()+45);
 }
 
