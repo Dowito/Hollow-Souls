@@ -18,6 +18,11 @@ void Motion::move()
     setPos(pos() + v.toPointF()); //v = v+(a*TTT);
 }
 
+void Motion::collisions()
+{
+
+}
+
 void Motion::setPeriodo(float newPeriodo)
 {
     periodo = newPeriodo;

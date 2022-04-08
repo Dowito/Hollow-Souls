@@ -36,7 +36,7 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
                 if(jump) jump = false;
                 setY(blocks->at(i)->y() - h -1);
                 v.setY(0);
-                a.setY(a.y() - a.y()); //Accion reaccion
+                //a.setY(a.y() - a.y()); //Accion reaccion
             }
             break;
         }

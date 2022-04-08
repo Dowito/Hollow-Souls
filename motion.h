@@ -5,6 +5,7 @@
 #include <QVector2D>
 #include <math.h>
 #include <QTimer>
+class Block;
 class Motion : public Sprite
 {
     Q_OBJECT
@@ -20,10 +21,12 @@ public slots:
     virtual void move();
 
 protected:
-
+    virtual void collisions();
+    int speed;
     float periodo;
     QVector2D a; //vector aceleracion
     QVector2D v; //vector velocidad
+    QVector<Block*> *blocks;
 };
 
 #endif // MOTION_H

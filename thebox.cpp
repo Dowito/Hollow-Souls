@@ -26,7 +26,7 @@ TheBox::TheBox(QWidget *parent) :
     ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
     generateSandBox();
     scene->addItem(prueba = new Player);
-    prueba->setPos(144,144);
+    prueba->setPos(144,192);
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealth(new HealthBar(prueba));
     //game->timer->stop();

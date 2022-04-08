@@ -5,7 +5,6 @@
 #include <QKeyEvent>
 #include <QVector>
 class Weapon;
-class Block;
 class HealthBar;
 class Player : public Motion
 {
@@ -32,7 +31,6 @@ private:
     bool inmu;
     HealthBar *health;
     Weapon *weapon;
-    QVector<Block*> *blocks;
 };
 
 #endif // PLAYER_H
