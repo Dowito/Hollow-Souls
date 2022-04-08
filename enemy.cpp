@@ -23,10 +23,10 @@ Enemy::Enemy(QString name, float px, float py, QObject *parent)
     setSize(48,48);
     setFrame(1);
     //cinematica
-    direction = speed/speed;
-    speed = -2;
+    speed = 2;
+    directionX = -1;
     setPos(px, py);
-    setVel(speed, 0);
+    setVel(speed*directionX, 0);
     calculateAcelerationTest();
     //exterior
     blocks = game->blocks;
@@ -56,6 +56,7 @@ void Enemy::collisionsWeapon()
         if (!player->getWeapon()->getUsable()) {
             if (collidesWithItem(player->getWeapon())) {
                 inmu = true;
+                setVel(2*player->getWeapon()->getDirection(), -3);
                 damage(player->getWeapon()->getAtk());
             }
         }
@@ -73,7 +74,6 @@ void Enemy::attack()
 
 void Enemy::damage(int damage)
 {
-    qDebug() << "recibe daño";
     if (health - damage < 0){
         state = false;
         health = 0;

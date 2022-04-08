@@ -51,13 +51,13 @@ void Motion::collisionsX()
         if(collidesWithItem(blocks->at(i))) {
             if (v.x()<0) {
                 setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
-                v.setX(v.x()*(-1));
-
             }
             else if (v.x()>0) {
                 setX(blocks->at(i)->x() - w - 1);
-                v.setX(v.x()*(-1));
             }
+            directionX *= (-1);
+            //v.setX(v.x()*(-1));
+            v.setX(v.x()*directionX);
         }
     }
 }
@@ -73,6 +73,7 @@ void Motion::collisionsY()
                 setY(blocks->at(i)->y() - h -1);
             }
             v.setY(0);
+            v.setX(speed*directionX);
         }
     }
 }
@@ -85,6 +86,11 @@ void Motion::calculateAceleration()
 void Motion::calculateAcelerationTest()
 {
     a.setY(*gravityTest);
+}
+
+short Motion::getDirectionX() const
+{
+    return directionX;
 }
 
 void Motion::setBlocks(QVector<Block *> *newBlocks)

@@ -22,9 +22,10 @@ Weapon::Weapon(Player *owner, QObject *parent)
 void Weapon::attack()
 {
     if(usable){
+        usable = false;
+        direction = owner->getDirectionX();
         setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
         setFrame(4,0);
-        usable = false;
         owner->scene()->addItem(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(animation()));
     }
@@ -39,6 +40,11 @@ void Weapon::animation()
         steps = 0;
         scene()->removeItem(this);
     }else steps++;
+}
+
+short Weapon::getDirection() const
+{
+    return direction;
 }
 
 unsigned short Weapon::getAtk() const

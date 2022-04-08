@@ -15,6 +15,8 @@ public:
 
     unsigned short getAtk() const;
 
+    short getDirection() const;
+
 private slots:
     void animation();
 
@@ -23,6 +25,7 @@ private:
     bool usable;
     unsigned int steps;
     int atk;
+    short direction;
     Player *owner;
     QTimer *timer;
 };

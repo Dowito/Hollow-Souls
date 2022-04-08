@@ -19,6 +19,9 @@ public:
     void setHealth(HealthBar *newHealth);
     HealthBar *getHealth() const;
 
+public:
+    void takeDamage(int damage);
+
 private slots:
     virtual void move();
 
@@ -26,6 +29,8 @@ private:
     void keyPressEvent(QKeyEvent *event);
     bool jump;
     bool inmu;
+    int playerHealth;
+    int maxPlayerHealth;
     HealthBar *health;
     Weapon *weapon;
 };

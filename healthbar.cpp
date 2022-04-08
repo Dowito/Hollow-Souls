@@ -2,7 +2,6 @@
 #include <QBrush>
 #include <player.h>
 #include <QGraphicsScene>
-#include <QDebug>
 HealthBar::HealthBar(Player *owner, QObject *parent)
     : QObject{parent}
 {

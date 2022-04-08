@@ -24,6 +24,7 @@ Player::Player()
 void Player::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left) {
+        directionX = -1;
         setFrame(1,1);
         setX(x() - speed);
         for (int i = 0; i < blocks->size(); i++) {
@@ -34,6 +35,7 @@ void Player::keyPressEvent(QKeyEvent *event)
         }
     }
     else if (event->key() == Qt::Key_Right) {
+        directionX = 1;
         setFrame(1,2);
         setX(x() + speed);
         for (int i = 0; i < blocks->size(); i++) {
@@ -83,6 +85,11 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
 HealthBar *Player::getHealth() const
 {
     return health;
+}
+
+void Player::takeDamage(int damage)
+{
+
 }
 
 void Player::setHealth(HealthBar *newHealth)

@@ -19,6 +19,7 @@ public:
     void setVel(float vx, float vy);
     void setPeriodo(float newPeriodo);
     void setBlocks(QVector<Block *> *newBlocks);
+    short getDirectionX() const;
 
 public slots:
     virtual void move();
@@ -30,7 +31,7 @@ protected:
     virtual void calculateAceleration();
     void calculateAcelerationTest();
     int speed;
-    short direction;
+    short directionX;
     float periodo;
     QVector2D a; //vector aceleracion
     QVector2D v; //vector velocidad
