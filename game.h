@@ -1,9 +1,8 @@
 #ifndef GAME_H
 #define GAME_H
 
-#include <QGraphicsView>
 #include <QWidget>
-#include <motion.h>
+#include <QGraphicsView>
 #include <QVector>
 class QTimer;
 class Block;

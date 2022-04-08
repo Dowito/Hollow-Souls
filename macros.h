@@ -13,6 +13,7 @@
 //Player
 #define VEL_JUMP -6
 #define SPEED_PLAYER 6
+#define STEPS_PLAYER_INMU 100
 
 //Weapon
 #define STEPS_WEAPON_ANIMATION 40

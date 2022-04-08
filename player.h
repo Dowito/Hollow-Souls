@@ -22,8 +22,13 @@ public:
 public:
     void takeDamage(int damage);
 
+    void setJump(bool newJump);
+
+    bool getInmu() const;
+
 private slots:
     virtual void move();
+    void framesInmu();
 
 private:
     void keyPressEvent(QKeyEvent *event);

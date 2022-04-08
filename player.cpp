@@ -7,18 +7,21 @@
 extern Game *game;
 Player::Player()
 {
-    blocks = game->blocks;
+    jump = false;
+    inmu = false;
+    maxPlayerHealth  = 200;
+    playerHealth = maxPlayerHealth;
     setSprite(":/new/sprites/sprites/personaje.png");
     setSize(48, 48);
     setFrame(2,2);
     setFlags(ItemIsFocusable);
     setFocus();
-    jump = false;
-    inmu = false;
     speed = SPEED_PLAYER;
     v = {0,0};
     calculateAcelerationTest();
-    connect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
+    blocks = game->blocks;
+    timer = game->timer;
+    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -56,6 +59,16 @@ void Player::keyPressEvent(QKeyEvent *event)
     }
 }
 
+bool Player::getInmu() const
+{
+    return inmu;
+}
+
+void Player::setJump(bool newJump)
+{
+    jump = newJump;
+}
+
 Weapon *Player::getWeapon() const
 {
     return weapon;
@@ -82,6 +95,17 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
     }
 }
 
+void Player::framesInmu()
+{
+    static unsigned short stepsInmu;
+    stepsInmu++;
+    if(stepsInmu >= STEPS_PLAYER_INMU) {
+        inmu = false;
+        stepsInmu = 0;
+        disconnect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
+    }
+}
+
 HealthBar *Player::getHealth() const
 {
     return health;
@@ -89,7 +113,18 @@ HealthBar *Player::getHealth() const
 
 void Player::takeDamage(int damage)
 {
-
+    if(!inmu){
+        if (playerHealth - damage < 0) {
+            playerHealth = 0;
+            //animacion de muerte
+        }
+        else {
+            playerHealth -= damage;
+            inmu = true;
+            connect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
+        }
+        qDebug() << "current health: " << playerHealth;
+    }
 }
 
 void Player::setHealth(HealthBar *newHealth)

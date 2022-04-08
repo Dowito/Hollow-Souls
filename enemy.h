@@ -15,6 +15,7 @@ private:
     void move();
     void collisionsPlayer();
     void collisionsWeapon();
+    void changeDirectionX();
     void damage(int damage);
     virtual void attack();
     bool state;

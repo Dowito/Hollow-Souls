@@ -7,8 +7,6 @@
 #include <healthbar.h>
 #include <weapon.h>
 #include <enemy.h>
-#include <QDebug>
-#include <QVector2D>
 extern Game *game;
 float *gravityTest = new float;
 TheBox::TheBox(QWidget *parent) :
@@ -54,10 +52,10 @@ void TheBox::generateFil(int num, int mx, int my)
 
 void TheBox::generateSandBox()
 {
-    generateCol(10,1,1);
+    //generateCol(10,1,1);
     generateCol(12,20,0);
     generateFil(20,3,2);
-    generateFil(20,1,10);
+    generateFil(15,1,10);
     //generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));

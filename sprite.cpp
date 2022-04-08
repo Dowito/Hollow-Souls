@@ -17,6 +17,11 @@ void Sprite::setFrame(unsigned int typeX, unsigned int typeY)
     setPixmap(frame);
 }
 
+unsigned int Sprite::getW() const
+{
+    return w;
+}
+
 void Sprite::setSize(unsigned int w, unsigned int h)
 {
     this->w = w; //*GAME_SCALE

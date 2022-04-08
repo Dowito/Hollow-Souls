@@ -23,6 +23,8 @@ public:
     void setFrame(unsigned int typeX = 0, unsigned int typeY = 0);
 
 
+    unsigned int getW() const;
+
 protected:
     QPixmap sprite;
     QPixmap frame;

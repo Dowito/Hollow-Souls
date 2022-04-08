@@ -2,6 +2,7 @@
 #include <player.h>
 #include <healthbar.h>
 #include <weapon.h>
+#include <block.h>
 #include <game.h>
 #include <QDebug>
 extern Game *game;
@@ -36,6 +37,7 @@ Enemy::Enemy(QString name, float px, float py, QObject *parent)
 
 void Enemy::move()
 {
+    changeDirectionX();
     Motion::move();
     collisionsPlayer();
     collisionsWeapon();
@@ -45,7 +47,7 @@ void Enemy::collisionsPlayer()
 {
     if(state){
         if (collidesWithItem(player)) {
-            attack();
+            if (!player->getInmu()) attack();
         }
     }
 }
@@ -66,10 +68,28 @@ void Enemy::collisionsWeapon()
     }
 }
 
+void Enemy::changeDirectionX()
+{
+    if(directionX < 0){ //izquierda
+        if(scene()->items({x()-2, y()+h+2}).isEmpty()) directionX *= (-1); //solucion momentanea.
+    }
+    else {
+        if(scene()->items({x()+w+2, y()+h+2}).isEmpty()) directionX *= (-1);
+    }
+}
+
 
 void Enemy::attack()
 {
-    player->getHealth()->damage(atk);
+    /*
+    if (player->x() + (player->getW()/2) > this->x()) {
+        player->setPos(player->x()+3, player->y()-3);
+    }
+    else {
+        player->setPos(player->x()-3, player->y()-3);
+    }
+    */
+    player->takeDamage(atk);
 }
 
 void Enemy::damage(int damage)
