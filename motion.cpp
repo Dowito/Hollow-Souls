@@ -1,12 +1,15 @@
 #include "motion.h"
 #include <block.h>
-Motion::Motion()
+#include <QDebug>
+Motion::Motion(QObject *parent)
+    :Sprite(parent)
 {
     a.setY(GRAVEDAD);
     periodo = TTT;
 }
 
-Motion::Motion(QVector2D r, QVector2D v, QVector2D a)
+Motion::Motion(QVector2D r, QVector2D v, QVector2D a, QObject *parent)
+    :Sprite(parent)
 {
     setPos(r.toPointF());
     this->v = v;
@@ -15,20 +18,61 @@ Motion::Motion(QVector2D r, QVector2D v, QVector2D a)
 
 void Motion::move()
 {
-    //calculateAceleration();
+    calculateAceleration();
     v = v+(a*periodo); //v = v+(a*TTT);
-    setPos(pos() + v.toPointF()); //v = v+(a*TTT);
-    collisions();
+    //setPos(pos() + v.toPointF()); //v = v+(a*TTT);
+    setY(y() + v.y());
+    collisionsY();
+    setX(x() + v.x());
+    collisionsX();
 }
 
 void Motion::collisions()
 {
-    for (int i = 0; i < blocks->size(); i++){
-        if(pos().x() < blocks->at(i)->rect().width()) {
-            v.setX(v.x()*(-1));
+    for (int i = 0; i < blocks->size(); i++) {
+        if(collidesWithItem(blocks->at(i))) {
+            /*
+            if(pos().x() < blocks->at(i)->pos().x() + blocks->at(i)->rect().width()) {
+                setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
+                v.setX(v.x()*(-1));
+            }
+            else if (pos().x() + boundingRect().width() > blocks->at(i)->pos().x()) {
+                setX(blocks->at(i)->x() - boundingRect().width() - 1);
+                v.setX(v.x()*(-1));
+            }
+            */
         }
-        else if (pos().x() + boundingRect().width() > blocks->at(i)->pos().x()) {
-            v.setX(v.x()*(-1));
+    }
+}
+
+void Motion::collisionsX()
+{
+    for (int i = 0; i < blocks->size(); i++) {
+        if(collidesWithItem(blocks->at(i))) {
+            if (v.x()<0) {
+                setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
+                v.setX(v.x()*(-1));
+
+            }
+            else if (v.x()>0) {
+                setX(blocks->at(i)->x() - w - 1);
+                v.setX(v.x()*(-1));
+            }
+        }
+    }
+}
+
+void Motion::collisionsY()
+{
+    for (int i = 0; i < blocks->size(); i++) {
+        if(collidesWithItem(blocks->at(i))){
+            if (v.y() <= 0) { //si colisiona hacia arriba
+                setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1 );
+            }
+            else { //si colisiona hacia abajo
+                setY(blocks->at(i)->y() - h -1);
+            }
+            v.setY(0);
         }
     }
 }
@@ -36,6 +80,11 @@ void Motion::collisions()
 void Motion::calculateAceleration()
 {
     a = {0, GRAVEDAD};
+}
+
+void Motion::calculateAcelerationTest()
+{
+    a.setY(*gravityTest);
 }
 
 void Motion::setBlocks(QVector<Block *> *newBlocks)
@@ -56,4 +105,9 @@ void Motion::setAce(const QVector2D &newA)
 void Motion::setVel(const QVector2D &newV)
 {
     v = newV;
+}
+
+void Motion::setVel(float vx, float vy)
+{
+    v = {vx, vy};
 }

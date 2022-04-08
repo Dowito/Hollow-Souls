@@ -12,9 +12,12 @@
 
 //Player
 #define VEL_JUMP -6
+#define SPEED_PLAYER 6
 
 //Weapon
 #define STEPS_WEAPON_ANIMATION 40
 #define WEAPON_ATK 20
+
+//Enemy
 
 #endif // MACROS_H

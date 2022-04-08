@@ -1,6 +1,7 @@
 #include "game.h"
 #include <motion.h>
 #include <QTimer>
+#include <player.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
     blocks(new QVector<Block*>)
@@ -11,12 +12,15 @@ Game::Game(QWidget *parent):
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(new QGraphicsScene);
     scene()->setSceneRect(0,0,width(),height());
-    prueba = new Motion;
-    prueba->setSprite(":/new/sprites/sprites/hombre_lobo.png");
-    prueba->setSize(48,48);
-    prueba->setFrame(1);
-    prueba->setPos(360,360);
-    connect(timer, SIGNAL(timeout()), prueba, SLOT(move()));
-    scene()->addItem(prueba);
     timer->start(CLOCK_GAME);
+}
+
+Game::~Game()
+{
+    delete player;
+    delete timer;
+    blocks->clear();
+    delete blocks;
+    scene()->clear();
+    delete scene();
 }

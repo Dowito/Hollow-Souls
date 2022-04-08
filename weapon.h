@@ -13,6 +13,8 @@ public:
 
     bool getUsable() const;
 
+    unsigned short getAtk() const;
+
 private slots:
     void animation();
 
@@ -20,7 +22,7 @@ private:
     //QString type;
     bool usable;
     unsigned int steps;
-    unsigned short atk;
+    int atk;
     Player *owner;
     QTimer *timer;
 };

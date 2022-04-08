@@ -17,7 +17,7 @@ HealthBar::HealthBar(Player *owner, QObject *parent)
     updateHealth.setPos(20,20);
     //inicializando la vida
     maxHealth = 200;
-    health = 10;
+    health = maxHealth;
     update();
     owner->scene()->addItem(this);
     owner->scene()->addItem(&updateHealth);

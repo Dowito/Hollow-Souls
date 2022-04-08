@@ -7,12 +7,15 @@
 #include <QVector>
 class QTimer;
 class Block;
+class Player;
 class Game : public QGraphicsView
 {
 
 public:
     explicit Game(QWidget *parent = nullptr);
-    Motion *prueba;
+    ~Game();
+
+    Player *player;
     QTimer *timer;
     QVector<Block*> *blocks;
 };

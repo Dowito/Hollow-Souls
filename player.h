@@ -14,16 +14,13 @@ public:
 
     bool getAir() const;
     void setAir(bool newAir);
-
     void setWeapon(Weapon *newWeapon);
-
+    Weapon *getWeapon() const;
     void setHealth(HealthBar *newHealth);
-
     HealthBar *getHealth() const;
 
 private slots:
     virtual void move();
-    void calculateAcelerationTest();
 
 private:
     void keyPressEvent(QKeyEvent *event);

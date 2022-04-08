@@ -6,6 +6,7 @@
 #include <block.h>
 #include <healthbar.h>
 #include <weapon.h>
+#include <enemy.h>
 #include <QDebug>
 #include <QVector2D>
 extern Game *game;
@@ -25,20 +26,14 @@ TheBox::TheBox(QWidget *parent) :
     ui->graphicsView->setScene(scene);
     ui->graphicsView->scene()->setSceneRect(0,0,ui->graphicsView->width(), ui->graphicsView->width());
     generateSandBox();
+    //personaje
     scene->addItem(prueba = new Player);
     prueba->setPos(144,192);
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealth(new HealthBar(prueba));
-    pruebaColli = new Motion;
-    pruebaColli->setAce({0,0});
-    pruebaColli->setVel({2,0});
-    pruebaColli->setPos(144,192);
-    pruebaColli->setSprite(":/new/sprites/sprites/hombre_lobo.png");
-    pruebaColli->setSize(48,48);
-    pruebaColli->setFrame();
-    pruebaColli->setBlocks(game->blocks);
-    connect(game->timer, SIGNAL(timeout()), pruebaColli, SLOT(move()));
-    scene->addItem(pruebaColli);
+    game->player = prueba;
+    //enemigo
+    scene->addItem(pruebaColli = new Enemy(":/new/sprites/sprites/hombre_lobo.png", 240, 240));
     //game->timer->stop();
 }
 
@@ -61,8 +56,8 @@ void TheBox::generateSandBox()
 {
     generateCol(10,1,1);
     generateCol(12,20,0);
-    generateFil(10,3,2);
-    generateFil(18,1,10);
+    generateFil(20,3,2);
+    generateFil(20,1,10);
     //generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
@@ -186,5 +181,6 @@ TheBox::~TheBox()
     delete pruebaColli;
     delete gravityTest;
     delete clockMs;
+    scene->clear();
     delete scene;
 }

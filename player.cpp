@@ -5,7 +5,6 @@
 #include <healthbar.h>
 #include <QDebug>
 extern Game *game;
-extern float *gravityTest;
 Player::Player()
 {
     blocks = game->blocks;
@@ -16,14 +15,52 @@ Player::Player()
     setFocus();
     jump = false;
     inmu = false;
-    a = {0, 0};
+    speed = SPEED_PLAYER;
     v = {0,0};
+    calculateAcelerationTest();
     connect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
+}
+
+void Player::keyPressEvent(QKeyEvent *event)
+{
+    if (event->key() == Qt::Key_Left) {
+        setFrame(1,1);
+        setX(x() - speed);
+        for (int i = 0; i < blocks->size(); i++) {
+            if(collidesWithItem(blocks->at(i))){
+                setX(blocks->at(i)->x() + blocks->at(i)->rect().width());
+                break;
+            }
+        }
+    }
+    else if (event->key() == Qt::Key_Right) {
+        setFrame(1,2);
+        setX(x() + speed);
+        for (int i = 0; i < blocks->size(); i++) {
+            if(collidesWithItem(blocks->at(i))){
+                setX(blocks->at(i)->x() - boundingRect().width());
+                break;
+            }
+        }
+    }
+    else if (event->key() == Qt::Key_C) {
+        if(!jump){
+            jump = true;
+            v.setY(VEL_JUMP);
+        }
+    }
+    else if (event->key() == Qt::Key_X){
+        weapon->attack();
+    }
+}
+
+Weapon *Player::getWeapon() const
+{
+    return weapon;
 }
 
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
 {
-    calculateAcelerationTest();
     v.setY(v.y()+(a.y()*periodo));
     setY(y()+(v.y()*periodo));
     for (int i = 0; i < blocks->size(); i++) {
@@ -40,44 +77,6 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
             }
             break;
         }
-    }
-}
-
-void Player::calculateAcelerationTest()
-{
-    a.setY(*gravityTest);
-}
-
-void Player::keyPressEvent(QKeyEvent *event)
-{
-    if (event->key() == Qt::Key_Left) {
-        setFrame(1,1);
-        setX(x()-10);
-        for (int i = 0; i < blocks->size(); i++) {
-            if(collidesWithItem(blocks->at(i))){
-                setX(blocks->at(i)->x() + blocks->at(i)->rect().width());
-                break;
-            }
-        }
-    }
-    else if (event->key() == Qt::Key_Right) {
-        setFrame(1,2);
-        setX(x()+10);
-        for (int i = 0; i < blocks->size(); i++) {
-            if(collidesWithItem(blocks->at(i))){
-                setX(blocks->at(i)->x() - boundingRect().width());
-                break;
-            }
-        }
-    }
-    else if (event->key() == Qt::Key_C) {
-        if(!jump){
-            jump = true;
-            v.setY(VEL_JUMP);
-        }
-    }
-    else if (event->key() == Qt::Key_X){
-        weapon->attack();
     }
 }
 
