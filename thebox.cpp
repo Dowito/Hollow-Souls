@@ -29,12 +29,54 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setPos(144,192);
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealth(new HealthBar(prueba));
+    pruebaColli = new Motion;
+    pruebaColli->setAce({0,0});
+    pruebaColli->setVel({2,0});
+    pruebaColli->setPos(144,192);
+    pruebaColli->setSprite(":/new/sprites/sprites/hombre_lobo.png");
+    pruebaColli->setSize(48,48);
+    pruebaColli->setFrame();
+    pruebaColli->setBlocks(game->blocks);
+    connect(game->timer, SIGNAL(timeout()), pruebaColli, SLOT(move()));
+    scene->addItem(pruebaColli);
     //game->timer->stop();
 }
 
-TheBox::~TheBox()
+
+void TheBox::generateCol(int num, int mx, int my)
 {
-    delete ui;
+    for (int i = 0; i<num; i++) {
+        game->blocks->push_back(new Block({static_cast<qreal>(mx)*SIZE_BLOCK, static_cast<qreal>((my+i)*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
+    }
+}
+
+void TheBox::generateFil(int num, int mx, int my)
+{
+    for (int i = 0; i<num; i++) {
+        game->blocks->push_back(new Block({static_cast<qreal>((mx+i)*SIZE_BLOCK), static_cast<qreal>(my*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
+    }
+}
+
+void TheBox::generateSandBox()
+{
+    generateCol(10,1,1);
+    generateCol(12,20,0);
+    generateFil(10,3,2);
+    generateFil(18,1,10);
+    //generateGrid();
+    for (int i = 0; i<game->blocks->size();i++ ) {
+        scene->addItem(game->blocks->at(i));
+        game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
+    }
+}
+
+void TheBox::generateGrid()
+{
+    for (int i = 0; i< 1280/(SIZE_BLOCK*GAME_SCALE); i++) {
+        for (int j = 0; j< 720/(SIZE_BLOCK*GAME_SCALE); j++) {
+            scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE), prueba));
+        }
+    }
 }
 
 Ui::TheBox *TheBox::getUi() const
@@ -52,7 +94,6 @@ void TheBox::on_ZoomMinus_clicked()
     ui->graphicsView->scale(0.8,0.8);
 }
 
-
 void TheBox::on_Iniciar_clicked()
 {
     ui->Ingresar->setEnabled(false);
@@ -68,7 +109,7 @@ void TheBox::on_Iniciar_clicked()
     //prueba->setAce({static_cast<float>(ui->rax->value()),static_cast<float>(ui->ray->value())});
     *gravityTest = ui->ray->value();
     prueba->setPeriodo(ui->rPeriodo->value());
-    *clockMs = ui->rClockMs->value();   
+    *clockMs = ui->rClockMs->value();
     prueba->setFocus();
     game->timer->start(*clockMs);
 }
@@ -133,45 +174,17 @@ void TheBox::on_pushButton_2_clicked()
                                             ui->graphicsView->scene()->sceneRect().height());
 }
 
-void TheBox::generateCol(int num, int mx, int my)
-{
-    for (int i = 0; i<num; i++) {
-        game->blocks->push_back(new Block({static_cast<qreal>(mx)*SIZE_BLOCK, static_cast<qreal>((my+i)*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
-    }
-}
-
-void TheBox::generateFil(int num, int mx, int my)
-{
-    for (int i = 0; i<num; i++) {
-        game->blocks->push_back(new Block({static_cast<qreal>((mx+i)*SIZE_BLOCK), static_cast<qreal>(my*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
-    }
-}
-
-void TheBox::generateSandBox()
-{
-    generateCol(10,1,1);
-    generateCol(12,20,0);
-    generateFil(10,3,2);
-    generateFil(18,1,10);
-    //generateGrid();
-    for (int i = 0; i<game->blocks->size();i++ ) {
-        scene->addItem(game->blocks->at(i));
-        game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
-    }
-}
-
-void TheBox::generateGrid()
-{
-    for (int i = 0; i< 1280/(SIZE_BLOCK*GAME_SCALE); i++) {
-        for (int j = 0; j< 720/(SIZE_BLOCK*GAME_SCALE); j++) {
-            scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE), prueba));
-        }
-    }
-}
-
-
 void TheBox::on_pushButton_clicked()
 {
     prueba->setRotation(prueba->rotation()+45);
 }
 
+TheBox::~TheBox()
+{
+    delete ui;
+    delete prueba;
+    delete pruebaColli;
+    delete gravityTest;
+    delete clockMs;
+    delete scene;
+}

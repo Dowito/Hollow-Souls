@@ -7,6 +7,7 @@ namespace Ui {
 class TheBox;
 }
 class Player;
+class Motion;
 class TheBox : public QMainWindow
 {
     Q_OBJECT
@@ -43,6 +44,7 @@ private:
     void generateFil(int num, int mx, int my);
     void generateSandBox();
     void generateGrid();
+    Motion *pruebaColli;
     Player *prueba;
     unsigned int *clockMs;
     QGraphicsScene *scene;

@@ -17,11 +17,14 @@ public:
     void setVel(const QVector2D &newV);
     void setPeriodo(float newPeriodo);
 
+    void setBlocks(QVector<Block *> *newBlocks);
+
 public slots:
     virtual void move();
 
 protected:
     virtual void collisions();
+    virtual void calculateAceleration();
     int speed;
     float periodo;
     QVector2D a; //vector aceleracion
