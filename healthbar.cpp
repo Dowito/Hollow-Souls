@@ -5,47 +5,29 @@
 HealthBar::HealthBar(Player *owner, QObject *parent)
     : QObject{parent}
 {
+    maxHealth = owner->getMaxHealth();
+    health = owner->getHealth();
     //pintando la barra vacia
     setRect(0,0,200,30);
     setBrush(QBrush(QColor(Qt::lightGray)));
     //Pintando la barra roja
-    updateHealth.setRect(0, 0, rect().width(), rect().height());
-    updateHealth.setBrush(QBrush(QColor(Qt::red)));
+    updateHealth = new QGraphicsRectItem;
+    updateHealth->setRect(0, 0, rect().width(), rect().height());
+    updateHealth->setBrush(QBrush(QColor(Qt::red)));
     //posiciones
     setPos(20,20);
-    updateHealth.setPos(20,20);
-    //inicializando la vida
-    maxHealth = 200;
-    health = maxHealth;
+    updateHealth->setPos(pos());
     update();
     owner->scene()->addItem(this);
-    owner->scene()->addItem(&updateHealth);
-}
-
-void HealthBar::cure(int cure)
-{
-    if (health + cure > maxHealth){
-        health = maxHealth;
-    }
-    else health += cure;
-    update();
-}
-
-void HealthBar::damage(int damage)
-{
-    if (health - damage < 0) {
-        health = 0;
-    }
-    else health -= damage;
-    update();
+    owner->scene()->addItem(updateHealth);
 }
 
 unsigned short HealthBar::healthPercent()
 {
-    return (health*100)/maxHealth;
+    return ((*health)*100)/(*maxHealth);
 }
 
 void HealthBar::update()
 {
-    updateHealth.setRect(0, 0, healthPercent()*2, rect().height());
+    updateHealth->setRect(0, 0, healthPercent()*2, rect().height());
 }

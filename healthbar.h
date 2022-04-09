@@ -11,16 +11,13 @@ class HealthBar : public QObject , public QGraphicsRectItem
     Q_OBJECT
 public:
     explicit HealthBar(Player *owner, QObject *parent = nullptr);
-    void cure(int cure);
-    void damage(int damage);
+    void update();
 
 private:
     unsigned short healthPercent();
-    void update();
-
-    int health;
-    int maxHealth;
-    QGraphicsRectItem updateHealth;
+    int *health;
+    int *maxHealth;
+    QGraphicsRectItem *updateHealth;
 };
 
 #endif // HEALTHBAR_H

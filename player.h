@@ -16,15 +16,21 @@ public:
     void setAir(bool newAir);
     void setWeapon(Weapon *newWeapon);
     Weapon *getWeapon() const;
-    void setHealth(HealthBar *newHealth);
-    HealthBar *getHealth() const;
+
 
 public:
     void takeDamage(int damage);
 
     void setJump(bool newJump);
+    bool getInmu() const;    
 
-    bool getInmu() const;
+    void setHealthBar(HealthBar *newHealthBar);
+    HealthBar *getHealthBar() const;
+
+    int *getHealth() const;
+    void setHealth(int newHealth);
+    int *getMaxHealth() const;
+    void setMaxHealth(int newMaxHealth);
 
 private slots:
     virtual void move();
@@ -34,9 +40,9 @@ private:
     void keyPressEvent(QKeyEvent *event);
     bool jump;
     bool inmu;
-    int playerHealth;
-    int maxPlayerHealth;
-    HealthBar *health;
+    int *health;
+    int *maxHealth;
+    HealthBar *healthBar;
     Weapon *weapon;
 };
 

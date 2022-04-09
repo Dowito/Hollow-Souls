@@ -28,7 +28,7 @@ TheBox::TheBox(QWidget *parent) :
     scene->addItem(prueba = new Player);
     prueba->setPos(144,192);
     prueba->setWeapon(new Weapon(prueba));
-    prueba->setHealth(new HealthBar(prueba));
+    prueba->setHealthBar(new HealthBar(prueba));
     game->player = prueba;
     //enemigo
     scene->addItem(pruebaColli = new Enemy(":/new/sprites/sprites/hombre_lobo.png", 240, 240));

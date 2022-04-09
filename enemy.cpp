@@ -37,7 +37,7 @@ Enemy::Enemy(QString name, float px, float py, QObject *parent)
 
 void Enemy::move()
 {
-    changeDirectionX();
+    //changeDirectionX();
     Motion::move();
     collisionsPlayer();
     collisionsWeapon();

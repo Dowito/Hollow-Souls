@@ -7,10 +7,12 @@
 extern Game *game;
 Player::Player()
 {
+    maxHealth = new int;
+    health = new int;
     jump = false;
     inmu = false;
-    maxPlayerHealth  = 200;
-    playerHealth = maxPlayerHealth;
+    *maxHealth  = 200;
+    *health = *maxHealth;
     setSprite(":/new/sprites/sprites/personaje.png");
     setSize(48, 48);
     setFrame(2,2);
@@ -57,6 +59,36 @@ void Player::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_X){
         weapon->attack();
     }
+}
+
+int *Player::getHealth() const
+{
+    return health;
+}
+
+void Player::setHealth(int newHealth)
+{
+    *health = newHealth;
+}
+
+int *Player::getMaxHealth() const
+{
+    return maxHealth;
+}
+
+void Player::setMaxHealth(int newMaxHealth)
+{
+    *maxHealth = newMaxHealth;
+}
+
+HealthBar *Player::getHealthBar() const
+{
+    return healthBar;
+}
+
+void Player::setHealthBar(HealthBar *newHealthBar)
+{
+    healthBar = newHealthBar;
 }
 
 bool Player::getInmu() const
@@ -106,30 +138,22 @@ void Player::framesInmu()
     }
 }
 
-HealthBar *Player::getHealth() const
-{
-    return health;
-}
-
 void Player::takeDamage(int damage)
 {
     if(!inmu){
-        if (playerHealth - damage < 0) {
-            playerHealth = 0;
+        if (*health - damage < 0) {
+            *health = 0;
+            healthBar->update();
             //animacion de muerte
         }
         else {
-            playerHealth -= damage;
             inmu = true;
+            *health -= damage;
+            healthBar->update();
             connect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
         }
-        qDebug() << "current health: " << playerHealth;
+        qDebug() << "current health: " << *health;
     }
-}
-
-void Player::setHealth(HealthBar *newHealth)
-{
-    health = newHealth;
 }
 
 void Player::setWeapon(Weapon *newWeapon)
