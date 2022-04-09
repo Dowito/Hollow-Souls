@@ -100,6 +100,7 @@ void Enemy::damage(int damage)
         disconnect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
         //die animation;
         scene()->removeItem(this);
+        delete this;
     }
     else health -= damage;
 }
