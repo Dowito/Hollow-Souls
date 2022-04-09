@@ -8,6 +8,7 @@
 #include <weapon.h>
 #include <enemy.h>
 extern Game *game;
+//newBranch
 float *gravityTest = new float;
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),

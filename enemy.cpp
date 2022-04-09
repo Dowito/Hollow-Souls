@@ -97,8 +97,8 @@ void Enemy::damage(int damage)
     if (health - damage < 0){
         state = false;
         health = 0;
-        disconnect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
         //die animation;
+        disconnect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
         scene()->removeItem(this);
         delete this;
     }
