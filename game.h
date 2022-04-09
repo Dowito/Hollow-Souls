@@ -17,6 +17,12 @@ public:
     Player *player;
     QTimer *timer;
     QVector<Block*> *blocks;
+
+private:
+    void generateCol(int num, int mx, int my);
+    void generateFil(int num, int mx, int my);
+    void generateSandBox();
+    void generateGrid();
 };
 
 #endif // GAME_H
