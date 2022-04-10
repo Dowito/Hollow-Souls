@@ -2,8 +2,10 @@
 #define PLAYER_H
 
 #include <motion.h>
+#include <QGraphicsPixmapItem>
 #include <QKeyEvent>
 #include <QVector>
+
 class Weapon;
 class HealthBar;
 class Player : public Motion

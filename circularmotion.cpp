@@ -75,7 +75,7 @@ void CircularMotion::calculateAceleration()
 {
     calculateAccNormal();
     calculateAccTangential();
-    a = accTangential + accNormal;
+    acc = accTangential + accNormal;
 }
 
 void CircularMotion::calculateAccNormal()

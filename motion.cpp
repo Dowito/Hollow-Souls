@@ -4,26 +4,26 @@
 Motion::Motion(QObject *parent)
     :Sprite(parent)
 {
-    a.setY(GRAVEDAD);
+    acc.setY(GRAVEDAD);
     periodo = TTT;
 }
 
-Motion::Motion(QVector2D r, QVector2D v, QVector2D a, QObject *parent)
+Motion::Motion(QPointF pos, QPointF vel, QPointF acc, QObject *parent)
     :Sprite(parent)
 {
-    setPos(r.toPointF());
-    this->v = v;
-    this->a = a;
+    setPos(pos);
+    this->vel = vel;
+    this->acc = acc;
 }
 
 void Motion::move()
 {
     calculateAceleration();
-    v = v+(a*periodo); //v = v+(a*TTT);
+    vel = vel+(acc*periodo); //v = v+(a*TTT);
     //setPos(pos() + v.toPointF()); //v = v+(a*TTT);
-    setY(y() + v.y());
+    setY(y() + vel.y());
     collisionsY();
-    setX(x() + v.x());
+    setX(x() + vel.x());
     collisionsX();
 }
 
@@ -49,15 +49,15 @@ void Motion::collisionsX()
 {
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))) {
-            if (v.x()<0) {
+            if (vel.x()<0) {
                 setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
             }
-            else if (v.x()>0) {
+            else if (vel.x()>0) {
                 setX(blocks->at(i)->x() - w - 1);
             }
             directionX *= (-1);
             //v.setX(v.x()*(-1));
-            v.setX(v.x()*directionX);
+            vel.setX(vel.x()*directionX);
         }
     }
 }
@@ -66,26 +66,26 @@ void Motion::collisionsY()
 {
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))){
-            if (v.y() <= 0) { //si colisiona hacia arriba
+            if (vel.y() <= 0) { //si colisiona hacia arriba
                 setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1 );
             }
             else { //si colisiona hacia abajo
                 setY(blocks->at(i)->y() - h -1);
             }
-            v.setY(0);
-            v.setX(speed*directionX);
+            vel.setY(0);
+            vel.setX(speed*directionX);
         }
     }
 }
 
 void Motion::calculateAceleration()
 {
-    a = {0, GRAVEDAD};
+    acc = {0, GRAVEDAD};
 }
 
 void Motion::calculateAcelerationTest()
 {
-    a.setY(*gravityTest);
+    acc.setY(*gravityTest);
 }
 
 short Motion::getDirectionX() const
@@ -103,17 +103,17 @@ void Motion::setPeriodo(float newPeriodo)
     periodo = newPeriodo;
 }
 
-void Motion::setAce(const QVector2D &newA)
+void Motion::setAce(const QPointF &newA)
 {
-    a = newA;
+    acc = newA;
 }
 
-void Motion::setVel(const QVector2D &newV)
+void Motion::setVel(const QPointF &newV)
 {
-    v = newV;
+    vel = newV;
 }
 
 void Motion::setVel(float vx, float vy)
 {
-    v = {vx, vy};
+    vel = {vx, vy};
 }

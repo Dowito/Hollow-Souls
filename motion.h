@@ -13,10 +13,10 @@ class Motion : public Sprite
     Q_OBJECT
 public:
     Motion(QObject *parent = nullptr);
-    Motion(QVector2D r, QVector2D v, QVector2D a, QObject *parent = nullptr);
+    Motion(QPointF pos, QPointF vel, QPointF acc, QObject *parent = nullptr);
 
-    void setAce(const QVector2D &newA);
-    void setVel(const QVector2D &newV);
+    void setAce(const QPointF &newA);
+    void setVel(const QPointF &newV);
     void setVel(float vx, float vy);
     void setPeriodo(float newPeriodo);
     void setBlocks(QVector<Block *> *newBlocks);
@@ -34,8 +34,9 @@ protected:
     int speed;
     short directionX;
     float periodo;
-    QVector2D a; //vector aceleracion
-    QVector2D v; //vector velocidad
+    QPointF acc; //vector aceleracion
+    QPointF vel; //vector velocidad
+    QPointF r; //vector posicion
     QVector<Block*> *blocks;
     QTimer *timer;
 };

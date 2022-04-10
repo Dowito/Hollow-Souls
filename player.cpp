@@ -17,7 +17,7 @@ Player::Player()
     *maxHealth  = 200;
     *health = *maxHealth;
     speed = SPEED_PLAYER;
-    v = {0,0};
+    vel = {0,0};
     calculateAcelerationTest();
     blocks = game->blocks;
     timer = game->timer;
@@ -53,7 +53,7 @@ void Player::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_C) {
         if(!jump){
             jump = true;
-            v.setY(VEL_JUMP);
+            vel.setY(VEL_JUMP);
         }
     }
     else if (event->key() == Qt::Key_X){
@@ -63,18 +63,18 @@ void Player::keyPressEvent(QKeyEvent *event)
 
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
 {
-    v.setY(v.y()+(a.y()*periodo));
-    setY(y()+(v.y()*periodo));
+    vel.setY(vel.y()+(acc.y()*periodo));
+    setY(y()+(vel.y()*periodo));
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))){
-            if (v.y() <= 0) { //si colisiona hacia arriba
+            if (vel.y() <= 0) { //si colisiona hacia arriba
                 setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1 );
-                v.setY(0);
+                vel.setY(0);
             }
             else { //si colisiona hacia abajo
                 if(jump) jump = false;
                 setY(blocks->at(i)->y() - h -1);
-                v.setY(0);
+                vel.setY(0);
                 //a.setY(a.y() - a.y()); //Accion reaccion
             }
             break;

@@ -32,8 +32,8 @@ protected:
     float angularAcc;
     float angularVel;
     float angularPos;
-    QVector2D accTangential, uniTangential;
-    QVector2D accNormal, uniNormal;
+    QPointF accTangential, uniTangential;
+    QPointF accNormal, uniNormal;
 };
 
 #endif // CIRCULARMOTION_H
