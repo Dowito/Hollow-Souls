@@ -34,7 +34,7 @@ TheBox::TheBox(QWidget *parent) :
     game->player = prueba;
 
     //pintando bloque de prueba
-    CircularMotion *testCircular = new CircularMotion(144,144,100,0,0.1);
+    CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
     scene->addItem(testCircular);
     connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
 
@@ -64,7 +64,7 @@ void TheBox::generateSandBox()
     //generateCol(12,20,0);
     //generateFil(20,3,2);
     generateFil(16,1,11);
-    //generateGrid();
+    generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
         game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
@@ -75,7 +75,7 @@ void TheBox::generateGrid()
 {
     for (int i = 0; i< 1280/(SIZE_BLOCK*GAME_SCALE); i++) {
         for (int j = 0; j< 720/(SIZE_BLOCK*GAME_SCALE); j++) {
-            scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE), prueba));
+            scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE)));
         }
     }
 }

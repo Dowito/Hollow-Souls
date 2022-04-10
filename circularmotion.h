@@ -9,10 +9,16 @@ public:
     CircularMotion();
     CircularMotion(float posx, float posy,
                    float radio,
+                   unsigned short direction,
+                   float angularVel,
+                   float angularAcc = 0);
+    /*
+    CircularMotion(float posx, float posy,
+                   float radio,
                    float angularPos,
                    float angularVel,
-                   float angularAcc = 0,
-                   float speedIni = 0);
+                   float angularAcc = 0);
+    */
 
 public slots:
     virtual void move() override;
