@@ -8,10 +8,14 @@
 
 //Movimiento - Simulacion fisica
 #define TTT 0.1
-#define GRAVEDAD 0.1
+#define GRAVEDAD 11
+/*
+TTT = 0.1, GRAVEDAD = 10.9 y velY = -61 consigo saltar 3.5 casillas y el tiempo de vuelo es de 1.2
+
+*/
 
 //Player
-#define VEL_JUMP -6
+#define VEL_JUMP -62
 #define SPEED_PLAYER 6
 #define STEPS_PLAYER_INMU 100
 

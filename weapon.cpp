@@ -10,8 +10,7 @@ Weapon::Weapon(Player *owner, QObject *parent)
 {
     //slash special sword5
     //bblow phisical
-    setSprite(":/new/sprites/sprites/sword.png");
-    setSize(96*2,96);
+    loadSprite(":/new/sprites/sprites/sword.png", 96*2, 96, 5, 5);
     atk = WEAPON_ATK;
     steps = 0;
     usable = true;
@@ -25,7 +24,7 @@ void Weapon::attack()
         usable = false;
         direction = owner->getDirectionX();
         setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
-        setFrame(4,0);
+        setPixmap(frames[0][4]);
         owner->scene()->addItem(this);
         connect(timer, SIGNAL(timeout()), this, SLOT(animation()));
     }

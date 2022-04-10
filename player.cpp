@@ -21,7 +21,7 @@ Player::Player()
     calculateAcelerationTest();
     blocks = game->blocks;
     timer = game->timer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    //connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
 
 void Player::keyPressEvent(QKeyEvent *event)

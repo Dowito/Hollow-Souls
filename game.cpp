@@ -1,10 +1,10 @@
 #include "game.h"
-#include <motion.h>
 #include <QTimer>
 #include <player.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
-    blocks(new QVector<Block*>)
+    blocks(new QVector<Block*>),
+    enemies(new QList<Enemy*>)
 {
     setParent(parent);
     setGeometry(0,0,1280,720);
@@ -22,6 +22,8 @@ Game::~Game()
     delete timer;
     blocks->clear();
     delete blocks;
+    enemies->clear();
+    delete enemies;
     scene()->clear();
     delete scene();
 }

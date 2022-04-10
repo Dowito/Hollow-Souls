@@ -22,11 +22,11 @@ void Sprite::loadFrames(QPixmap sprite, unsigned short fil, unsigned short col)
     }
 }
 
-void Sprite::loadSprite(QString name, unsigned int w, unsigned int h)
+void Sprite::loadSprite(QString name, unsigned int w, unsigned int h, unsigned short fil, unsigned short col)
 {
     QPixmap sprite(name);
     setSize(w,h);
-    loadFrames(sprite);
+    loadFrames(sprite, fil ,col);
     setPixmap(frames[0][1]);
 }
 

@@ -60,10 +60,10 @@ void TheBox::generateFil(int num, int mx, int my)
 
 void TheBox::generateSandBox()
 {
-    //generateCol(10,1,1);
-    //generateCol(12,20,0);
-    //generateFil(20,3,2);
-    generateFil(16,1,11);
+    generateCol(13,1,1);
+    generateCol(13,20,0);
+    generateFil(16,3,2);
+    generateFil(20,1,11);
     generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));

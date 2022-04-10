@@ -7,15 +7,17 @@
 class QTimer;
 class Block;
 class Player;
+class Enemy;
 class Game : public QGraphicsView
 {
-
+    Q_OBJECT
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
     Player *player;
     QTimer *timer;
     QVector<Block*> *blocks;
+    QList<Enemy*> *enemies;
 
 public slots:
     /*!

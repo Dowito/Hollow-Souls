@@ -9,7 +9,7 @@ class Sprite : public QObject , public QGraphicsPixmapItem
     Q_OBJECT
 public:
     explicit Sprite(QObject *parent = nullptr);
-    virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK);
+    virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
 
 protected:
     /*!
@@ -24,7 +24,7 @@ protected:
      * \param fil
      * \param col
      */
-    virtual void loadFrames(QPixmap sprite, unsigned short fil = 4, unsigned short col = 3);
+    virtual void loadFrames(QPixmap sprite, unsigned short fil, unsigned short col);
     QPixmap sprite;
     QPixmap frame;
     QVector<QVector<QPixmap>> frames;
