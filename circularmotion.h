@@ -18,6 +18,7 @@ public slots:
     virtual void move() override;
 
 protected:
+    void calculateAngle();
     void calculateAceleration() override;
     void calculateAccTangential();
     void calculateAccNormal();

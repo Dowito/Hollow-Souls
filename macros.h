@@ -7,7 +7,7 @@
 #define CLOCK_GAME 100
 
 //Movimiento - Simulacion fisica
-#define TTT 0.1
+#define TTT 1
 #define GRAVEDAD 0.1
 
 //Player

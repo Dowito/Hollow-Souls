@@ -34,7 +34,7 @@ TheBox::TheBox(QWidget *parent) :
     game->player = prueba;
 
     //pintando bloque de prueba
-    CircularMotion *testCircular = new CircularMotion(144,144,144,0,0.1);
+    CircularMotion *testCircular = new CircularMotion(144,144,100,0,0.1);
     scene->addItem(testCircular);
     connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
 
