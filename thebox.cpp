@@ -7,6 +7,8 @@
 #include <healthbar.h>
 #include <weapon.h>
 #include <enemy.h>
+#include <circularmotion.h>
+#include <qdebug.h>
 extern Game *game;
 float *gravityTest = new float;
 TheBox::TheBox(QWidget *parent) :
@@ -30,6 +32,12 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
     game->player = prueba;
+
+    //pintando bloque de prueba
+    CircularMotion *testCircular = new CircularMotion(144,144,144,0,0.1);
+    scene->addItem(testCircular);
+    connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
+
     //enemigo
     scene->addItem(pruebaColli = new Enemy(":/new/sprites/sprites/hombre_lobo.png", 240, 240));
     //game->timer->stop();
@@ -53,9 +61,9 @@ void TheBox::generateFil(int num, int mx, int my)
 void TheBox::generateSandBox()
 {
     //generateCol(10,1,1);
-    generateCol(12,20,0);
-    generateFil(20,3,2);
-    generateFil(15,1,10);
+    //generateCol(12,20,0);
+    //generateFil(20,3,2);
+    generateFil(16,1,11);
     //generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));

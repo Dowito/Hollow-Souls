@@ -7,8 +7,8 @@ class Block : public QObject , public QGraphicsRectItem
 {
     Q_OBJECT
 public:
+    Block() {};
     explicit Block(QPointF pos , unsigned int width, unsigned int height, QObject *parent = nullptr);
-
 };
 
 #endif // BLOCK_H

@@ -4,6 +4,7 @@
 #include <sprite.h>
 #include <QVector2D>
 #include <math.h>
+#include <QtMath>
 #include <QTimer>
 extern float *gravityTest;
 class Block;
