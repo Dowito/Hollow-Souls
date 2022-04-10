@@ -7,17 +7,15 @@
 extern Game *game;
 Player::Player()
 {
+    loadSprite(":/new/sprites/sprites/personaje.png");
+    setFlags(ItemIsFocusable);
+    setFocus();
     maxHealth = new int;
     health = new int;
     jump = false;
     inmu = false;
     *maxHealth  = 200;
     *health = *maxHealth;
-    setSprite(":/new/sprites/sprites/personaje.png");
-    setSize(48, 48);
-    setFrame(2,2);
-    setFlags(ItemIsFocusable);
-    setFocus();
     speed = SPEED_PLAYER;
     v = {0,0};
     calculateAcelerationTest();
@@ -30,7 +28,8 @@ void Player::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left) {
         directionX = -1;
-        setFrame(1,1);
+        //setFrame(1,1);
+        setPixmap(frames[1][1]);
         setX(x() - speed);
         for (int i = 0; i < blocks->size(); i++) {
             if(collidesWithItem(blocks->at(i))){
@@ -41,7 +40,8 @@ void Player::keyPressEvent(QKeyEvent *event)
     }
     else if (event->key() == Qt::Key_Right) {
         directionX = 1;
-        setFrame(1,2);
+        //setFrame(1,2);
+        setPixmap(frames[2][1]);
         setX(x() + speed);
         for (int i = 0; i < blocks->size(); i++) {
             if(collidesWithItem(blocks->at(i))){
@@ -59,51 +59,6 @@ void Player::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_X){
         weapon->attack();
     }
-}
-
-int *Player::getHealth() const
-{
-    return health;
-}
-
-void Player::setHealth(int newHealth)
-{
-    *health = newHealth;
-}
-
-int *Player::getMaxHealth() const
-{
-    return maxHealth;
-}
-
-void Player::setMaxHealth(int newMaxHealth)
-{
-    *maxHealth = newMaxHealth;
-}
-
-HealthBar *Player::getHealthBar() const
-{
-    return healthBar;
-}
-
-void Player::setHealthBar(HealthBar *newHealthBar)
-{
-    healthBar = newHealthBar;
-}
-
-bool Player::getInmu() const
-{
-    return inmu;
-}
-
-void Player::setJump(bool newJump)
-{
-    jump = newJump;
-}
-
-Weapon *Player::getWeapon() const
-{
-    return weapon;
 }
 
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
@@ -154,6 +109,51 @@ void Player::takeDamage(int damage)
         }
         qDebug() << "current health: " << *health;
     }
+}
+
+int *Player::getHealth() const
+{
+    return health;
+}
+
+void Player::setHealth(int newHealth)
+{
+    *health = newHealth;
+}
+
+int *Player::getMaxHealth() const
+{
+    return maxHealth;
+}
+
+void Player::setMaxHealth(int newMaxHealth)
+{
+    *maxHealth = newMaxHealth;
+}
+
+HealthBar *Player::getHealthBar() const
+{
+    return healthBar;
+}
+
+void Player::setHealthBar(HealthBar *newHealthBar)
+{
+    healthBar = newHealthBar;
+}
+
+bool Player::getInmu() const
+{
+    return inmu;
+}
+
+void Player::setJump(bool newJump)
+{
+    jump = newJump;
+}
+
+Weapon *Player::getWeapon() const
+{
+    return weapon;
 }
 
 void Player::setWeapon(Weapon *newWeapon)

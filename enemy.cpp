@@ -15,14 +15,11 @@ Enemy::Enemy(QObject *parent)
 Enemy::Enemy(QString name, float px, float py, QObject *parent)
     :Motion(parent)
 {
+    loadSprite(":/new/sprites/sprites/hombre_lobo.png");
     state = true;
     inmu = false;
     atk = 20;
     health = 95;
-    //sprites
-    setSprite(name);
-    setSize(48,48);
-    setFrame(1);
     //cinematica
     speed = 2;
     directionX = -1;

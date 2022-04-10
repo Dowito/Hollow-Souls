@@ -1,25 +1,33 @@
 #include "sprite.h"
 #include <macros.h>
+#include <QDebug>
 Sprite::Sprite(QObject *parent)
     : QObject{parent}
 {
 
 }
 
-void Sprite::setSprite(QString spriteName)
+void Sprite::loadFrames(QPixmap sprite, unsigned short fil, unsigned short col)
 {
-    sprite.load(spriteName);
+    QPixmap image;
+    frames.resize(fil);
+    for (unsigned short i=0; i<fil; i++) {
+        for (unsigned short j=0; j<col; j++) {
+            image = sprite.copy(j*w, i*h, w, h).scaled(w*GAME_SCALE, h*GAME_SCALE);
+            frames[i].push_back(image);
+        }
+    }
+    for (auto vector : qAsConst(frames)) {
+        vector.shrink_to_fit();
+    }
 }
 
-void Sprite::setFrame(unsigned int typeX, unsigned int typeY)
+void Sprite::loadSprite(QString name, unsigned int w, unsigned int h)
 {
-    frame = sprite.copy(typeX*w, typeY*h, w, h).scaled(w*GAME_SCALE,h*GAME_SCALE);
-    setPixmap(frame);
-}
-
-unsigned int Sprite::getW() const
-{
-    return w;
+    QPixmap sprite(name);
+    setSize(w,h);
+    loadFrames(sprite);
+    setPixmap(frames[0][1]);
 }
 
 void Sprite::setSize(unsigned int w, unsigned int h)

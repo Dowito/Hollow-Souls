@@ -19,6 +19,7 @@ public:
 
 
 public:
+    virtual void move();
     void takeDamage(int damage);
 
     void setJump(bool newJump);
@@ -33,7 +34,6 @@ public:
     void setMaxHealth(int newMaxHealth);
 
 private slots:
-    virtual void move();
     void framesInmu();
 
 private:

@@ -12,6 +12,7 @@ Game::Game(QWidget *parent):
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setScene(new QGraphicsScene);
     scene()->setSceneRect(0,0,width(),height());
+    connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     timer->start(CLOCK_GAME);
 }
 
@@ -23,4 +24,9 @@ Game::~Game()
     delete blocks;
     scene()->clear();
     delete scene();
+}
+
+void Game::timeWorld()
+{
+    player->move();
 }

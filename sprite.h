@@ -1,14 +1,17 @@
 #ifndef SPRITE_H
 #define SPRITE_H
+#include <macros.h>
 #include <QObject>
+#include <QPixmap>
 #include <QGraphicsPixmapItem>
-class Sprite : public QObject, public QGraphicsPixmapItem
+class Sprite : public QObject , public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
     explicit Sprite(QObject *parent = nullptr);
+    virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK);
 
-    void setSprite(QString spriteName);
+protected:
     /*!
      * \brief setSize establece el tamaño de los frames en pixeles
      * \param w pixeles de ancho
@@ -16,18 +19,15 @@ public:
      */
     void setSize(unsigned int w, unsigned int h);
     /*!
-     * \brief setFrame recorta del sprite el frame a mostar en pantalla.
-     * \param typeX el tipo en x, si es 2, seria el frame de la segunda columna del sprite
-     * \param typeY el tipo en y, si es 2, seria el frame de la segunda fila del sprite
+     * \brief loadFrames recorta y guarda los distintos frames del sprite ingresado segun el ancho y alto que tendra cada frame en pixeles
+     * \param sprite sprite a recortar
+     * \param fil
+     * \param col
      */
-    void setFrame(unsigned int typeX = 0, unsigned int typeY = 0);
-
-
-    unsigned int getW() const;
-
-protected:
+    virtual void loadFrames(QPixmap sprite, unsigned short fil = 4, unsigned short col = 3);
     QPixmap sprite;
     QPixmap frame;
+    QVector<QVector<QPixmap>> frames;
     unsigned int w;
     unsigned int h;
 };

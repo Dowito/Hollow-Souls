@@ -10,9 +10,6 @@ CircularMotion::CircularMotion(float posx, float posy, float radio, unsigned sho
     this->radio = radio;
     this->angularAcc = -angularAcc;
     this->angularVel = -angularVel;
-    setSprite(":/new/sprites/sprites/demonio.png");
-    setSize(48,48);
-    setFrame(1);
     //direccion
     if(direction == 0) {//0 abajo
         setOffset(posx + w/2, posy + h/2 + radio );
