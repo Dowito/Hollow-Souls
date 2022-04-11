@@ -2,10 +2,11 @@
 #define WEAPON_H
 
 #include <sprite.h>
+#include <QObject>
 #include <QGraphicsPixmapItem>
 class Game;
 class Player;
-class Weapon : public Sprite
+class Weapon : public QObject, public Sprite, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
@@ -19,11 +20,10 @@ public:
 
 private:
     bool attacking;
-    unsigned int steps;
+    unsigned int steps; //contador hasta terminar la animacion
     int atk;
     short direction;
     Player *owner;
-    QTimer *timer;
 };
 
 #endif // WEAPON_H

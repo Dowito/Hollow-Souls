@@ -4,7 +4,6 @@
 #include <motion.h>
 class CircularMotion : public Motion
 {
-    Q_OBJECT
 public:
     CircularMotion();
     CircularMotion(float posx, float posy,
@@ -19,13 +18,12 @@ public:
                    float angularVel,
                    float angularAcc = 0);
     */
-
-public slots:
     virtual void move() override;
 
 protected:
     void calculateAngle();
-    void calculateAceleration() override;
+    QPointF calculatePos();
+    void calculateAceleration();
     void calculateAccTangential();
     void calculateAccNormal();
     float radio;

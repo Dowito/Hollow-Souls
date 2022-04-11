@@ -3,7 +3,6 @@
 
 #include <QWidget>
 #include <QGraphicsView>
-#include <QVector>
 class QTimer;
 class Block;
 class Player;

@@ -2,17 +2,19 @@
 #define PLAYER_H
 
 #include <motion.h>
+#include <sprite.h>
+#include <QObject>
 #include <QGraphicsPixmapItem>
 #include <QKeyEvent>
-#include <QVector>
 
 class Weapon;
 class HealthBar;
-class Player : public Motion
+class Block;
+class Player : public QObject, public QGraphicsPixmapItem, public Sprite, public Motion
 {
     Q_OBJECT
 public:
-    Player();
+    Player(QObject *parent = nullptr);
 
     bool getAir() const;
     void setAir(bool newAir);
@@ -21,26 +23,24 @@ public:
 
 
 public:
-    virtual void move();
+    virtual void move() override;
     void takeDamage(int damage);
     void framesInmu();
 
     void setJump(bool newJump);
     bool getInmu() const;    
-
     void setHealthBar(HealthBar *newHealthBar);
     HealthBar *getHealthBar() const;
-
     int *getHealth() const;
     void setHealth(int newHealth);
     int *getMaxHealth() const;
     void setMaxHealth(int newMaxHealth);
-
-private slots:
-
+    void setBlocks(QVector<Block*> *newBlocks);
 
 private:
-    void keyPressEvent(QKeyEvent *event);
+    void keyPressEvent(QKeyEvent *event) override;
+    void collisionsY() override;
+    void collisionsX() override;
     bool state;
     bool jump;
     bool inmu;
@@ -48,6 +48,7 @@ private:
     int *maxHealth;
     HealthBar *healthBar;
     Weapon *weapon;
+    QVector<Block*> *blocks;
 };
 
 #endif // PLAYER_H

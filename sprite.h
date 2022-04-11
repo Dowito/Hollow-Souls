@@ -1,17 +1,14 @@
 #ifndef SPRITE_H
 #define SPRITE_H
 #include <macros.h>
-#include <QObject>
 #include <QPixmap>
-#include <QGraphicsPixmapItem>
-class Sprite : public QObject , public QGraphicsPixmapItem
+class Sprite
 {
-    Q_OBJECT
 public:
-    explicit Sprite(QObject *parent = nullptr);
-    virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
+    explicit Sprite() {};
 
 protected:
+    virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
     /*!
      * \brief setSize establece el tamaño de los frames en pixeles
      * \param w pixeles de ancho

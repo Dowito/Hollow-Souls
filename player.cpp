@@ -5,9 +5,11 @@
 #include <healthbar.h>
 #include <QDebug>
 extern Game *game;
-Player::Player()
+Player::Player(QObject *parent)
+    :QObject(parent)
 {
     loadSprite(":/new/sprites/sprites/personaje.png");
+    setPixmap(frames[0][1]);
     setFlags(ItemIsFocusable);
     setFocus();
     maxHealth = new int;
@@ -18,10 +20,9 @@ Player::Player()
     jump = false;
     inmu = false;
     speed = SPEED_PLAYER;
-    vel = {0,0};
+    v = {0,0};
     calculateAcelerationTest();
     blocks = game->blocks;
-    timer = game->timer;
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -52,7 +53,7 @@ void Player::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_C) {
         if(!jump){
             jump = true;
-            vel.setY(VEL_JUMP);
+            v.setY(VEL_JUMP);
         }
     }
     else if (event->key() == Qt::Key_X){
@@ -60,23 +61,33 @@ void Player::keyPressEvent(QKeyEvent *event)
     }
 }
 
+void Player::collisionsX()
+{
+
+}
+
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
 {
-    vel.setY(vel.y()+(acc.y()*periodo));
-    pos.setY(pos.y()+(vel.y()*periodo));
-    setY(pos.y());
+    v.setY(v.y()+(a.y()*periodo));
+    r.setY(r.y()+(v.y()*periodo));
+    setY(r.y());
+    collisionsY();
+}
+
+void Player::collisionsY()
+{
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))){
-            if (vel.y() <= 0) { //si colisiona hacia arriba
-                pos.setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1);
-                setY(pos.y());
-                vel.setY(0);
+            if (v.y() <= 0) { //si colisiona hacia arriba
+                r.setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1);
+                setY(r.y());
+                v.setY(0);
             }
             else { //si colisiona hacia abajo
                 if(jump) jump = false;
-                pos.setY(blocks->at(i)->y() - h -1);
+                r.setY(blocks->at(i)->y() - h -1);
                 setY(blocks->at(i)->y() - h -1);
-                vel.setY(0);
+                v.setY(0);
             }
             break;
         }
@@ -108,6 +119,11 @@ void Player::takeDamage(int damage)
         }
         qDebug() << "current health: " << *health;
     }
+}
+
+void Player::setBlocks(QVector<Block *> *newBlocks)
+{
+    blocks = newBlocks;
 }
 
 int *Player::getHealth() const

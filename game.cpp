@@ -2,6 +2,7 @@
 #include <QTimer>
 #include <player.h>
 #include <weapon.h>
+#include <enemy.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
     blocks(new QVector<Block*>),
@@ -31,10 +32,10 @@ Game::~Game()
 
 void Game::timeWorld()
 {
-    if(player->getWeapon()->getAttacking()){
-        player->getWeapon()->animation();
-    }
+    if(player->getWeapon()->getAttacking()) player->getWeapon()->animation();
     if(player->getInmu()) player->framesInmu();
     player->move();
-
+    for (int i = 0; i<enemies->size(); i++) {
+        enemies->at(i)->check();
+    }
 }

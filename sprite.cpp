@@ -1,12 +1,4 @@
 #include "sprite.h"
-#include <macros.h>
-#include <QDebug>
-Sprite::Sprite(QObject *parent)
-    : QObject{parent}
-{
-
-}
-
 void Sprite::loadFrames(QPixmap sprite, unsigned short fil, unsigned short col)
 {
     QPixmap image;
@@ -27,7 +19,6 @@ void Sprite::loadSprite(QString name, unsigned int w, unsigned int h, unsigned s
     QPixmap sprite(name);
     setSize(w,h);
     loadFrames(sprite, fil ,col);
-    setPixmap(frames[0][1]);
 }
 
 void Sprite::setSize(unsigned int w, unsigned int h)

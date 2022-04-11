@@ -6,7 +6,7 @@
 #include <QDebug>
 extern Game *game;
 Weapon::Weapon(Player *owner, QObject *parent)
-    :Sprite(parent)
+    :QObject(parent)
 {
     loadSprite(":/new/sprites/sprites/sword.png", 96*2, 96, 5, 5);
     atk = WEAPON_ATK;

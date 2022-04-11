@@ -6,6 +6,7 @@ CircularMotion::CircularMotion()
 
 CircularMotion::CircularMotion(float posx, float posy, float radio, unsigned short direction, float angularVel, float angularAcc)
 {
+    /*
     periodo = TTT;
     this->radio = radio;
     this->angularAcc = -angularAcc;
@@ -37,6 +38,7 @@ CircularMotion::CircularMotion(float posx, float posy, float radio, unsigned sho
         this->angularAcc = 0;
         this->radio = 0;
     }
+    */
 }
 
 /*
@@ -55,8 +57,7 @@ CircularMotion::CircularMotion(float posx, float posy, float radio, float angula
 
 void CircularMotion::move()
 {
-    calculateAngle();
-    setPos(radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2);
+    //setPos(radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2);
     /*
     calculateAceleration();
     v = v + a*periodo;
@@ -71,11 +72,18 @@ void CircularMotion::calculateAngle()
     angularPos = angularPos + angularVel*periodo;
 }
 
+QPointF CircularMotion::calculatePos()
+{
+    calculateAngle();
+    //pos = {radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2};
+    return r;
+}
+
 void CircularMotion::calculateAceleration()
 {
     calculateAccNormal();
     calculateAccTangential();
-    acc = accTangential + accNormal;
+    a = accTangential + accNormal;
 }
 
 void CircularMotion::calculateAccNormal()
