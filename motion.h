@@ -37,7 +37,7 @@ protected:
     float periodo;
     QPointF acc; //vector aceleracion
     QPointF vel; //vector velocidad
-    QPointF r; //vector posicion
+    QPointF pos; //vector posicion
     QVector<Block*> *blocks;
     QTimer *timer;
 };

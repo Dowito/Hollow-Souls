@@ -18,11 +18,11 @@ Weapon::Weapon(Player *owner, QObject *parent)
 void Weapon::attack()
 {
     if(!attacking){
-        attacking = true;
         direction = owner->getDirectionX();
         setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
         setPixmap(frames[0][4]);
         owner->scene()->addItem(this);
+        attacking = true;
     }
 }
 
@@ -46,7 +46,7 @@ unsigned short Weapon::getAtk() const
     return atk;
 }
 
-bool Weapon::getUsable() const
+bool Weapon::getAttacking() const
 {
     return attacking;
 }

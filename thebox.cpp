@@ -6,7 +6,7 @@
 #include <block.h>
 #include <healthbar.h>
 #include <weapon.h>
-#include <enemy.h>
+#include <enemigoRa.h>
 #include <circularmotion.h>
 #include <qdebug.h>
 extern Game *game;
@@ -32,7 +32,6 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
     game->player = prueba;
-    //pintando bloque de prueba
     //CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
     //scene->addItem(testCircular);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));

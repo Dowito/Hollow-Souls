@@ -11,15 +11,11 @@ class Weapon : public Sprite
 public:
     Weapon(Player *owner, QObject *parent = nullptr);
     void attack();
-
-    bool getUsable() const;
-
-    unsigned short getAtk() const;
-
-    short getDirection() const;
-
-public slots:
     void animation();
+
+    bool getAttacking() const;
+    unsigned short getAtk() const;
+    short getDirection() const;
 
 private:
     bool attacking;

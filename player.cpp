@@ -12,10 +12,11 @@ Player::Player()
     setFocus();
     maxHealth = new int;
     health = new int;
-    jump = false;
-    inmu = false;
     *maxHealth  = 200;
     *health = *maxHealth;
+    state = false;
+    jump = false;
+    inmu = false;
     speed = SPEED_PLAYER;
     vel = {0,0};
     calculateAcelerationTest();
@@ -62,18 +63,20 @@ void Player::keyPressEvent(QKeyEvent *event)
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
 {
     vel.setY(vel.y()+(acc.y()*periodo));
-    setY(y()+(vel.y()*periodo));
+    pos.setY(pos.y()+(vel.y()*periodo));
+    setY(pos.y());
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))){
             if (vel.y() <= 0) { //si colisiona hacia arriba
-                setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1 );
+                pos.setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1);
+                setY(pos.y());
                 vel.setY(0);
             }
             else { //si colisiona hacia abajo
                 if(jump) jump = false;
+                pos.setY(blocks->at(i)->y() - h -1);
                 setY(blocks->at(i)->y() - h -1);
                 vel.setY(0);
-                //a.setY(a.y() - a.y()); //Accion reaccion
             }
             break;
         }
@@ -82,12 +85,11 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
 
 void Player::framesInmu()
 {
-    static unsigned short stepsInmu;
+    static unsigned short stepsInmu = 0;
     stepsInmu++;
     if(stepsInmu >= STEPS_PLAYER_INMU) {
         inmu = false;
         stepsInmu = 0;
-        disconnect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
     }
 }
 
@@ -97,13 +99,12 @@ void Player::takeDamage(int damage)
         if (*health - damage < 0) {
             *health = 0;
             healthBar->update();
-            //animacion de muerte
+            state = false;//animacion de muerte
         }
         else {
-            inmu = true;
             *health -= damage;
             healthBar->update();
-            connect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
+            inmu = true;
         }
         qDebug() << "current health: " << *health;
     }

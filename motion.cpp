@@ -20,11 +20,12 @@ void Motion::move()
 {
     calculateAceleration();
     vel = vel+(acc*periodo); //v = v+(a*TTT);
+    pos = pos+(vel*periodo);
     //setPos(pos() + v.toPointF()); //v = v+(a*TTT);
-    setY(y() + vel.y());
-    collisionsY();
-    setX(x() + vel.x());
-    collisionsX();
+    //setY(y() + vel.y());
+    //collisionsY();
+    //setX(x() + vel.x());
+    //collisionsX();
 }
 
 void Motion::collisions()

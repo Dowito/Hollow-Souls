@@ -31,8 +31,10 @@ Game::~Game()
 
 void Game::timeWorld()
 {
-    if(player->getWeapon()->getUsable()){
+    if(player->getWeapon()->getAttacking()){
         player->getWeapon()->animation();
     }
+    if(player->getInmu()) player->framesInmu();
     player->move();
+
 }

@@ -23,6 +23,7 @@ public:
 public:
     virtual void move();
     void takeDamage(int damage);
+    void framesInmu();
 
     void setJump(bool newJump);
     bool getInmu() const;    
@@ -36,10 +37,11 @@ public:
     void setMaxHealth(int newMaxHealth);
 
 private slots:
-    void framesInmu();
+
 
 private:
     void keyPressEvent(QKeyEvent *event);
+    bool state;
     bool jump;
     bool inmu;
     int *health;
