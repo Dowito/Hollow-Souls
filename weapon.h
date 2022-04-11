@@ -2,6 +2,7 @@
 #define WEAPON_H
 
 #include <sprite.h>
+#include <QGraphicsPixmapItem>
 class Game;
 class Player;
 class Weapon : public Sprite
@@ -17,12 +18,11 @@ public:
 
     short getDirection() const;
 
-private slots:
+public slots:
     void animation();
 
 private:
-    //QString type;
-    bool usable;
+    bool attacking;
     unsigned int steps;
     int atk;
     short direction;

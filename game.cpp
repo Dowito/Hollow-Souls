@@ -1,6 +1,7 @@
 #include "game.h"
 #include <QTimer>
 #include <player.h>
+#include <weapon.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
     blocks(new QVector<Block*>),
@@ -30,5 +31,8 @@ Game::~Game()
 
 void Game::timeWorld()
 {
+    if(player->getWeapon()->getUsable()){
+        player->getWeapon()->animation();
+    }
     player->move();
 }

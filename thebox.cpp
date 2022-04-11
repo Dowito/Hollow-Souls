@@ -32,14 +32,10 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
     game->player = prueba;
-
     //pintando bloque de prueba
-    CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
-    scene->addItem(testCircular);
-    connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
-
-    //enemigo
-    scene->addItem(pruebaColli = new Enemy(":/new/sprites/sprites/hombre_lobo.png", 240, 240));
+    //CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
+    //scene->addItem(testCircular);
+    //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
     //game->timer->stop();
 }
 

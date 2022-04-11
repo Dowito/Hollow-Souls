@@ -21,14 +21,12 @@ Player::Player()
     calculateAcelerationTest();
     blocks = game->blocks;
     timer = game->timer;
-    //connect(timer, SIGNAL(timeout()), this, SLOT(move()));
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left) {
         directionX = -1;
-        //setFrame(1,1);
         setPixmap(frames[1][1]);
         setX(x() - speed);
         for (int i = 0; i < blocks->size(); i++) {

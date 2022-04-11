@@ -16,6 +16,7 @@ public:
     Motion(QPointF pos, QPointF vel, QPointF acc, QObject *parent = nullptr);
 
     void setAce(const QPointF &newA);
+    void setAce(float ax, float ay);
     void setVel(const QPointF &newV);
     void setVel(float vx, float vy);
     void setPeriodo(float newPeriodo);
