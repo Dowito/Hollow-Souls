@@ -35,7 +35,10 @@ void Game::timeWorld()
     if(player->getWeapon()->getAttacking()) player->getWeapon()->animation();
     if(player->getInmu()) player->framesInmu();
     player->move();
-    for (int i = 0; i<enemies->size(); i++) {
+    Enemy::update();
+    /*
+    for (int i = 0; i<enemies->size(); i++) { //poner check como miembro estatico y hacer que dicha funcion se encargue de actualizar el enemigo en patanlla
         enemies->at(i)->check();
     }
+    */
 }

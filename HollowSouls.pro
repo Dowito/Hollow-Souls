@@ -11,6 +11,7 @@ CONFIG += c++11
 SOURCES += \
     block.cpp \
     circularmotion.cpp \
+    demon.cpp \
     enemy.cpp \
     furry.cpp \
     game.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 HEADERS += \
     block.h \
     circularmotion.h \
+    demon.h \
     enemy.h \
     furry.h \
     game.h \

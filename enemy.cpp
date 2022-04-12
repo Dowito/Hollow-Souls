@@ -1,68 +1,51 @@
 #include "enemy.h"
 #include <player.h>
 #include <weapon.h>
-Enemy::Enemy()
-{
-
-}
-
+#include <block.h>
 Enemy::Enemy(QGraphicsObject *parent)
-    :QGraphicsObject(parent)
+    :QGraphicsPixmapItem(parent)
 {
-    setParent(parent);
-}
-
-Enemy::Enemy(qreal posx, qreal posy, int maxHealth, int atk, short direction, bool inmu, bool state, QGraphicsObject *parent)
-    :QGraphicsObject(parent)
-{
-    setPos(posx,posy);
-    this->state = state;
-    this->inmu = inmu;
-    this->direction = direction;
-    this->atk = atk;
-    *this->maxHealth = maxHealth;
-    *health = *this->maxHealth;
+    loadSprite(":/new/sprites/sprites/bomba.png");
+    setPos(0,0);
+    state = true;
+    inmu = false;
+    direction = 0;
+    atk = 10;
+    *maxHealth = 100;
+    *health = *maxHealth;
     stepsDie = 0;
+    enemies->push_back(this);
 }
 
-void Enemy::check()
+Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, short direction, bool inmu, bool state, QGraphicsObject *parent)
+    :QGraphicsPixmapItem(parent)
 {
-    collisionsPlayer();
-    collisionsWeapon();
-    die();
+    maxHealth = new int;
+    health = new int;
+    setPos(posx,posy);
+    *maxHealth = tMaxHealth;
+    *health = *maxHealth;
+    this->atk = atk;
+    this->direction = direction;
+    if((this->direction<0) | (this->direction>3)) this->direction = 0;
+    this->inmu = inmu;
+    this->state = state;
+    stepsDie = 0;
+    enemies->push_back(this);
 }
 
-Player *Enemy::getPlayer()
+void Enemy::update()
 {
-    return player;
-}
-
-void Enemy::setPlayer(Player *newPlayer)
-{
-    player = newPlayer;
-}
-
-void Enemy::attack()
-{
-    /*
-    if (player->x() + (player->getW()/2) > this->x()) {
-        player->setPos(player->x()+3, player->y()-3);
+    for (auto caca : *enemies) {
+        caca->check();
     }
-    else {
-        player->setPos(player->x()-3, player->y()-3);
-    }
-    */
-    player->takeDamage(atk);
 }
 
 void Enemy::collisionsPlayer()
 {
-    qDebug() << player->pos();
     if(state){
-        if(state){
-            if (collidesWithItem(player)) {
-                if (!player->getInmu()) attack();
-            }
+        if (collidesWithItem(player)) {
+            if (!player->getInmu()) dealDamage();
         }
     }
 }
@@ -70,21 +53,33 @@ void Enemy::collisionsPlayer()
 void Enemy::collisionsWeapon()
 {
     if (!inmu) {
-        if (!player->getWeapon()->getAttacking()) {
+        if (player->getWeapon()->getAttacking()) {
             if (collidesWithItem(player->getWeapon())) {
                 inmu = true;
+                qDebug() << *health;
+                qDebug() << inmu;
                 takeDamage(player->getWeapon()->getAtk());
             }
         }
     }
     else {
-        if(player->getWeapon()->getAttacking()) inmu = false;
+        if(!player->getWeapon()->getAttacking()) inmu = false; //con esto me aseguro que solo reciba un golpe por cada ataque que se haga con la espada
     }
 }
 
 void Enemy::collisionsBlock()
 {
+    return;
+}
 
+void Enemy::dealDamage()
+{
+    player->takeDamage(atk);
+}
+
+Player *Enemy::getPlayer()
+{
+    return player;
 }
 
 void Enemy::takeDamage(int damage)
@@ -92,18 +87,29 @@ void Enemy::takeDamage(int damage)
     if (*health - damage < 0){
         *health = 0;
         state = false;
-        //mirar die y check
+        //mirar die y check, Talvez Hacer la animacion de muerte en paralelo
     }
-    else health -= damage;
+    else *health -= damage;
 }
 
 void Enemy::die()
 {
     if (!state) {
+        enemies->removeOne(this);
         scene()->removeItem(this);
         delete this;
     }
 
+}
+
+void Enemy::setPlayer(Player *newPlayer)
+{
+    player = newPlayer;
+}
+
+void Enemy::setEnemies(QList<Enemy *> *newEnemies)
+{
+    enemies = newEnemies;
 }
 
 void Enemy::setBlocks(QVector<Block *> *newBlocks)

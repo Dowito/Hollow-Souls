@@ -1,11 +1,28 @@
 #include "furry.h"
 
-Furry::Furry(qreal posx, qreal posy, int maxHealth, int atk, QGraphicsObject *parent)
-    :Enemy(posx, posy, maxHealth, atk)
+Furry::Furry(qreal posx, qreal posy, int maxHealth, int atk, short direction)
+    :Enemy(posx, posy, maxHealth, atk, direction)
 {
-    setParent(parent);
     loadSprite(":/new/sprites/sprites/furro.png");
-    setPixmap(frames[0][1]);
+    setPixmap(frames[this->direction][1]);
+}
+
+void Furry::check()
+{
+    move();
+    //collisionsPlayer();
+    //collisionsWeapon();
+    //die();
+}
+
+void Furry::move()
+{
+    setPos(x()+1,y());
+}
+
+void Furry::attack()
+{
+    return;
 }
 
 

@@ -5,14 +5,20 @@
 #include <motion.h>
 #include <sprite.h>
 #include <QGraphicsPixmapItem>
-class Furry : public Enemy, public Sprite, public Motion, public QGraphicsPixmapItem
+class Furry : public Enemy, public Motion
 {
     Q_OBJECT
 public:
     Furry(QGraphicsObject *parent);
-    Furry(qreal posx, qreal posy, int maxHealth, int atk, QGraphicsObject *parent = nullptr);
+    Furry(qreal posx, qreal posy, int maxHealth, int atk, short direction = 0);
+    virtual void check() override;
 
 private:
+    //Mootion
+    virtual void move() override;
+    //Enemy
+    virtual void attack() override;
+
     void changeDirectionX();
     int directionX;
 };

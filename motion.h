@@ -2,21 +2,23 @@
 #define MOTION_H
 #include <QtMath>
 #include <QPointF>
-extern float *gravityTest;
+#include <macros.h>
+extern qreal *gravityTest;
 class Motion
 {
 public:
     Motion();
     Motion(QPointF pos, QPointF vel, QPointF acc);
+    Motion(qreal posx, qreal posy, qreal velx = 0, qreal vely = 0, qreal accx = 0, qreal accy = *gravityTest);
 
     void setAce(const QPointF &newA);
-    void setAce(float ax, float ay);
+    void setAce(qreal ax, qreal ay);
     void setVel(const QPointF &newV);
-    void setVel(float vx, float vy);
-    void setPeriodo(float newPeriodo);
+    void setVel(qreal vx, qreal vy);
+    void setPeriodo(qreal newPeriodo);
     short getDirectionX() const;
 
-    virtual void move();
+    virtual void move() = 0;
 
 protected:
     virtual void collisions();

@@ -13,10 +13,17 @@ Motion::Motion(QPointF pos, QPointF vel, QPointF acc)
     this->a = acc;
 }
 
+Motion::Motion(qreal posx, qreal posy, qreal velx, qreal vely, qreal accx, qreal accy)
+{
+    r = {posx,posy};
+    v = {velx,vely};
+    a = {accx,accy};
+}
+
 void Motion::move()
 {
-    v = v+(a*periodo); //v = v+(a*TTT);
-    r = r+(v*periodo);
+    //v = v+(a*periodo); //v = v+(a*TTT);
+    //r = r+(v*periodo);
     //setPos(pos() + v.toPointF()); //v = v+(a*TTT);
     //setY(y() + vel.y());
     //collisionsY();
@@ -89,7 +96,7 @@ short Motion::getDirectionX() const
     return directionX;
 }
 
-void Motion::setPeriodo(float newPeriodo)
+void Motion::setPeriodo(qreal newPeriodo)
 {
     periodo = newPeriodo;
 }
@@ -104,7 +111,7 @@ void Motion::setVel(const QPointF &newV)
     v = newV;
 }
 
-void Motion::setVel(float vx, float vy)
+void Motion::setVel(qreal vx, qreal vy)
 {
     v = {vx, vy};
 }

@@ -8,12 +8,14 @@
 #include <weapon.h>
 #include <enemy.h>
 #include <furry.h>
+#include <demon.h>
 #include <circularmotion.h>
 #include <qdebug.h>
 extern Game *game;
-float *gravityTest = new float;
+qreal *gravityTest = new qreal;
 Player* Enemy::player;
 QVector<Block*>* Enemy::blocks;
+QList<Enemy*>* Enemy::enemies;
 
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
@@ -23,7 +25,8 @@ TheBox::TheBox(QWidget *parent) :
 {
     *gravityTest = GRAVEDAD;
     Enemy::setBlocks(game->blocks);
-    Enemy::setPlayer(game->player);
+
+    Enemy::setEnemies(game->enemies);
     ui->setupUi(this);
     setGeometry(0,0,1280,720);
     ui->graphicsView->setGeometry(0,0,width(),height());
@@ -38,9 +41,17 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
     game->player = prueba;
+    Enemy::setPlayer(game->player);
+    qDebug() << prueba->pos();
+    qDebug() << game->player->pos();
+    qDebug() << Enemy::getPlayer()->pos();
+
     //Enemigo
-    Furry *testEnemy = new Furry(144,144,200,20);
-    scene->addItem(testEnemy);
+    //game->enemies->push_back();
+    scene->addItem(new Demon(288,288,-24));
+    scene->addItem(new Demon(144,288,-24));
+    scene->addItem(new Demon(480,288,100));
+
     //CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
     //scene->addItem(testCircular);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
