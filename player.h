@@ -23,7 +23,7 @@ public:
 
 
 public:
-    virtual void move() override;
+    void move(); //corregir el movimiento del Pj.
     void takeDamage(int damage);
     void framesInmu();
 
@@ -39,8 +39,8 @@ public:
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
-    void collisionsY() override;
-    void collisionsX() override;
+    void collisionsY();
+    void collisionsX();
     bool state;
     bool jump;
     bool inmu;

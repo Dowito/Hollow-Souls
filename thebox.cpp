@@ -9,6 +9,7 @@
 #include <enemy.h>
 #include <furry.h>
 #include <demon.h>
+#include <motion.h>
 #include <circularmotion.h>
 #include <qdebug.h>
 extern Game *game;
@@ -25,7 +26,6 @@ TheBox::TheBox(QWidget *parent) :
 {
     *gravityTest = GRAVEDAD;
     Enemy::setBlocks(game->blocks);
-
     Enemy::setEnemies(game->enemies);
     ui->setupUi(this);
     setGeometry(0,0,1280,720);

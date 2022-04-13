@@ -55,9 +55,13 @@ CircularMotion::CircularMotion(float posx, float posy, float radio, float angula
 }
 */
 
-void CircularMotion::move()
+void CircularMotion::calculatePos()
 {
+    calculateAngle();
+    r = {radio*qCos(angularPos), radio*qSin(angularPos)}; //Calcula la posicion, c+luego cuando se actualise la Pos en la escena, se haran calculos para que el sprite quede centrado
+    //pos = {radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2};
     //setPos(radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2);
+    //---------MALO----------------------
     /*
     calculateAceleration();
     v = v + a*periodo;
@@ -70,13 +74,6 @@ void CircularMotion::calculateAngle()
 {
     angularVel = angularVel + angularAcc*periodo;
     angularPos = angularPos + angularVel*periodo;
-}
-
-QPointF CircularMotion::calculatePos()
-{
-    calculateAngle();
-    //pos = {radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2};
-    return r;
 }
 
 void CircularMotion::calculateAceleration()

@@ -10,8 +10,8 @@ Demon::Demon(qreal posx, qreal posy, short direction)
 void Demon::check()
 {
     if(state){
-        collisionsPlayer();
-        collisionsWeapon();
+        collidesWithPlayer();
+        collidesWithWeapon();
     }
     else die();
     return;

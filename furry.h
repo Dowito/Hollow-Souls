@@ -11,6 +11,7 @@ class Furry : public Enemy, public Motion
 public:
     Furry(QGraphicsObject *parent);
     Furry(qreal posx, qreal posy, int maxHealth, int atk, short direction = 0);
+    //Enemy
     virtual void check() override;
 
 private:

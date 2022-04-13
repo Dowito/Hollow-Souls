@@ -15,22 +15,19 @@ public:
     void setAce(qreal ax, qreal ay);
     void setVel(const QPointF &newV);
     void setVel(qreal vx, qreal vy);
-    void setPeriodo(qreal newPeriodo);
-    short getDirectionX() const;
-
-    virtual void move() = 0;
+    short getDirectionX() const; //sobra
 
 protected:
-    virtual void collisions();
-    virtual void collisionsX();
-    virtual void collisionsY();
-    void calculateAcelerationTest();
-    int speed;
-    short directionX;
-    float periodo;
+    /*!
+     * \brief calculatePos actualiza los vectores a, v y a para el siguiente instante de "tiempo".
+     */
+    virtual void calculatePos(); //funcion que actualiza los vectores a, v y r, luegos e actualiza la Pos de la scene con rpero en otra clase.
+    int speed; //magnitud del vector velocidad, esto tambien sobra. Tambien tocaria darle una direcction.
+    short directionX; //signo de la velocidad en X, esto sobra.
     QPointF a; //vector aceleracion
     QPointF v; //vector velocidad
     QPointF r; //vector posicion
+    qreal periodo;
 };
 
 #endif // MOTION_H
