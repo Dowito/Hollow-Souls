@@ -12,6 +12,7 @@
 #include <arrow.h>
 #include <circularmotion.h>
 #include <qdebug.h>
+//nueva rama
 extern Game *game;
 //variables estaticas
 qreal *gravityTest = new qreal;
