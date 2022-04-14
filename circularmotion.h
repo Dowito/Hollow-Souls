@@ -28,6 +28,7 @@ public:
                    float angularVel,
                    float angularAcc = 0);
     */
+    virtual ~CircularMotion() {};
 
 protected:
     virtual void calculatePos() override;

@@ -6,6 +6,7 @@ class Sprite
 {
 public:
     explicit Sprite() {};
+    virtual ~Sprite() {};
 
 protected:
     virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);

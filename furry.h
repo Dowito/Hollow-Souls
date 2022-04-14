@@ -12,9 +12,9 @@ public:
     Furry(QGraphicsObject *parent);
     Furry(qreal posx, qreal posy,
           qreal velx = 10, qreal vely = 0,
-          int maxHealth = 200,
-          int atk = 30);//valores predeterminado para furry
-
+          int maxHealth = 100,
+          int atk = 20);//valores predeterminado para furry
+    virtual ~Furry() {};
     //Enemy
     virtual void check() override;
 

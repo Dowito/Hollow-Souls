@@ -37,6 +37,8 @@ public:
           bool state = true,
           QGraphicsObject *parent = nullptr);
     */
+    virtual ~Enemy() {};
+
     static void update();
     virtual void check() = 0;
 

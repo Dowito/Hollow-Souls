@@ -8,6 +8,8 @@ class Demon : public Enemy
 public:
     Demon() {};
     Demon(qreal posx, qreal posy, short direction = 0);
+    virtual ~Demon() {};
+
     virtual void check() override;
 
 private:

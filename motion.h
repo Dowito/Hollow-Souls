@@ -12,6 +12,8 @@ public:
     Motion(qreal posx, qreal posy,
            qreal velx = 0, qreal vely = 0,
            qreal accx = 0, qreal accy = *gravityTest);
+    virtual ~Motion() {};
+
     void setAce(const QPointF &newA);
     void setAce(qreal ax, qreal ay);
     void setVel(const QPointF &newV);
