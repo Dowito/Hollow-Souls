@@ -9,13 +9,15 @@ class Motion
 public:
     Motion();
     Motion(QPointF pos, QPointF vel, QPointF acc);
-    Motion(qreal posx, qreal posy, qreal velx = 0, qreal vely = 0, qreal accx = 0, qreal accy = *gravityTest);
-
+    Motion(qreal posx, qreal posy,
+           qreal velx = 0, qreal vely = 0,
+           qreal accx = 0, qreal accy = *gravityTest);
     void setAce(const QPointF &newA);
     void setAce(qreal ax, qreal ay);
     void setVel(const QPointF &newV);
     void setVel(qreal vx, qreal vy);
     short getDirectionX() const; //sobra
+    static void setPeriodo(qreal newPeriodo);
 
 protected:
     /*!
@@ -27,7 +29,8 @@ protected:
     QPointF a; //vector aceleracion
     QPointF v; //vector velocidad
     QPointF r; //vector posicion
-    qreal periodo;
+    static qreal periodo;
+    void calculateAcelerationTest();
 };
 
 #endif // MOTION_H

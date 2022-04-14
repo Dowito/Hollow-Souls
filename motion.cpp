@@ -3,7 +3,6 @@
 Motion::Motion()
 {
     a.setY(GRAVEDAD);
-    periodo = TTT;
 }
 
 Motion::Motion(QPointF pos, QPointF vel, QPointF acc)
@@ -25,6 +24,16 @@ void Motion::calculatePos()
     a.setY(*gravityTest);
     v = v+(a*periodo);
     r = r+(v*periodo);
+}
+
+void Motion::setPeriodo(qreal newPeriodo)
+{
+    periodo = newPeriodo;
+}
+
+void Motion::calculateAcelerationTest()
+{
+    a.setY(*gravityTest);
 }
 
 short Motion::getDirectionX() const

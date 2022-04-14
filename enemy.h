@@ -22,23 +22,33 @@ public:
      * \param atk
      * \param parent
      */
-    Enemy(qreal posx, qreal posy, int maxHealth, int atk, short direction = 0, bool inmu = false, bool state = true, QGraphicsObject *parent = nullptr);
+    Enemy(qreal posx, qreal posy,
+          int tMaxHealth,
+          int atk,
+          short direction = 0,
+          bool inmu = false,
+          bool state = true,
+          QGraphicsObject *parent = nullptr);
+
+    /*
+    Enemy(qreal posx, qreal posy,   //constructor para enemigos que no importa su direccion
+          int tMaxHealth, int atk,
+          bool inmu = false,
+          bool state = true,
+          QGraphicsObject *parent = nullptr);
+    */
     static void update();
     virtual void check() = 0;
 
     static void setPlayer(Player *newPlayer);   
     static void setBlocks(QVector<Block *> *newBlocks);
     static void setEnemies(QList<Enemy *> *newEnemies);
-
     static Player *getPlayer();
 
 protected:
     virtual void attack() = 0; //cada enemigo podra tener su propia forma de atacar
     virtual void collidesWithPlayer(); //colisionara mientras este vivo
     virtual void collidesWithWeapon(); //colisionara mientras no sea inmune, y la duracion dele stado dependera del tiempo de ataque del armar, asi solo podra recibir un hit por cada ataque del arma
-    virtual void CollidesWithBlock(); //las pasare a furry, ya que ahi no me tocara improvisar.
-    virtual void collidesWithBlockX();
-    virtual void collidesWithBlockY();
     virtual void die(); //animacion demuerte y posterior delete de contenedor, scene y memoria. Si se bugea no se eliminara, si no que se cambiara de estado para que no pueda seguir interactuando y cambiara  aun sprite invisible
     virtual void takeDamage(int damage); //Cuando recibe daño, le baja la salud y si llega  acero cambia su estado
     void dealDamage(); //Daño al jugador cuando hace contacto con el enemigo
