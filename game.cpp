@@ -3,6 +3,7 @@
 #include <player.h>
 #include <weapon.h>
 #include <enemy.h>
+#include <arrow.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
     blocks(new QVector<Block*>),
@@ -36,9 +37,5 @@ void Game::timeWorld()
     if(player->getInmu()) player->framesInmu();
     player->move();
     Enemy::update();
-    /*
-    for (int i = 0; i<enemies->size(); i++) { //poner check como miembro estatico y hacer que dicha funcion se encargue de actualizar el enemigo en patanlla
-        enemies->at(i)->check();
-    }
-    */
+    Arrow::update();
 }

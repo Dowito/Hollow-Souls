@@ -10,6 +10,7 @@
 class Weapon;
 class HealthBar;
 class Block;
+class Bow;
 class Player : public QObject, public QGraphicsPixmapItem, public Sprite, public Motion
 {
     Q_OBJECT
@@ -35,7 +36,8 @@ public:
     void setHealth(int newHealth);
     int *getMaxHealth() const;
     void setMaxHealth(int newMaxHealth);
-    void setBlocks(QVector<Block*> *newBlocks);
+    void setBlocks(QVector<Block*> *newBlocks);  
+    void setBow(Bow *newBow);
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
@@ -47,6 +49,7 @@ private:
     int *health;
     int *maxHealth;
     HealthBar *healthBar;
+    Bow *bow;
     Weapon *weapon;
     QVector<Block*> *blocks;
 };

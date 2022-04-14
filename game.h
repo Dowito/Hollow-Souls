@@ -7,6 +7,7 @@ class QTimer;
 class Block;
 class Player;
 class Enemy;
+class Arrow;
 class Game : public QGraphicsView
 {
     Q_OBJECT
@@ -17,6 +18,7 @@ public:
     QTimer *timer;
     QVector<Block*> *blocks;
     QList<Enemy*> *enemies;
+    QList<Arrow*> *arrows;
 
 public slots:
     /*!

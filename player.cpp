@@ -3,6 +3,7 @@
 #include <block.h>
 #include <weapon.h>
 #include <healthbar.h>
+#include <bow.h>
 #include <QDebug>
 extern Game *game;
 Player::Player(QObject *parent)
@@ -119,6 +120,11 @@ void Player::takeDamage(int damage)
         }
         qDebug() << "current health: " << *health;
     }
+}
+
+void Player::setBow(Bow *newBow)
+{
+    bow = newBow;
 }
 
 void Player::setBlocks(QVector<Block *> *newBlocks)

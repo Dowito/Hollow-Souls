@@ -9,15 +9,23 @@
 #include <enemy.h>
 #include <furry.h>
 #include <demon.h>
+#include <arrow.h>
 #include <circularmotion.h>
 #include <qdebug.h>
 extern Game *game;
+//variables estaticas
 qreal *gravityTest = new qreal;
+//motion
 qreal Motion::periodo;
+//enemigo
 Player* Enemy::player;
 QVector<Block*>* Enemy::blocks;
 QList<Enemy*>* Enemy::enemies;
-//new Branch
+//arrow
+Player *Arrow::player;
+QVector<Block*> *Arrow::blocks;
+QList<Enemy*> *Arrow::enemies;
+QList<Arrow*> *Arrow::arrows;
 
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
@@ -27,9 +35,15 @@ TheBox::TheBox(QWidget *parent) :
 {
     //Variables estaticas de clases
     *gravityTest = GRAVEDAD;
+    //Motion
     Motion::setPeriodo(TTT);
+    //Enemy
     Enemy::setBlocks(game->blocks);
     Enemy::setEnemies(game->enemies);
+    //Arrow
+    //Arrow::setEnemies(game->enemies);
+    //Arrow::setBlocks(game->blocks);
+    //Arrow::setArrows(game->arrows);
     //----------------------------------
     ui->setupUi(this);
     setGeometry(0,0,1280,720);
@@ -46,15 +60,13 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setHealthBar(new HealthBar(prueba));
     game->player = prueba;
     Enemy::setPlayer(game->player);
+    Arrow::setPlayer(game->player);
     //Enemigo
-    //game->enemies->push_back();
     scene->addItem(new Demon(288,288,-24));
     scene->addItem(new Demon(144,288,-24));
     scene->addItem(new Demon(480,288,100));
     scene->addItem(new Furry(190,288));
-    qDebug() << game->enemies->at(3)->pos();
-    //scene->addItem(new Furry(144,280));
-
+    scene->addItem(new Furry(144,280));
     //CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
     //scene->addItem(testCircular);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
