@@ -10,7 +10,7 @@
 #include <furry.h>
 #include <demon.h>
 #include <bow.h>
-//#include <arrow.h>
+#include <arrow.h>
 #include <circularmotion.h>
 #include <qdebug.h>
 //nueva rama
@@ -24,10 +24,10 @@ Player* Enemy::player;
 QVector<Block*>* Enemy::blocks;
 QList<Enemy*>* Enemy::enemies;
 //arrow
-//Player *Arrow::player;
-//QVector<Block*> *Arrow::blocks;
-//QList<Enemy*> *Arrow::enemies;
-//QList<Arrow*> *Arrow::arrows;
+Player *Arrow::player;
+QVector<Block*> *Arrow::blocks;
+QList<Enemy*> *Arrow::enemies;
+QList<Arrow*> *Arrow::arrows;
 
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
@@ -43,9 +43,9 @@ TheBox::TheBox(QWidget *parent) :
     Enemy::setBlocks(game->blocks);
     Enemy::setEnemies(game->enemies);
     //Arrow
-    //Arrow::setEnemies(game->enemies);
-    //Arrow::setBlocks(game->blocks);
-    //Arrow::setArrows(game->arrows);
+    Arrow::setEnemies(game->enemies);
+    Arrow::setBlocks(game->blocks);
+    Arrow::setArrows(game->arrows);
     //----------------------------------
     ui->setupUi(this);
     setGeometry(0,0,1280,720);
@@ -61,10 +61,11 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
     prueba->setBow(new Bow);
+    prueba->setCarcaj(1);
     scene->addItem(prueba->getBow());
     game->player = prueba;
     Enemy::setPlayer(game->player);
-    //Arrow::setPlayer(game->player);
+    Arrow::setPlayer(game->player);
     //Enemigo
     scene->addItem(new Demon(288,288,-24));
     scene->addItem(new Demon(144,288,-24));

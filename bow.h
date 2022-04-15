@@ -13,10 +13,12 @@ public:
     Bow(int atk, qreal pot, qreal angle);
     ~Bow() {};
     void shoot(QPointF posOwner, short direction); //dispara flecha
+    void animation();
 
 private:
     void calculateVelDir();
     int atk;
+    unsigned int stepsAnimation;
     qreal angle;
     qreal pot;
     QPointF velDir;

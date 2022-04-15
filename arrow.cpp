@@ -6,9 +6,10 @@
 Arrow::Arrow(qreal posx, qreal posy, qreal velx, qreal vely, qreal atk)
     :Motion(posx, posy, velx, vely)
 {
-    setRect(40,40,40,40);
+    setRect(0,0,48,5);
     setPos(posx, posy);
     this->atk = atk;
+    state = true;
     arrows->push_back(this);
 }
 
@@ -22,6 +23,14 @@ void Arrow::update()
 void Arrow::check()
 {
     move();
+    collidesWithBlock();
+    if(from) { //si es disparada por el jugador, interactua con los enemigos
+        collidesWithEnemy();
+    }
+    else { //si es disparada por el enemigo, interactua con el jugado
+        collidesWithPlayer();
+    }
+    if(!state) die();
 }
 
 void Arrow::move()
@@ -33,31 +42,41 @@ void Arrow::move()
 void Arrow::collidesWithPlayer()
 {
     if (collidesWithItem(player)) {
-        if (!player->getInmu()) player->takeDamage(atk);
+        if (!player->getInmu()) {
+            player->takeDamage(atk);
+            state = false;
+        }
     }
 }
 
 void Arrow::collidesWithEnemy()
 {
-    for (int i = 0; i<enemies->size(); i++) {
-        if (collidesWithItem(enemies->at(i))) {
-            if (!player->getInmu()) enemies->at(i)->takeDamage(atk);
+    if(state){
+        for (int i = 0; i<enemies->size(); i++) {
+            if (collidesWithItem(enemies->at(i))) {
+                enemies->at(i)->takeDamage(atk);
+                state = false;
+                break;
+            }
         }
     }
 }
 
 void Arrow::collidesWithBlock()
 {
-    for (int i = 0; i < blocks->size(); i++) {
-        if(collidesWithItem(blocks->at(i))){
-            die();
-            break;
+    if(state) {
+        for (int i = 0; i < blocks->size(); i++) {
+            if(collidesWithItem(blocks->at(i))){
+                state = false;
+                break;
+            }
         }
     }
 }
 
 void Arrow::die()
 {
+    if(from) player->setCarcaj(player->getCarcaj()+1);
     arrows->removeOne(this);
     scene()->removeItem(this);
     delete this;
@@ -82,3 +101,4 @@ void Arrow::setArrows(QList<Arrow *> *newArrows)
 {
     arrows = newArrows;
 }
+

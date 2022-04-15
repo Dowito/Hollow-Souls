@@ -21,6 +21,7 @@ Player::Player(QObject *parent)
     state = false;
     jump = false;
     inmu = false;
+    bow = nullptr;
     speed = SPEED_PLAYER;
     v = {0,0};
     calculateAcelerationTest();
@@ -62,7 +63,10 @@ void Player::keyPressEvent(QKeyEvent *event)
         weapon->attack();
     }
     else if (event->key() == Qt::Key_V) {
-        bow->shoot(pos(), direction);
+        if(0<carcaj) {
+            carcaj -= 1;
+            bow->shoot(pos(), direction);
+        }
     }
 }
 
@@ -77,11 +81,6 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
 void Player::collisionsX()
 {
 
-}
-
-Bow *Player::getBow() const
-{
-    return bow;
 }
 
 void Player::collisionsY()
@@ -112,6 +111,11 @@ void Player::framesInmu()
         inmu = false;
         stepsInmu = 0;
     }
+}
+
+void Player::check()
+{
+    if(bow != nullptr) bow->animation();
 }
 
 void Player::takeDamage(int damage)
@@ -199,4 +203,19 @@ bool Player::getAir() const
 void Player::setAir(bool newAir)
 {
     jump = newAir;
+}
+
+int Player::getCarcaj() const
+{
+    return carcaj;
+}
+
+void Player::setCarcaj(unsigned short newCarcaj)
+{
+    carcaj = newCarcaj;
+}
+
+Bow *Player::getBow() const
+{
+    return bow;
 }

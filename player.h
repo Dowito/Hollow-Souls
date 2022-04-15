@@ -27,6 +27,7 @@ public:
     void move(); //corregir el movimiento del Pj.
     void takeDamage(int damage);
     void framesInmu();
+    void check();
 
     void setJump(bool newJump);
     bool getInmu() const;    
@@ -38,8 +39,9 @@ public:
     void setMaxHealth(int newMaxHealth);
     void setBlocks(QVector<Block*> *newBlocks);  
     void setBow(Bow *newBow);
-
     Bow *getBow() const;
+    void setCarcaj(unsigned short newCarcaj);
+    int getCarcaj() const;
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
@@ -49,6 +51,7 @@ private:
     bool jump;
     bool inmu;
     short direction;
+    unsigned short carcaj; //cantidad de flechas del personaje
     int *health;
     int *maxHealth;
     HealthBar *healthBar;

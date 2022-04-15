@@ -3,17 +3,18 @@
 
 #include <motion.h>
 #include <QGraphicsEllipseItem>
+#include <QGraphicsRectItem>
 class Player;
 class Block;
 class Enemy;
-class Arrow : public QGraphicsEllipseItem, public Motion
+class Arrow : public QGraphicsRectItem, public Motion
 {
 public:
     Arrow(qreal posx, qreal posy, qreal velx, qreal vely, qreal atk);
     virtual ~Arrow() {};
 
     static void update();
-    void check();
+    void check();    
 
     static void setPlayer(Player *newPlayer);
     static void setBlocks(QVector<Block *> *newBlocks);
@@ -27,6 +28,7 @@ private:
     void collidesWithBlock();
     void die();
     int atk;
+    bool state; //Necesario para que se elimina al final de hacer el checkeo para no generar problemas con la memoria.
     bool from; //true=disparada por el player, false=disparada por el enemigo
     static Player *player;
     static QList<Enemy*> *enemies;

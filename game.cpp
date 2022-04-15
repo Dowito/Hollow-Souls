@@ -3,11 +3,13 @@
 #include <player.h>
 #include <weapon.h>
 #include <enemy.h>
+#include <arrow.h>
 //#include <arrow.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
     blocks(new QVector<Block*>),
-    enemies(new QList<Enemy*>)
+    enemies(new QList<Enemy*>),
+    arrows(new QList<Arrow*>)
 {
     setParent(parent);
     setGeometry(0,0,1280,720);
@@ -36,6 +38,7 @@ void Game::timeWorld()
     if(player->getWeapon()->getAttacking()) player->getWeapon()->animation();
     if(player->getInmu()) player->framesInmu();
     player->move();
+    player->check();
     Enemy::update();
-    //Arrow::update();
+    Arrow::update();
 }

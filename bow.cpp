@@ -2,17 +2,16 @@
 #include <player.h>
 #include <QGraphicsScene>
 #include <QtMath>
-//#include <arrow.h>
-#include <QGraphicsEllipseItem>
+#include <arrow.h>
+#include <QGraphicsRectItem>
 #include <QDebug>
 Bow::Bow()
 {
     loadSprite(":/new/sprites/sprites/Bow - left.png", 96, 48, 1, 3);
     loadSprite(":/new/sprites/sprites/Bow - right.png", 96, 48, 1, 3);
-    setPixmap(frames[1][1]);
     setVisible(false);
-    pot = -30.0;
-    angle = 30.0;
+    pot = 150.0;
+    angle = -10.0;
     atk = 20;
 }
 
@@ -35,16 +34,23 @@ void Bow::shoot(QPointF posOwner, short direction)
         setPos(posOwner.x()-((w/2)+3*GAME_SCALE), posOwner.y());
         velDir.setX(velDir.x()*(-1));
     }
-    QGraphicsEllipseItem *prueba = new QGraphicsEllipseItem(0,0,40,40);
-    prueba->setPos(pos());
-    scene()->addItem(prueba);
-    //scene()->addItem(new Arrow(posOwner.x(), posOwner.y(), pot*velDir.x(), pot*velDir.y(), atk));
+    scene()->addItem(new Arrow(x() + (48/2), y() + (48/2) , pot*velDir.x(), pot*velDir.y(), atk));
+}
+
+void Bow::animation()
+{
+    if(isVisible()){
+        if(stepsAnimation == 40){
+            stepsAnimation = 0;
+            setVisible(false);
+        }else stepsAnimation++;
+    }
 }
 
 void Bow::calculateVelDir()
 {
     velDir.setX(qCos(qDegreesToRadians(angle)));
-    velDir.setY(qSin(-qDegreesToRadians(angle)));
+    velDir.setY(qSin(qDegreesToRadians(angle)));
 }
 
 /*
