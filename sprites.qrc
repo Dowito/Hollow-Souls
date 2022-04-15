@@ -6,5 +6,7 @@
         <file>sprites/personaje.png</file>
         <file>sprites/sword.png</file>
         <file>sprites/bomba.png</file>
+        <file>sprites/Bow - left.png</file>
+        <file>sprites/Bow - right.png</file>
     </qresource>
 </RCC>

@@ -17,6 +17,7 @@ Player::Player(QObject *parent)
     health = new int;
     *maxHealth  = 200;
     *health = *maxHealth;
+    direction = 1;
     state = false;
     jump = false;
     inmu = false;
@@ -29,7 +30,7 @@ Player::Player(QObject *parent)
 void Player::keyPressEvent(QKeyEvent *event)
 {
     if (event->key() == Qt::Key_Left) {
-        directionX = -1;
+        direction = 1;
         setPixmap(frames[1][1]);
         setX(x() - speed);
         for (int i = 0; i < blocks->size(); i++) {
@@ -40,7 +41,7 @@ void Player::keyPressEvent(QKeyEvent *event)
         }
     }
     else if (event->key() == Qt::Key_Right) {
-        directionX = 1;
+        direction = 2;
         //setFrame(1,2);
         setPixmap(frames[2][1]);
         setX(x() + speed);
@@ -60,11 +61,9 @@ void Player::keyPressEvent(QKeyEvent *event)
     else if (event->key() == Qt::Key_X){
         weapon->attack();
     }
-}
-
-void Player::collisionsX()
-{
-
+    else if (event->key() == Qt::Key_V) {
+        bow->shoot(pos(), direction);
+    }
 }
 
 void Player::move() //solo tendra simulacion fisica su movimiento en Y
@@ -73,6 +72,16 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
     r.setY(r.y()+(v.y()*periodo));
     setY(r.y());
     collisionsY();
+}
+
+void Player::collisionsX()
+{
+
+}
+
+Bow *Player::getBow() const
+{
+    return bow;
 }
 
 void Player::collisionsY()

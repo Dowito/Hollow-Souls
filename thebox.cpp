@@ -9,7 +9,8 @@
 #include <enemy.h>
 #include <furry.h>
 #include <demon.h>
-#include <arrow.h>
+#include <bow.h>
+//#include <arrow.h>
 #include <circularmotion.h>
 #include <qdebug.h>
 //nueva rama
@@ -23,10 +24,10 @@ Player* Enemy::player;
 QVector<Block*>* Enemy::blocks;
 QList<Enemy*>* Enemy::enemies;
 //arrow
-Player *Arrow::player;
-QVector<Block*> *Arrow::blocks;
-QList<Enemy*> *Arrow::enemies;
-QList<Arrow*> *Arrow::arrows;
+//Player *Arrow::player;
+//QVector<Block*> *Arrow::blocks;
+//QList<Enemy*> *Arrow::enemies;
+//QList<Arrow*> *Arrow::arrows;
 
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
@@ -59,15 +60,17 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setPos(144,192);
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
+    prueba->setBow(new Bow);
+    scene->addItem(prueba->getBow());
     game->player = prueba;
     Enemy::setPlayer(game->player);
-    Arrow::setPlayer(game->player);
+    //Arrow::setPlayer(game->player);
     //Enemigo
     scene->addItem(new Demon(288,288,-24));
     scene->addItem(new Demon(144,288,-24));
     scene->addItem(new Demon(480,288,100));
-    scene->addItem(new Furry(190,288));
-    scene->addItem(new Furry(144,280));
+    scene->addItem(new Furry(192,288));
+    scene->addItem(new Furry(144,288,50));
     //CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
     //scene->addItem(testCircular);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));

@@ -9,7 +9,6 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    arrow.cpp \
     block.cpp \
     bow.cpp \
     circularmotion.cpp \
@@ -26,7 +25,6 @@ SOURCES += \
     weapon.cpp
 
 HEADERS += \
-    arrow.h \
     block.h \
     bow.h \
     circularmotion.h \

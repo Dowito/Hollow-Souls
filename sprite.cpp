@@ -2,12 +2,16 @@
 void Sprite::loadFrames(QPixmap sprite, unsigned short fil, unsigned short col)
 {
     QPixmap image;
-    frames.resize(fil);
+    QVector<QPixmap> frameBuffer;
+    //frames.resize(fil);
     for (unsigned short i=0; i<fil; i++) {
+        frameBuffer.clear();
         for (unsigned short j=0; j<col; j++) {
             image = sprite.copy(j*w, i*h, w, h).scaled(w*GAME_SCALE, h*GAME_SCALE);
-            frames[i].push_back(image);
+            //frames[i].push_back(image);
+            frameBuffer.push_back(image);
         }
+        frames.push_back(frameBuffer);
     }
     for (auto vector : qAsConst(frames)) {
         vector.shrink_to_fit();

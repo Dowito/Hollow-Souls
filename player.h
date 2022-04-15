@@ -39,6 +39,8 @@ public:
     void setBlocks(QVector<Block*> *newBlocks);  
     void setBow(Bow *newBow);
 
+    Bow *getBow() const;
+
 private:
     void keyPressEvent(QKeyEvent *event) override;
     void collisionsY();
@@ -46,6 +48,7 @@ private:
     bool state;
     bool jump;
     bool inmu;
+    short direction;
     int *health;
     int *maxHealth;
     HealthBar *healthBar;

@@ -9,10 +9,10 @@ class Player;
 class Bow : public Sprite, public QGraphicsPixmapItem
 {
 public:
-    Bow();
+    Bow(); //arco por defecto para el jugador.
     Bow(int atk, qreal pot, qreal angle);
     ~Bow() {};
-    void shoot(QPointF posOwner); //dispara flecha
+    void shoot(QPointF posOwner, short direction); //dispara flecha
 
 private:
     void calculateVelDir();

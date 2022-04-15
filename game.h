@@ -18,7 +18,7 @@ public:
     QTimer *timer;
     QVector<Block*> *blocks;
     QList<Enemy*> *enemies;
-    QList<Arrow*> *arrows;
+    //QList<Arrow*> *arrows;
 
 public slots:
     /*!

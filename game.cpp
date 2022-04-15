@@ -3,7 +3,7 @@
 #include <player.h>
 #include <weapon.h>
 #include <enemy.h>
-#include <arrow.h>
+//#include <arrow.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
     blocks(new QVector<Block*>),
@@ -37,5 +37,5 @@ void Game::timeWorld()
     if(player->getInmu()) player->framesInmu();
     player->move();
     Enemy::update();
-    Arrow::update();
+    //Arrow::update();
 }
