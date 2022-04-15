@@ -11,6 +11,7 @@ class Weapon;
 class HealthBar;
 class Block;
 class Bow;
+class Dash;
 class Player : public QObject, public QGraphicsPixmapItem, public Sprite, public Motion
 {
     Q_OBJECT
@@ -43,6 +44,10 @@ public:
     void setCarcaj(unsigned short newCarcaj);
     int getCarcaj() const;
 
+    short getDirection() const;
+
+    void setDash(Dash *newDash);
+
 private:
     void keyPressEvent(QKeyEvent *event) override;
     void collisionsY();
@@ -55,6 +60,7 @@ private:
     int *health;
     int *maxHealth;
     HealthBar *healthBar;
+    Dash *dash;
     Bow *bow;
     Weapon *weapon;
     QVector<Block*> *blocks;

@@ -46,6 +46,11 @@ void Motion::setAce(const QPointF &newA)
     a = newA;
 }
 
+void Motion::setAce(qreal ax, qreal ay)
+{
+    a = {ax, ay};
+}
+
 void Motion::setVel(const QPointF &newV)
 {
     v = newV;

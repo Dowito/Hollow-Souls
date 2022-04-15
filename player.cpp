@@ -4,6 +4,7 @@
 #include <weapon.h>
 #include <healthbar.h>
 #include <bow.h>
+#include <dash.h>
 #include <QDebug>
 extern Game *game;
 Player::Player(QObject *parent)
@@ -80,7 +81,23 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y
 
 void Player::collisionsX()
 {
+    for (int i = 0; i < blocks->size(); i++) {
+        if(collidesWithItem(blocks->at(i))) {
+            if(pos().x() < blocks->at(i)->pos().x() + blocks->at(i)->rect().width()) {
+                setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
+                //v.setX(v.x()*(-1));
+            }
+            else if (pos().x() + boundingRect().width() > blocks->at(i)->pos().x()) {
+                setX(blocks->at(i)->x() - boundingRect().width() - 1);
+                //v.setX(v.x()*(-1));
+            }
+        }
+    }
+}
 
+void Player::setDash(Dash *newDash)
+{
+    dash = newDash;
 }
 
 void Player::collisionsY()
@@ -96,6 +113,7 @@ void Player::collisionsY()
                 if(jump) jump = false;
                 r.setY(blocks->at(i)->y() - h -1);
                 setY(blocks->at(i)->y() - h -1);
+                dash->setUsable(true); //al tocar el piso, el dash se puede volver a usar.
                 v.setY(0);
             }
             break;
@@ -218,4 +236,9 @@ void Player::setCarcaj(unsigned short newCarcaj)
 Bow *Player::getBow() const
 {
     return bow;
+}
+
+short Player::getDirection() const
+{
+    return direction;
 }

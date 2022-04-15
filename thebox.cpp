@@ -12,8 +12,8 @@
 #include <bow.h>
 #include <arrow.h>
 #include <circularmotion.h>
+#include <dash.h>
 #include <qdebug.h>
-//nueva rama
 extern Game *game;
 //variables estaticas
 qreal *gravityTest = new qreal;
@@ -28,7 +28,9 @@ Player *Arrow::player;
 QVector<Block*> *Arrow::blocks;
 QList<Enemy*> *Arrow::enemies;
 QList<Arrow*> *Arrow::arrows;
-
+//Dash
+Player *Dash::player;
+//---------------------------
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
     clockMs(new unsigned int),
@@ -61,11 +63,13 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setWeapon(new Weapon(prueba));
     prueba->setHealthBar(new HealthBar(prueba));
     prueba->setBow(new Bow);
+    prueba->setDash(new Dash);
     prueba->setCarcaj(1);
     scene->addItem(prueba->getBow());
     game->player = prueba;
     Enemy::setPlayer(game->player);
     Arrow::setPlayer(game->player);
+    Dash::setPlayer(game->player);
     //Enemigo
     scene->addItem(new Demon(288,288,-24));
     scene->addItem(new Demon(144,288,-24));
