@@ -13,6 +13,7 @@ SOURCES += \
     block.cpp \
     bow.cpp \
     circularmotion.cpp \
+    dash.cpp \
     demon.cpp \
     enemy.cpp \
     furry.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     block.h \
     bow.h \
     circularmotion.h \
+    dash.h \
     demon.h \
     enemy.h \
     furry.h \
