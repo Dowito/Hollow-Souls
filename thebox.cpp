@@ -78,7 +78,7 @@ TheBox::TheBox(QWidget *parent) :
     scene->addItem(new Demon(480,288,100));
     scene->addItem(new Furry(192,288));
     scene->addItem(new Furry(144,288,50));
-    CircularBlock *testCircularBlock = new CircularBlock(6*48, 8*48, 48, 48, 10, 3, 1);
+    CircularBlock *testCircularBlock = new CircularBlock(8*48, 9*48, 48, 48, 144, 0, 1);
     game->blocks->push_back(testCircularBlock);
     scene->addItem(testCircularBlock);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
