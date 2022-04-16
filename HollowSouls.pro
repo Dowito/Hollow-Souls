@@ -12,6 +12,7 @@ SOURCES += \
     arrow.cpp \
     block.cpp \
     bow.cpp \
+    circularblock.cpp \
     circularmotion.cpp \
     dash.cpp \
     demon.cpp \
@@ -30,6 +31,7 @@ HEADERS += \
     arrow.h \
     block.h \
     bow.h \
+    circularblock.h \
     circularmotion.h \
     dash.h \
     demon.h \

@@ -16,8 +16,7 @@ public:
      * mientras mayor sea el valor absoluto de vel, a mayor velocidad se movera.
      * \param angularAcc aumento de la velocidad angulor por unidad de tiempo.
      */
-    CircularMotion(float posx, float posy,
-                   float radio,
+    CircularMotion(float radio,
                    unsigned short direction,
                    float angularVel,
                    float angularAcc = 0);

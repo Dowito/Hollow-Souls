@@ -13,6 +13,7 @@
 #include <arrow.h>
 #include <circularmotion.h>
 #include <dash.h>
+#include <circularblock.h>
 #include <qdebug.h>
 extern Game *game;
 //variables estaticas
@@ -77,8 +78,9 @@ TheBox::TheBox(QWidget *parent) :
     scene->addItem(new Demon(480,288,100));
     scene->addItem(new Furry(192,288));
     scene->addItem(new Furry(144,288,50));
-    //CircularMotion *testCircular = new CircularMotion(48*5, 48*11, 48*7, 1, 0.01);
-    //scene->addItem(testCircular);
+    CircularBlock *testCircularBlock = new CircularBlock(6*48, 8*48, 48, 48, 10, 3, 1);
+    game->blocks->push_back(testCircularBlock);
+    scene->addItem(testCircularBlock);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
     //game->timer->stop();
 }
@@ -104,7 +106,7 @@ void TheBox::generateSandBox()
     generateCol(13,20,0);
     generateFil(16,3,2);
     generateFil(20,1,11);
-    generateGrid();
+    //generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
         game->blocks->at(i)->setBrush(QBrush(Qt::cyan));

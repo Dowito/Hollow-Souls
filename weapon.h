@@ -19,6 +19,7 @@ public:
     short getDirection() const;
 
 private:
+    virtual void loadSprite(QString nameR, QString nameL, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
     bool attacking;
     unsigned int steps; //contador hasta terminar la animacion
     int atk;

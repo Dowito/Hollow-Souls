@@ -4,41 +4,29 @@ CircularMotion::CircularMotion()
 
 }
 
-CircularMotion::CircularMotion(float posx, float posy, float radio, unsigned short direction, float angularVel, float angularAcc)
+CircularMotion::CircularMotion(float radio, unsigned short direction, float angularVel, float angularAcc)
 {
-    /*
-    periodo = TTT;
     this->radio = radio;
     this->angularAcc = -angularAcc;
     this->angularVel = -angularVel;
     //direccion
     if(direction == 0) {//0 abajo
-        setOffset(posx + w/2, posy + h/2 + radio );
         angularPos = (-1)*qDegreesToRadians(90.0);
-        setPos(-w/2, h/2 + radio);
     }
     else if(direction == 1) {//1 izquierda
-        setOffset(posx + w/2 + radio, posy + h/2);
         angularPos = (-1)*qDegreesToRadians(180.0);
-        setPos(-w/2-radio, -h/2);
     }
     else if(direction == 2){//2 derecha
-        setOffset(posx + w/2 - radio, posy + h/2);
         angularPos = (-1)*qDegreesToRadians(0.0);
-        setPos(radio - w/2, -h/2);
     }
-    else if (direction == 3) { //arriba
-        setOffset(posx + w/2, posy + h/2 - radio);
+    else if (direction == 3) {//3 arriba
         angularPos = (-1)*qDegreesToRadians(270.0);
-        setPos(- w/2, -h/2 + radio);
     }
     else {
-        setPos(posx, posy);
         this->angularVel = 0;
         this->angularAcc = 0;
         this->radio = 0;
     }
-    */
 }
 
 /*
