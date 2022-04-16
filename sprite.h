@@ -7,6 +7,8 @@ class Sprite
 public:
     explicit Sprite() {};
     virtual ~Sprite() {};
+    //short getDirection() const {return direction;};
+    //void setDirection(short direction) {this->direction = direction;};
 
 protected:
     virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
@@ -28,6 +30,7 @@ protected:
     QVector<QVector<QPixmap>> frames;
     unsigned int w;
     unsigned int h;
+    //short direction;
 };
 
 #endif // SPRITE_H

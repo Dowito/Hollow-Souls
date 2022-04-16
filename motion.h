@@ -18,8 +18,12 @@ public:
     void setAce(qreal ax, qreal ay);
     void setVel(const QPointF &newV);
     void setVel(qreal vx, qreal vy);
-    short getDirectionX() const; //sobra
     static void setPeriodo(qreal newPeriodo);
+
+    QPointF getRPos() const;
+    void setRPos(QPointF newR);
+
+    QPointF getVel() const;
 
 protected:
     /*!
@@ -27,7 +31,6 @@ protected:
      */
     virtual void calculatePos(); //funcion que actualiza los vectores a, v y r, luegos e actualiza la Pos de la scene con rpero en otra clase.
     int speed; //magnitud del vector velocidad, esto tambien sobra. Tambien tocaria darle una direcction.
-    short directionX; //signo de la velocidad en X, esto sobra.
     QPointF a; //vector aceleracion
     QPointF v; //vector velocidad
     QPointF r; //vector posicion

@@ -9,7 +9,7 @@ class Dash : public Sprite, public QGraphicsPixmapItem
 public:
     Dash();
     void use();
-    void animation();
+    void effect();
     static void setPlayer(Player *newPlayer);
 
     bool getActivated() const;

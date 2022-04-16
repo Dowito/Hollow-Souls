@@ -18,7 +18,7 @@ Weapon::Weapon(Player *owner, QObject *parent)
 void Weapon::attack()
 {
     if(!attacking){
-        direction = owner->getDirectionX();
+        direction = owner->getDirection();
         setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
         setPixmap(frames[0][4]);
         owner->scene()->addItem(this);

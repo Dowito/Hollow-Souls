@@ -29,75 +29,111 @@ Player::Player(QObject *parent)
     blocks = game->blocks;
 }
 
+void Player::check()
+{
+    if(bow != nullptr) bow->animation();
+    if(dash->getActivated()) dash->effect();
+}
+
 void Player::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Left) {
-        direction = 1;
-        setPixmap(frames[1][1]);
-        setX(x() - speed);
-        for (int i = 0; i < blocks->size(); i++) {
-            if(collidesWithItem(blocks->at(i))){
-                setX(blocks->at(i)->x() + blocks->at(i)->rect().width());
-                break;
+    if(!dash->getActivated())
+    {
+        if (event->key() == Qt::Key_Left) {
+            direction = 1;
+            setPixmap(frames[1][1]);
+            setX(x() - speed);
+            for (int i = 0; i < blocks->size(); i++) {
+                if(collidesWithItem(blocks->at(i))){
+                    setX(blocks->at(i)->x() + blocks->at(i)->rect().width());
+                    break;
+                }
             }
         }
-    }
-    else if (event->key() == Qt::Key_Right) {
-        direction = 2;
-        //setFrame(1,2);
-        setPixmap(frames[2][1]);
-        setX(x() + speed);
-        for (int i = 0; i < blocks->size(); i++) {
-            if(collidesWithItem(blocks->at(i))){
-                setX(blocks->at(i)->x() - boundingRect().width());
-                break;
+        else if (event->key() == Qt::Key_Right) {
+            direction = 2;
+            //setFrame(1,2);
+            setPixmap(frames[2][1]);
+            setX(x() + speed);
+            for (int i = 0; i < blocks->size(); i++) {
+                if(collidesWithItem(blocks->at(i))){
+                    setX(blocks->at(i)->x() - boundingRect().width());
+                    break;
+                }
             }
         }
-    }
-    else if (event->key() == Qt::Key_C) {
-        if(!jump){
-            jump = true;
-            v.setY(VEL_JUMP);
+        else if (event->key() == Qt::Key_C) {
+            if(!jump){
+                jump = true;
+                v.setY(VEL_JUMP);
+            }
         }
-    }
-    else if (event->key() == Qt::Key_X){
-        weapon->attack();
-    }
-    else if (event->key() == Qt::Key_V) {
-        if(0<carcaj) {
-            carcaj -= 1;
-            bow->shoot(pos(), direction);
+        else if (event->key() == Qt::Key_X){
+            weapon->attack();
+        }
+        else if (event->key() == Qt::Key_V) {
+            if(0<carcaj) {
+                carcaj -= 1;
+                bow->shoot(pos(), direction);
+            }
+        }
+        else if (event->key() == Qt::Key_Z) {
+            if (dash->getUsable()) {
+                dash->use();
+            }
         }
     }
 }
 
-void Player::move() //solo tendra simulacion fisica su movimiento en Y
+void Player::move() //solo tendra simulacion fisica su movimiento en Y, o en x si se esta usando el dash
 {
     v.setY(v.y()+(a.y()*periodo));
     r.setY(r.y()+(v.y()*periodo));
     setY(r.y());
     collisionsY();
+    /*
+    if (dash->getActivated()) {
+        v.setX(v.x()+(a.x()*periodo));
+        r.setY(r.x()+(v.x()*periodo));
+        setX(r.x());
+        collisionsX();
+    }
+    */
+}
+
+void Player::moveX()
+{
+    v.setX(v.x()+(a.x()*periodo));
+    r.setX(r.x()+(v.x()*periodo));
+    setX(r.x());
+    collisionsX();
 }
 
 void Player::collisionsX()
 {
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))) {
-            if(pos().x() < blocks->at(i)->pos().x() + blocks->at(i)->rect().width()) {
-                setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
-                //v.setX(v.x()*(-1));
+            if (v.x()<0) { //Colision hacia la izquierda
+                r.setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
             }
-            else if (pos().x() + boundingRect().width() > blocks->at(i)->pos().x()) {
-                setX(blocks->at(i)->x() - boundingRect().width() - 1);
-                //v.setX(v.x()*(-1));
+            else if (v.x()>0) { //colision hacia la derecha
+                r.setX(blocks->at(i)->x() - w - 1);
             }
+            v.setX(0);
+            setX(r.x());
+            //termina el efecto del dash
         }
     }
 }
 
-void Player::setDash(Dash *newDash)
+void Player::setInmu(bool newInmu)
 {
-    dash = newDash;
+    inmu = newInmu;
+}
+
+Dash *Player::getDash() const
+{
+    return dash;
 }
 
 void Player::collisionsY()
@@ -131,11 +167,6 @@ void Player::framesInmu()
     }
 }
 
-void Player::check()
-{
-    if(bow != nullptr) bow->animation();
-}
-
 void Player::takeDamage(int damage)
 {
     if(!inmu){
@@ -151,6 +182,11 @@ void Player::takeDamage(int damage)
         }
         qDebug() << "current health: " << *health;
     }
+}
+
+void Player::setDash(Dash *newDash)
+{
+    dash = newDash;
 }
 
 void Player::setBow(Bow *newBow)

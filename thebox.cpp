@@ -66,6 +66,7 @@ TheBox::TheBox(QWidget *parent) :
     prueba->setDash(new Dash);
     prueba->setCarcaj(1);
     scene->addItem(prueba->getBow());
+    scene->addItem(prueba->getDash());
     game->player = prueba;
     Enemy::setPlayer(game->player);
     Arrow::setPlayer(game->player);

@@ -41,15 +41,18 @@ public:
 
     static void update();
     virtual void check() = 0;
-    virtual void takeDamage(int damage); //Cuando recibe daño, le baja la salud y si llega a cero cambia su estado
+    virtual void takeDamage(int damage, short direction = 0); //Cuando recibe daño, le baja la salud y si llega a cero cambia su estado
 
     static void setPlayer(Player *newPlayer);   
     static void setBlocks(QVector<Block *> *newBlocks);
     static void setEnemies(QList<Enemy *> *newEnemies);
     static Player *getPlayer();
 
+    bool getInmu() const;
+
 protected:
     virtual void attack() = 0; //cada enemigo podra tener su propia forma de atacar
+    virtual void changeDirection();
     virtual void collidesWithPlayer(); //colisionara mientras este vivo
     virtual void collidesWithWeapon(); //colisionara mientras no sea inmune, y la duracion dele stado dependera del tiempo de ataque del armar, asi solo podra recibir un hit por cada ataque del arma
     virtual void die(); //animacion demuerte y posterior delete de contenedor, scene y memoria. Si se bugea no se eliminara, si no que se cambiara de estado para que no pueda seguir interactuando y cambiara  aun sprite invisible

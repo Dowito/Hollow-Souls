@@ -25,10 +25,11 @@ public:
 
 
 public:
-    void move(); //corregir el movimiento del Pj.
+    void check();
+    void move();
+    void moveX();
     void takeDamage(int damage);
     void framesInmu();
-    void check();
 
     void setJump(bool newJump);
     bool getInmu() const;    
@@ -43,10 +44,11 @@ public:
     Bow *getBow() const;
     void setCarcaj(unsigned short newCarcaj);
     int getCarcaj() const;
-
     short getDirection() const;
-
     void setDash(Dash *newDash);
+    Dash *getDash() const;
+
+    void setInmu(bool newInmu);
 
 private:
     void keyPressEvent(QKeyEvent *event) override;

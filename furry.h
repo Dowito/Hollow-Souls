@@ -34,10 +34,12 @@ protected:
     virtual void collidesWithBlockY(); //si choca con Bloque "rebotara" y su velocidad sera 0
     //Enemy
     virtual void attack() override;
-    virtual void takeDamage(int damage) override;
-
+    virtual void changeDirection() override;
+    virtual void takeDamage(int damage, short direction) override;
+    //furry
+    void calculateDirection();
     //void tryFloor(); //sobra, revisa si hay borde y cambia de direccion.
-    //int directionX; //sobra
+    bool hit;
 };
 
 #endif // FURRY_H

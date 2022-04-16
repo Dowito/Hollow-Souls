@@ -40,7 +40,7 @@ void Bow::shoot(QPointF posOwner, short direction)
 void Bow::animation()
 {
     if(isVisible()){
-        if(stepsAnimation == 40){
+        if(stepsAnimation == 20){
             stepsAnimation = 0;
             setVisible(false);
         }else stepsAnimation++;

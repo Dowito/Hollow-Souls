@@ -3,12 +3,14 @@
 #include <player.h>
 #include <block.h>
 #include <QGraphicsScene>
-Arrow::Arrow(qreal posx, qreal posy, qreal velx, qreal vely, qreal atk)
+Arrow::Arrow(qreal posx, qreal posy, qreal velx, qreal vely, qreal atk, bool from)
     :Motion(posx, posy, velx, vely)
 {
+    (velx < 0) ? direction = 1 : direction = 2;
     setRect(0,0,48,5);
     setPos(posx, posy);
     this->atk = atk;
+    this->from = from;
     state = true;
     arrows->push_back(this);
 }
@@ -54,7 +56,7 @@ void Arrow::collidesWithEnemy()
     if(state){
         for (int i = 0; i<enemies->size(); i++) {
             if (collidesWithItem(enemies->at(i))) {
-                enemies->at(i)->takeDamage(atk);
+                enemies->at(i)->takeDamage(atk, direction);
                 state = false;
                 break;
             }

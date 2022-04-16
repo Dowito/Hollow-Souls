@@ -87,9 +87,19 @@ void Enemy::dealDamage()
     player->takeDamage(atk);
 }
 
-void Enemy::takeDamage(int damage)
+bool Enemy::getInmu() const
 {
-    if (*health - damage < 0){
+    return inmu;
+}
+
+void Enemy::changeDirection()
+{
+    return;
+}
+
+void Enemy::takeDamage(int damage, short direction)
+{
+    if (*health - damage < 0) {
         *health = 0;
         state = false;
         //mirar die y check, Talvez Hacer la animacion de muerte en paralelo

@@ -1,28 +1,36 @@
 #include "dash.h"
 #include <player.h>
 #include <motion.h>
+#include <weapon.h>
+#include <QDebug>
 Dash::Dash()
 {
     usable = true;
     activated = false;
-    pot = 40;
+    pot = 100;
     steps = 0;
 }
 
 void Dash::use()
 {
+    qDebug() << "usando";
     setPos(player->pos());
     setVisible(true);
     usable = false;
     activated = true;
     player->setAce(0.0,0.0);
-    player->setVel(pot,0);
-    player->clearFocus();
+    (player->getDirection()==1) ? player->setVel((-1)*pot,0) : player->setVel(pot,0);
+    if(!player->getWeapon()->getAttacking()) player->setInmu(true);
+    player->setRPos(player->pos());
 }
 
-void Dash::animation()
+void Dash::effect()
 {
-    if (steps >= 40) {
+    //qDebug() << player->pos().x();
+    //qDebug() << player->getRPos().x();
+    //qDebug() << player->getVel();
+    player->moveX();
+    if (steps >= 20) {
         finish();
         //ver Player::collidesWithBlockY donde se cambia el estado a true
     }
@@ -34,11 +42,14 @@ void Dash::animation()
 
 void Dash::finish()
 {
+    qDebug() << "efecto terminado";
     steps = 0;
     setVisible(false);
     player->setAce(0.0, GRAVEDAD);
     player->setVel(0,0);
-    player->setFocus();
+    player->setInmu(false);
+    //usable = true;//se vuelve a activar solo cuando hace contacto con el piso
+    activated = false;
 }
 
 bool Dash::getActivated() const

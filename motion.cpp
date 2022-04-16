@@ -26,6 +26,21 @@ void Motion::calculatePos()
     r = r+(v*periodo);
 }
 
+QPointF Motion::getVel() const
+{
+    return v;
+}
+
+QPointF Motion::getRPos() const
+{
+    return r;
+}
+
+void Motion::setRPos(QPointF newR)
+{
+    r = newR;
+}
+
 void Motion::setPeriodo(qreal newPeriodo)
 {
     periodo = newPeriodo;
@@ -34,11 +49,6 @@ void Motion::setPeriodo(qreal newPeriodo)
 void Motion::calculateAcelerationTest()
 {
     a.setY(*gravityTest);
-}
-
-short Motion::getDirectionX() const
-{
-    return directionX;
 }
 
 void Motion::setAce(const QPointF &newA)
