@@ -31,6 +31,8 @@ QList<Enemy*> *Arrow::enemies;
 QList<Arrow*> *Arrow::arrows;
 //Dash
 Player *Dash::player;
+//Block
+QVector<Block*> *Block::blocks;
 //---------------------------
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),
@@ -78,9 +80,10 @@ TheBox::TheBox(QWidget *parent) :
     scene->addItem(new Demon(480,288,100));
     scene->addItem(new Furry(192,288));
     scene->addItem(new Furry(144,288,50));
-    CircularBlock *testCircularBlock = new CircularBlock(8*48, 9*48, 48, 48, 144, 0, 1);
+    CircularBlock *testCircularBlock = new CircularBlock(8*48, 9*48, 48*5, 48, 96, 3, 0.1);
     game->blocks->push_back(testCircularBlock);
     scene->addItem(testCircularBlock);
+    Block::setBlocks(game->blocks);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
     //game->timer->stop();
 }
@@ -104,6 +107,7 @@ void TheBox::generateSandBox()
 {
     generateCol(13,1,1);
     generateCol(13,20,0);
+    //generateFil(20,7,8);
     generateFil(16,3,2);
     generateFil(20,1,11);
     //generateGrid();

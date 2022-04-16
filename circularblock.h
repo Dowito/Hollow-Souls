@@ -23,6 +23,8 @@ public:
                   unsigned short direction,
                   float angularVel,
                   float angularAcc = 0);
+protected:
+    virtual void check() override;
 };
 
 #endif // CIRCULARBLOCK_H

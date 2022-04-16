@@ -3,6 +3,7 @@
 #include <player.h>
 #include <weapon.h>
 #include <enemy.h>
+#include <block.h>
 #include <arrow.h>
 //#include <arrow.h>
 Game::Game(QWidget *parent):
@@ -41,4 +42,5 @@ void Game::timeWorld()
     player->check();
     Enemy::update();
     Arrow::update();
+    Block::update();
 }

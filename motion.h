@@ -14,15 +14,15 @@ public:
            qreal accx = 0, qreal accy = *gravityTest);
     virtual ~Motion() {};
 
+    virtual void check() = 0;
+
     void setAce(const QPointF &newA);
     void setAce(qreal ax, qreal ay);
     void setVel(const QPointF &newV);
     void setVel(qreal vx, qreal vy);
     static void setPeriodo(qreal newPeriodo);
-
     QPointF getRPos() const;
     void setRPos(QPointF newR);
-
     QPointF getVel() const;
 
 protected:

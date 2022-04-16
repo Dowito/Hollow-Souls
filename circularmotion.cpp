@@ -10,6 +10,7 @@ CircularMotion::CircularMotion(float radio, float angularVel, float angularAcc)
     this->angularAcc = -angularAcc;
     this->angularVel = -angularVel;
 }
+
 /*
 CircularMotion::CircularMotion(float radio, float angularPos, float angularVel, float angularAcc)
 {
