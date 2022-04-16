@@ -20,7 +20,7 @@ void Weapon::attack()
     if(!attacking){
         direction = owner->getDirection();
         setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
-        setPixmap(frames[0][4]);
+        setPixmap(frames[direction][4]);
         owner->scene()->addItem(this);
         attacking = true;
     }

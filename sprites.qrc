@@ -8,5 +8,7 @@
         <file>sprites/bomba.png</file>
         <file>sprites/Bow - left.png</file>
         <file>sprites/Bow - right.png</file>
+        <file>sprites/sword - left.png</file>
+        <file>sprites/sword - right.png</file>
     </qresource>
 </RCC>
