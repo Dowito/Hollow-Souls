@@ -5,6 +5,7 @@
 #include <enemy.h>
 #include <block.h>
 #include <arrow.h>
+#include "Screens/world.h"
 //#include <arrow.h>
 Game::Game(QWidget *parent):
     timer(new QTimer),
@@ -16,8 +17,7 @@ Game::Game(QWidget *parent):
     setGeometry(0,0,1280,720);
     setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setScene(new QGraphicsScene);
-    scene()->setSceneRect(0,0,width(),height());
+
     connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     timer->start(CLOCK_GAME);
 }

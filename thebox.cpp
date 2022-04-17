@@ -16,6 +16,7 @@
 #include <circularblock.h>
 #include <motionblock.h>
 #include <qdebug.h>
+#include "Screens/world.h"
 extern Game *game;
 //variables estaticas
 qreal *gravityTest = new qreal;
@@ -88,8 +89,10 @@ TheBox::TheBox(QWidget *parent) :
     MotionBlock *testMotionBlock = new MotionBlock(4*48, 4*48, 50*3, 50, 10);
     game->blocks->push_back(testMotionBlock);
     scene->addItem(testMotionBlock);
-
-
+    game->world->loadWorld(1);
+    game->world = new World(1900, 450);
+    game->world->loadWorld(0);
+    scene = game->world;
     Block::setBlocks(game->blocks);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
     //game->timer->stop();
@@ -112,12 +115,12 @@ void TheBox::generateFil(int num, int mx, int my)
 
 void TheBox::generateSandBox()
 {
-    generateCol(13,1,1);
-    generateCol(13,20,0);
-    generateFil(20,7,9);
-    generateFil(16,3,2);
-    generateFil(20,1,11);
-    generateGrid();
+    //generateCol(13,1,1);
+    //generateCol(13,20,0);
+    //generateFil(20,7,9);
+    //generateFil(16,3,2);
+    //generateFil(20,1,11);
+    //generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
         game->blocks->at(i)->setBrush(QBrush(Qt::cyan));

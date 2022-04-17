@@ -9,6 +9,10 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Screens/gameover.cpp \
+    Screens/loadscreen.cpp \
+    Screens/menu.cpp \
+    Screens/world.cpp \
     arrow.cpp \
     block.cpp \
     bow.cpp \
@@ -29,6 +33,10 @@ SOURCES += \
     weapon.cpp
 
 HEADERS += \
+    Screens/gameover.h \
+    Screens/loadscreen.h \
+    Screens/menu.h \
+    Screens/world.h \
     arrow.h \
     block.h \
     bow.h \
@@ -58,3 +66,5 @@ FORMS += \
 
 RESOURCES += \
     sprites.qrc
+
+DISTFILES +=

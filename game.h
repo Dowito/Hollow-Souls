@@ -8,17 +8,26 @@ class Block;
 class Player;
 class Enemy;
 class Arrow;
+class World;
+class Menu;
+class GameOver;
+class LoadScreen;
 class Game : public QGraphicsView
 {
     Q_OBJECT
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
-    Player *player;
     QTimer *timer;
+    Player *player;
     QVector<Block*> *blocks;
     QList<Enemy*> *enemies;
     QList<Arrow*> *arrows;
+    //Screens
+    World *world;
+    GameOver *gameover;
+    LoadScreen *loadscreen;
+    Menu *menu;
 
 public slots:
     /*!
