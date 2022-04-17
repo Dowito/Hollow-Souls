@@ -23,6 +23,7 @@ public:
     QVector<Block*> *blocks;
     QList<Enemy*> *enemies;
     QList<Arrow*> *arrows;
+    int pruebaVergas = 10;
     //Screens
     World *world;
     GameOver *gameover;
@@ -35,6 +36,7 @@ public slots:
      * y que denpenden de un tiempo. Por ejemplo el movimiento, las colisiones, animaciones de muerte etc.
      */
     void timeWorld();
+    void initStaticVar();
 };
 
 #endif // GAME_H

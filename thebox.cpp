@@ -20,19 +20,11 @@
 extern Game *game;
 //variables estaticas
 qreal *gravityTest = new qreal;
-//motion
-qreal Motion::periodo;
+
 //enemigo
 Player* Enemy::player;
 QVector<Block*>* Enemy::blocks;
 QList<Enemy*>* Enemy::enemies;
-//arrow
-Player *Arrow::player;
-QVector<Block*> *Arrow::blocks;
-QList<Enemy*> *Arrow::enemies;
-QList<Arrow*> *Arrow::arrows;
-//Dash
-Player *Dash::player;
 //Block
 QVector<Block*> *Block::blocks;
 //---------------------------
@@ -90,7 +82,7 @@ TheBox::TheBox(QWidget *parent) :
     game->blocks->push_back(testMotionBlock);
     scene->addItem(testMotionBlock);
     game->world->loadWorld(1);
-    game->world = new World(1900, 450);
+    //game->world = new World();
     game->world->loadWorld(0);
     scene = game->world;
     Block::setBlocks(game->blocks);

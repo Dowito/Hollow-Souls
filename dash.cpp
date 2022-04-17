@@ -13,7 +13,6 @@ Dash::Dash()
 
 void Dash::use()
 {
-    qDebug() << "usando";
     setPos(player->pos());
     setVisible(true);
     usable = false;
@@ -26,9 +25,6 @@ void Dash::use()
 
 void Dash::effect()
 {
-    //qDebug() << player->pos().x();
-    //qDebug() << player->getRPos().x();
-    //qDebug() << player->getVel();
     player->moveX();
     if (steps >= 20) {
         finish();
@@ -42,7 +38,6 @@ void Dash::effect()
 
 void Dash::finish()
 {
-    qDebug() << "efecto terminado";
     steps = 0;
     setVisible(false);
     player->setAce(0.0, GRAVEDAD);
@@ -50,6 +45,11 @@ void Dash::finish()
     player->setInmu(false);
     //usable = true;//se vuelve a activar solo cuando hace contacto con el piso
     activated = false;
+}
+
+Player *Dash::getPlayer() const
+{
+    return player;
 }
 
 bool Dash::getActivated() const

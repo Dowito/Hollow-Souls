@@ -25,7 +25,7 @@ public:
 
 
 public:
-    void check();
+    void check() override;
     void move();
     void moveX();
     void takeDamage(int damage);
@@ -47,7 +47,6 @@ public:
     short getDirection() const;
     void setDash(Dash *newDash);
     Dash *getDash() const;
-
     void setInmu(bool newInmu);
 
 private:
@@ -58,9 +57,9 @@ private:
     bool jump;
     bool inmu;
     short direction;
-    unsigned short carcaj; //cantidad de flechas del personaje
     int *health;
     int *maxHealth;
+    unsigned short carcaj; //cantidad de flechas del personaje
     HealthBar *healthBar;
     Dash *dash;
     Bow *bow;

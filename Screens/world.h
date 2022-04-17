@@ -2,14 +2,16 @@
 #define WORLD_H
 
 #include <QGraphicsScene>
+class Game;
 class World : public QGraphicsScene
 {
 public:
-    World(int w, int h);
+    World(Game *game) { this->game = game;};
     void loadWorld(unsigned short label);
 
 private:
     void clearWorld();
+    Game *game;
 
 };
 

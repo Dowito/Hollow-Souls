@@ -52,11 +52,3 @@ void Bow::calculateVelDir()
     velDir.setX(qCos(qDegreesToRadians(angle)));
     velDir.setY(qSin(qDegreesToRadians(angle)));
 }
-
-/*
-void Bow::loadSprite(QString nameLeft, QString nameRight, unsigned int w, unsigned int h, unsigned short fil, unsigned short col)
-{
-    Sprite::loadSprite(nameLeft, w, h, fil, col);
-    Sprite::loadSprite(nameRight, w, h, fil, col);
-}
-*/

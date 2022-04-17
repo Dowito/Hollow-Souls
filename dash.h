@@ -10,15 +10,17 @@ public:
     Dash();
     void use();
     void effect();
-    static void setPlayer(Player *newPlayer);
+    void finish();
 
+    static void setPlayer(Player *newPlayer);
     bool getActivated() const;
     void setActivated(bool newActivated);
     bool getUsable() const;
-    void setUsable(bool newUsable);
+    void setUsable(bool newUsable);    
+    Player *getPlayer() const;
 
 private:
-    void finish();
+
     bool activated;
     bool usable;
     double pot;

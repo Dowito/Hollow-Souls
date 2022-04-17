@@ -11,7 +11,7 @@ public:
     Motion(QPointF pos, QPointF vel, QPointF acc);
     Motion(qreal posx, qreal posy,
            qreal velx = 0, qreal vely = 0,
-           qreal accx = 0, qreal accy = *gravityTest);
+           qreal accx = 0, qreal accy = GRAVEDAD);
     virtual ~Motion() {};
 
     virtual void check() = 0;

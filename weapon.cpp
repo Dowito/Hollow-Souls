@@ -8,7 +8,7 @@ extern Game *game;
 Weapon::Weapon(Player *owner, QObject *parent)
     :QObject(parent)
 {
-    loadSprite(":/new/sprites/sprites/sword - right.png", ":/new/sprites/sprites/sword - left.png", 96*2, 96, 5, 5);
+    loadSpriteWeapon(":/new/sprites/sprites/sword - right.png", ":/new/sprites/sprites/sword - left.png", 96*2, 96, 5, 5);
     atk = WEAPON_ATK;
     steps = 0;
     attacking = false;
@@ -37,7 +37,6 @@ void Weapon::animation()
         scene()->removeItem(this);
     }
     else if(steps%8 == 0) {
-        qDebug() << i;
         setPixmap(frames[direction-1][i]);
         i += 1;
         steps++;
@@ -45,12 +44,7 @@ void Weapon::animation()
     else steps++;
 }
 
-short Weapon::getDirection() const
-{
-    return direction;
-}
-
-void Weapon::loadSprite(QString nameR, QString nameL, unsigned int w, unsigned int h, unsigned short fil, unsigned short col)
+void Weapon::loadSpriteWeapon(QString nameR, QString nameL, unsigned int w, unsigned int h, unsigned short fil, unsigned short col)
 {
     Sprite::loadSprite(nameR, w, h, fil, col);
     Sprite::loadSprite(nameL, w, h, fil, col);
@@ -81,4 +75,9 @@ unsigned short Weapon::getAtk() const
 bool Weapon::getAttacking() const
 {
     return attacking;
+}
+
+short Weapon::getDirection() const
+{
+    return direction;
 }

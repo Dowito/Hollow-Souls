@@ -22,15 +22,23 @@ Player::Player(QObject *parent)
     state = false;
     jump = false;
     inmu = false;
-    bow = nullptr;
     speed = SPEED_PLAYER;
     v = {0,0};
-    calculateAcelerationTest();
-    blocks = game->blocks;
+    a = {0,GRAVEDAD};
+    setCarcaj(1);
+    //setWeapon(new Weapon(this));
+    //setBow(new Bow);
+    //setDash(new Dash); //lo hare por fuera mejor
+    //setHealthBar(new HealthBar(this));
+    //scene->addItem(prueba->getBow());
+    //scene->addItem(prueba->getDash());
 }
 
 void Player::check()
 {
+    if(weapon->getAttacking()) weapon->animation(); //poner & !=nullptr
+    if(getInmu()) framesInmu();
+    move();
     if(bow != nullptr) bow->animation();
     if(dash->getActivated()) dash->effect();
 }
@@ -52,7 +60,6 @@ void Player::keyPressEvent(QKeyEvent *event)
         }
         else if (event->key() == Qt::Key_Right) {
             direction = 2;
-            //setFrame(1,2);
             setPixmap(frames[2][1]);
             setX(x() + speed);
             for (int i = 0; i < blocks->size(); i++) {
@@ -121,19 +128,10 @@ void Player::collisionsX()
             }
             v.setX(0);
             setX(r.x());
-            //termina el efecto del dash
+            dash->finish();
+            //terminar el efecto del dash
         }
     }
-}
-
-void Player::setInmu(bool newInmu)
-{
-    inmu = newInmu;
-}
-
-Dash *Player::getDash() const
-{
-    return dash;
 }
 
 void Player::collisionsY()
@@ -277,4 +275,14 @@ Bow *Player::getBow() const
 short Player::getDirection() const
 {
     return direction;
+}
+
+void Player::setInmu(bool newInmu)
+{
+    inmu = newInmu;
+}
+
+Dash *Player::getDash() const
+{
+    return dash;
 }
