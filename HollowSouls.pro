@@ -22,6 +22,7 @@ SOURCES += \
     healthbar.cpp \
     main.cpp \
     motion.cpp \
+    motionblock.cpp \
     player.cpp \
     sprite.cpp \
     thebox.cpp \
@@ -41,6 +42,7 @@ HEADERS += \
     healthbar.h \
     macros.h \
     motion.h \
+    motionblock.h \
     player.h \
     sprite.h \
     thebox.h \

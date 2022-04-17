@@ -15,7 +15,7 @@ TTT = 0.1, GRAVEDAD = 10.9 y velY = -61 consigo saltar 3.5 casillas y el tiempo 
 */
 
 //Player
-#define VEL_JUMP -62
+#define VEL_JUMP -65 //-62
 #define SPEED_PLAYER 6
 #define STEPS_PLAYER_INMU 100
 

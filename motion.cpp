@@ -21,9 +21,14 @@ Motion::Motion(qreal posx, qreal posy, qreal velx, qreal vely, qreal accx, qreal
 
 void Motion::calculatePos()
 {
-    a.setY(*gravityTest);
+    //a.setY(*gravityTest);
     v = v+(a*periodo);
     r = r+(v*periodo);
+}
+
+void Motion::calculateAcelerationTest()
+{
+    a.setY(*gravityTest);
 }
 
 QPointF Motion::getVel() const
@@ -44,11 +49,6 @@ void Motion::setRPos(QPointF newR)
 void Motion::setPeriodo(qreal newPeriodo)
 {
     periodo = newPeriodo;
-}
-
-void Motion::calculateAcelerationTest()
-{
-    a.setY(*gravityTest);
 }
 
 void Motion::setAce(const QPointF &newA)

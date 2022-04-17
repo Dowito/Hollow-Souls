@@ -14,6 +14,7 @@
 #include <circularmotion.h>
 #include <dash.h>
 #include <circularblock.h>
+#include <motionblock.h>
 #include <qdebug.h>
 extern Game *game;
 //variables estaticas
@@ -80,9 +81,15 @@ TheBox::TheBox(QWidget *parent) :
     scene->addItem(new Demon(480,288,100));
     scene->addItem(new Furry(192,288));
     scene->addItem(new Furry(144,288,50));
+    //Boques con movimiento
     CircularBlock *testCircularBlock = new CircularBlock(8*48, 9*48, 48*5, 48, 96, 3, 0.1);
     game->blocks->push_back(testCircularBlock);
     scene->addItem(testCircularBlock);
+    MotionBlock *testMotionBlock = new MotionBlock(4*48, 4*48, 50*3, 50, 10);
+    game->blocks->push_back(testMotionBlock);
+    scene->addItem(testMotionBlock);
+
+
     Block::setBlocks(game->blocks);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));
     //game->timer->stop();
@@ -92,14 +99,14 @@ TheBox::TheBox(QWidget *parent) :
 void TheBox::generateCol(int num, int mx, int my)
 {
     for (int i = 0; i<num; i++) {
-        game->blocks->push_back(new Block({static_cast<qreal>(mx)*SIZE_BLOCK, static_cast<qreal>((my+i)*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
+        game->blocks->push_back(new Block({static_cast<qreal>(mx)*50, static_cast<qreal>((my+i)*50)}, 50, 50));
     }
 }
 
 void TheBox::generateFil(int num, int mx, int my)
 {
     for (int i = 0; i<num; i++) {
-        game->blocks->push_back(new Block({static_cast<qreal>((mx+i)*SIZE_BLOCK), static_cast<qreal>(my*SIZE_BLOCK)}, SIZE_BLOCK, SIZE_BLOCK));
+        game->blocks->push_back(new Block({static_cast<qreal>((mx+i)*50), static_cast<qreal>(my*50)}, 50, 50));
     }
 }
 
@@ -107,10 +114,10 @@ void TheBox::generateSandBox()
 {
     generateCol(13,1,1);
     generateCol(13,20,0);
-    //generateFil(20,7,8);
+    generateFil(20,7,9);
     generateFil(16,3,2);
     generateFil(20,1,11);
-    //generateGrid();
+    generateGrid();
     for (int i = 0; i<game->blocks->size();i++ ) {
         scene->addItem(game->blocks->at(i));
         game->blocks->at(i)->setBrush(QBrush(Qt::cyan));
@@ -119,9 +126,9 @@ void TheBox::generateSandBox()
 
 void TheBox::generateGrid()
 {
-    for (int i = 0; i< 1280/(SIZE_BLOCK*GAME_SCALE); i++) {
-        for (int j = 0; j< 720/(SIZE_BLOCK*GAME_SCALE); j++) {
-            scene->addItem(new Block({static_cast<qreal>(i*(SIZE_BLOCK*GAME_SCALE)), static_cast<qreal>(j*(SIZE_BLOCK*GAME_SCALE))}, (SIZE_BLOCK*GAME_SCALE), (SIZE_BLOCK*GAME_SCALE)));
+    for (int i = 0; i< 1280/(50*GAME_SCALE); i++) {
+        for (int j = 0; j< 720/(50*GAME_SCALE); j++) {
+            scene->addItem(new Block({static_cast<qreal>(i*(50*GAME_SCALE)), static_cast<qreal>(j*(50*GAME_SCALE))}, (50*GAME_SCALE), (50*GAME_SCALE)));
         }
     }
 }
