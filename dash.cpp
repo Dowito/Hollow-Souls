@@ -7,7 +7,7 @@ Dash::Dash()
 {
     usable = true;
     activated = false;
-    pot = 100;
+    pot = 115;
     steps = 0;
 }
 

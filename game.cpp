@@ -37,9 +37,8 @@ Game::Game(QWidget *parent):
     setParent(parent);
     setGeometry(500,400,1280,720);
     setSceneRect(0,0,1280,720);
-    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //setGeometry(0,0,1280,720);
+    //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    //setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280,720);
     //iniciando player
     player = new Player;
@@ -52,11 +51,8 @@ Game::Game(QWidget *parent):
     Arrow::setPlayer(player);
     Enemy::setPlayer(player);
     //cargando mundo
-    world->loadWorld(0);
+    world->loadWorld(1, 12*SB, 4*SB);
     setScene(world);
-    //QGraphicsScene *mierda = new QGraphicsScene;
-    //mierda->setSceneRect(0,0,12800,7200);
-    //setScene(mierda);
     connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     timer->start(CLOCK_GAME);
 }
@@ -69,7 +65,7 @@ void Game::timeWorld()
     player->check();
     Enemy::update();
     Arrow::update();
-    //Block::update();
+    Block::update();
 }
 
 void Game::initStaticVar()

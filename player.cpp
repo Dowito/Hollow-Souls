@@ -141,7 +141,6 @@ void Player::collisionsX()
             v.setX(0);
             setX(r.x());
             dash->finish();
-            //terminar el efecto del dash
         }
     }
 }
@@ -150,7 +149,7 @@ void Player::collisionsY()
 {
     for (int i = 0; i < blocks->size(); i++) {
         if(collidesWithItem(blocks->at(i))){
-            if (v.y() <= 0) { //si colisiona hacia arriba
+            if (v.y() < 0) { //si colisiona hacia arriba
                 r.setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1);
                 setY(r.y());
                 v.setY(0);
@@ -158,7 +157,7 @@ void Player::collisionsY()
             else { //si colisiona hacia abajo
                 if(jump) jump = false;
                 r.setY(blocks->at(i)->y() - h -1);
-                setY(blocks->at(i)->y() - h -1);
+                setY(r.y());
                 dash->setUsable(true); //al tocar el piso, el dash se puede volver a usar.
                 v.setY(0);
             }

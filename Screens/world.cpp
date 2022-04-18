@@ -8,8 +8,9 @@
 #include "bow.h"
 #include "spike.h"
 #include "healthbar.h"
+#include "motionblock.h"
 //extern Game *game; por alguna razon el extern no me funcionaba
-void World::loadWorld(unsigned short label)
+void World::loadWorld(unsigned short label, qreal posx, qreal posy)
 {
     clearWorld();
     switch (label) {
@@ -28,27 +29,45 @@ void World::loadWorld(unsigned short label)
             }
             //Enemigos
             Enemy *arrEnemy[4] = {new Furry(23*SB,5*SB), new Furry(29*SB,4*SB, 26*SB, 32*SB, true),
-                                  new Spike(4*SB, 6*SB, 6*SB, 4*SB), new Spike(5*SB, 6*SB, 6*SB, 4*SB)};
+                                  new Spike(4*SB, 100+6*SB, 6*SB, 4*SB), new Spike(5*SB, 100+6*SB, 6*SB, 4*SB)};
             for (int i = 0; i<4; i++) {
                 //game->enemies->push_back(arrEnemy[i]);
                 addItem(arrEnemy[i]);
             }
-            //cargar muros invisibles
-
-            //poniendo jugador en la nueva scena
+            //Player
+            initPlayer(posx, posy);
+            /*
             addItem(game->player);
-            game->player->setPos(12*SB, 4*SB);
+            game->player->setPos(posx, posy);
             game->player->setRPos(game->player->pos()); //actualiza su posicion
             addItem(game->player->getHealthBar()); //poner la health en la nueva escena
             addItem(game->player->getHealthBar()->getUpdateHealth()); //que se actualize constantemente segun la posicion del GV
             addItem(game->player->getBow()); //Siempre se debe de actualizar cuando se cambia de escena
+            */
             //cargar Door
             //poner en pantalla
             //iniciar timer por fuera
             break;
         }
         case 1: {
-            //carga mapa 1
+        //dimenciones de la escena
+        setSceneRect(0,0,25*SB,16*SB);
+        //Bloques
+        Block *arrBlock[11] = {new Block(0,0,25,3), new Block(0,3,5,2), new Block(0,5,4,1), new Block(0,6,7,5), new Block (0,11,6,2), new Block(0,13,25,3),
+                              new Block(6,12,2,1), new Block(13,12,8,1), new Block(16,3,4,8), new Block(21,3,4,10),
+                              new MotionBlock(+50+8*SB,11*SB,-100+3*SB,50,false,true,0,0,8*SB,11*SB+50,0,-7)};
+        for (int i = 0; i<11; i++) {
+            //game->blocks->push_back(arrBlock[i]);
+            addItem(arrBlock[i]);
+        }
+        //Enemies
+
+        //Player
+        initPlayer(posx, posy);
+
+
+
+
             break;
         }
         case 2: {
@@ -73,4 +92,14 @@ void World::clearWorld()
     for (int i = 0; i<game->arrows->size(); i++) {
         delete game->arrows->at(i);
     }game->arrows->clear();
+}
+
+void World::initPlayer(qreal posx, qreal posy)
+{
+    addItem(game->player);
+    game->player->setPos(posx, posy);
+    game->player->setRPos(game->player->pos()); //actualiza su posicion
+    addItem(game->player->getHealthBar()); //poner la health en la nueva escena
+    addItem(game->player->getHealthBar()->getUpdateHealth()); //que se actualize constantemente segun la posicion del GV
+    addItem(game->player->getBow()); //Siempre se debe de actualizar cuando se cambia de escena
 }

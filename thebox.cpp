@@ -75,9 +75,9 @@ TheBox::TheBox(QWidget *parent) :
     MotionBlock *testMotionBlock = new MotionBlock(4*48, 4*48, 50*3, 50, 10);
     game->blocks->push_back(testMotionBlock);
     scene->addItem(testMotionBlock);
-    game->world->loadWorld(1);
+    game->world->loadWorld(1, 2, 2);
     //game->world = new World();
-    game->world->loadWorld(0);
+    game->world->loadWorld(0, 4, 4);
     scene = game->world;
     Block::setBlocks(game->blocks);
     //connect(game->timer, SIGNAL(timeout()), testCircular, SLOT(move()));

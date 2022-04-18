@@ -26,11 +26,6 @@ void Motion::calculatePos()
     r = r+(v*periodo);
 }
 
-void Motion::calculateAcelerationTest()
-{
-    a.setY(*gravityTest);
-}
-
 QPointF Motion::getVel() const
 {
     return v;

@@ -35,7 +35,6 @@ protected:
     QPointF v; //vector velocidad
     QPointF r; //vector posicion
     static qreal periodo;
-    void calculateAcelerationTest();
 };
 
 #endif // MOTION_H
