@@ -4,6 +4,7 @@
 #include <weapon.h>
 #include <healthbar.h>
 #include <bow.h>
+#include <Screens/world.h>
 #include <dash.h>
 #include <QDebug>
 extern Game *game;
@@ -26,12 +27,6 @@ Player::Player(QObject *parent)
     v = {0,0};
     a = {0,GRAVEDAD};
     setCarcaj(1);
-    //setWeapon(new Weapon(this));
-    //setBow(new Bow);
-    //setDash(new Dash); //lo hare por fuera mejor
-    //setHealthBar(new HealthBar(this));
-    //scene->addItem(prueba->getBow());
-    //scene->addItem(prueba->getDash());
 }
 
 void Player::check()
@@ -41,6 +36,7 @@ void Player::check()
     move();
     if(bow != nullptr) bow->animation();
     if(dash->getActivated()) dash->effect();
+    game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -49,7 +45,7 @@ void Player::keyPressEvent(QKeyEvent *event)
     {
         if (event->key() == Qt::Key_Left) {
             direction = 1;
-            setPixmap(frames[1][1]);
+            setPixmap(frames[1][calculatedFrame()]);
             setX(x() - speed);
             for (int i = 0; i < blocks->size(); i++) {
                 if(collidesWithItem(blocks->at(i))){
@@ -57,10 +53,11 @@ void Player::keyPressEvent(QKeyEvent *event)
                     break;
                 }
             }
+            game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
         }
         else if (event->key() == Qt::Key_Right) {
             direction = 2;
-            setPixmap(frames[2][1]);
+            setPixmap(frames[2][calculatedFrame()]);
             setX(x() + speed);
             for (int i = 0; i < blocks->size(); i++) {
                 if(collidesWithItem(blocks->at(i))){
@@ -68,6 +65,7 @@ void Player::keyPressEvent(QKeyEvent *event)
                     break;
                 }
             }
+            game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
         }
         else if (event->key() == Qt::Key_C) {
             if(!jump){
@@ -90,6 +88,20 @@ void Player::keyPressEvent(QKeyEvent *event)
             }
         }
     }
+}
+
+unsigned short Player::calculatedFrame()
+{
+    static unsigned short j = 0;
+    static short increment = 1;
+    if(j == 2){
+        increment = -1;
+    }
+    else if(j == 0){
+        increment = 1;
+    }
+    j += increment;
+    return j;
 }
 
 void Player::move() //solo tendra simulacion fisica su movimiento en Y, o en x si se esta usando el dash

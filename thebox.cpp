@@ -21,12 +21,6 @@ extern Game *game;
 //variables estaticas
 qreal *gravityTest = new qreal;
 
-//enemigo
-Player* Enemy::player;
-QVector<Block*>* Enemy::blocks;
-QList<Enemy*>* Enemy::enemies;
-//Block
-QVector<Block*> *Block::blocks;
 //---------------------------
 TheBox::TheBox(QWidget *parent) :
     QMainWindow(parent),

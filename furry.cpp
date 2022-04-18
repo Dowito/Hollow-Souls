@@ -9,6 +9,15 @@ Furry::Furry(qreal posx, qreal posy, qreal velx, qreal vely, int maxHealth, int 
     loadSprite(":/new/sprites/sprites/furro.png");
     setPixmap(frames[this->direction][1]);
     hit = false;
+    limit = false;
+}
+
+Furry::Furry(qreal posx, qreal posy, qreal xmin, qreal xmax, bool limit)
+    :Furry(posx, posy)
+{
+    this->limit = limit;
+    this->xmin = xmin;
+    this->xmax = xmax;
 }
 
 void Furry::check()
@@ -17,6 +26,7 @@ void Furry::check()
         move();
         collidesWithWeapon(); //revisa si recibe daño de un arma
         collidesWithPlayer(); //revisa si le hace daño al jugador por contacto
+        checkLimits();
     }
     else die();
 }
@@ -88,6 +98,13 @@ void Furry::calculateDirection()
     else direction = 2; //derecha
 }
 
+void Furry::checkLimits()
+{
+    if(limit){
+        if(x() < xmin || x() > xmax) changeDirection();
+    }
+}
+
 void Furry::attack()
 {
     return;
@@ -104,7 +121,6 @@ void Furry::takeDamage(int damage, short direction)
 {
     Enemy::takeDamage(damage);
     if(state){
-        //Sistemas de direcciones y feedBack.
         v.setY(-25);
         if(this->direction != direction){
             this->direction = direction;
@@ -113,15 +129,3 @@ void Furry::takeDamage(int damage, short direction)
         }
     }
 }
-
-/*
-void Enemy::tryFloor()
-{
-    if(directionX < 0){ //izquierda
-        if(scene()->items({x()-2, y()+h+2}).isEmpty()) directionX *= (-1); //solucion momentanea.
-    }
-    else {
-        if(scene()->items({x()+w+2, y()+h+2}).isEmpty()) directionX *= (-1);
-    }
-}
-*/

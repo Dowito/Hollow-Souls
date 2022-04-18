@@ -51,6 +51,7 @@ public:
 
 private:
     void keyPressEvent(QKeyEvent *event) override;
+    unsigned short calculatedFrame();
     void collisionsY();
     void collisionsX();
     bool state;

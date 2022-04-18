@@ -28,6 +28,7 @@ SOURCES += \
     motion.cpp \
     motionblock.cpp \
     player.cpp \
+    spike.cpp \
     sprite.cpp \
     thebox.cpp \
     weapon.cpp
@@ -52,6 +53,7 @@ HEADERS += \
     motion.h \
     motionblock.h \
     player.h \
+    spike.h \
     sprite.h \
     thebox.h \
     weapon.h

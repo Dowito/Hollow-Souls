@@ -12,8 +12,12 @@ public:
     Furry(QGraphicsObject *parent);
     Furry(qreal posx, qreal posy,
           qreal velx = 10, qreal vely = 0,
-          int maxHealth = 100,
-          int atk = 20);//valores predeterminado para furry
+          int maxHealth = 65,
+          int atk = 20);
+    Furry(qreal posx, qreal posy,
+          qreal xmin, qreal xmax,
+          bool limit);
+
     virtual ~Furry() {};
     //Enemy
     virtual void check() override;
@@ -38,8 +42,12 @@ protected:
     virtual void takeDamage(int damage, short direction) override;
     //furry
     void calculateDirection();
+    void checkLimits();
     //void tryFloor(); //sobra, revisa si hay borde y cambia de direccion.
     bool hit;
+    bool limit;
+    qreal xmin;
+    qreal xmax;
 };
 
 #endif // FURRY_H

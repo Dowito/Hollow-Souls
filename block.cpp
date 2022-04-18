@@ -19,6 +19,7 @@ Block::Block(qreal posx, qreal posy, unsigned int width, unsigned int height, bo
         setRect(0,0,width,height);
         setPos(posx, posy);
     }
+    blocks->push_back(this);
 }
 
 void Block::update()

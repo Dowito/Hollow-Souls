@@ -12,7 +12,7 @@ Bow::Bow()
     setVisible(false);
     pot = 150.0;
     angle = -10.0;
-    atk = 20;
+    atk = 15;
 }
 
 Bow::Bow(int atk, qreal pot, qreal angle)

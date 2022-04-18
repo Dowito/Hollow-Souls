@@ -51,8 +51,8 @@ Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, bool inmu, bool st
 */
 void Enemy::update()
 {
-    for (auto caca : qAsConst(*enemies)) {
-        caca->check();
+    for (auto enemy : qAsConst(*enemies)) {
+        enemy->check();
     }
 }
 
