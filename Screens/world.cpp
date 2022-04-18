@@ -64,7 +64,11 @@ void World::loadWorld(unsigned short label, qreal posx, qreal posy)
             addItem(arrBlock[i]);
         }
         //Enemies
-
+        Enemy *arrEnemy[2] = {new Furry(9*SB,10*SB,+50+8*SB,50+10*SB,true), new Furry(14*SB,7*SB,13*SB,-48+15*SB,true)};
+        for (int i = 0; i<2; i++) {
+            //game->enemies->push_back(arrEnemy[i]);
+            addItem(arrEnemy[i]);
+        }
         //Player
         initPlayer(posx, posy);
 

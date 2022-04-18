@@ -4,6 +4,7 @@
 #include <block.h>
 #include <motion.h>
 class Player;
+class Enemy;
 class MotionBlock : public Motion, public Block
 {
 public:
@@ -16,10 +17,12 @@ public:
                 qreal accx = 0, qreal accy = 0);
 
     static void setPlayer(Player *newPlayer) {player = newPlayer;};
+    static void setEnemies(QList<Enemy *> *newEnemies);
 
 private:
     virtual void check() override;
     void collidesWithPlayer();
+    void collidesWithEnemies();
     void checkLimits();
     void changeDirectionX();
     void changeDirectionY();
@@ -31,6 +34,7 @@ private:
     qreal ymax;
     QPointF dezplazamiento;
     static Player *player;
+    static QList<Enemy*> *enemies;
 };
 
 #endif // MOTIONBLOCK_H

@@ -1,5 +1,6 @@
 #include "motionblock.h"
 #include "player.h"
+#include "enemy.h"
 #include <QDebug>
 MotionBlock::MotionBlock(qreal posx, qreal posy ,
                          unsigned int width, unsigned int height,
@@ -33,6 +34,16 @@ void MotionBlock::collidesWithPlayer()
 {
     if (collidesWithItem(player)) {
         player->setPos(player->pos() + dezplazamiento);
+        player->setRPos(player->pos());
+    }
+}
+
+void MotionBlock::collidesWithEnemies()
+{
+    for (int i = 0; i<enemies->size(); i++) {
+        if (collidesWithItem(enemies->at(i))) {
+            enemies->at(i)->setPos(enemies->at(i)->pos() + dezplazamiento);
+        }
     }
 }
 
@@ -55,3 +66,9 @@ void MotionBlock::changeDirectionY()
 {
     v.setY((-1)*v.y());
 }
+
+void MotionBlock::setEnemies(QList<Enemy *> *newEnemies)
+{
+    enemies = newEnemies;
+}
+

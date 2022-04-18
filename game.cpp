@@ -18,6 +18,7 @@ Player *Dash::player;
 //Block
 QVector<Block*> *Block::blocks;
 //MotionBlock
+QList<Enemy*> *MotionBlock::enemies;
 Player *MotionBlock::player;
 //arrow
 Player *Arrow::player;
@@ -79,7 +80,7 @@ void Game::initStaticVar()
     //Block
     Block::setBlocks(blocks);
     //MotionBlock
-
+    MotionBlock::setEnemies(enemies);
     //Arrow
     Arrow::setEnemies(enemies);
     Arrow::setBlocks(blocks);
