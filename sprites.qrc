@@ -10,5 +10,6 @@
         <file>sprites/Bow - right.png</file>
         <file>sprites/sword - left.png</file>
         <file>sprites/sword - right.png</file>
+        <file>sprites/spike.png</file>
     </qresource>
 </RCC>

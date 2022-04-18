@@ -6,6 +6,7 @@
 #include "player.h"
 #include "furry.h"
 #include "bow.h"
+#include "spike.h"
 #include "healthbar.h"
 //extern Game *game; por alguna razon el extern no me funcionaba
 void World::loadWorld(unsigned short label)
@@ -26,8 +27,9 @@ void World::loadWorld(unsigned short label)
                 addItem(arrBlock[i]);
             }
             //Enemigos
-            Enemy *arrEnemy[2] = {new Furry(23*SB,5*SB), new Furry(29*SB,4*SB, 26*SB, 32*SB, true)};
-            for (int i = 0; i<2; i++) {
+            Enemy *arrEnemy[4] = {new Furry(23*SB,5*SB), new Furry(29*SB,4*SB, 26*SB, 32*SB, true),
+                                  new Spike(4*SB, 6*SB, 6*SB, 4*SB), new Spike(5*SB, 6*SB, 6*SB, 4*SB)};
+            for (int i = 0; i<4; i++) {
                 //game->enemies->push_back(arrEnemy[i]);
                 addItem(arrEnemy[i]);
             }
