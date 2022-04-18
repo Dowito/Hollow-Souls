@@ -30,7 +30,6 @@ SOURCES += \
     player.cpp \
     spike.cpp \
     sprite.cpp \
-    thebox.cpp \
     weapon.cpp
 
 HEADERS += \
@@ -55,7 +54,6 @@ HEADERS += \
     player.h \
     spike.h \
     sprite.h \
-    thebox.h \
     weapon.h
 
 # Default rules for deployment.
@@ -63,8 +61,7 @@ qnx: target.path = /tmp/$${TARGET}/bin
 else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
-FORMS += \
-    thebox.ui
+FORMS +=
 
 RESOURCES += \
     sprites.qrc

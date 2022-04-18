@@ -39,7 +39,7 @@ Game::Game(QWidget *parent):
 {
     initStaticVar();
     setParent(parent);
-    setGeometry(500,400,1280,720);
+    setGeometry(160,90,1280,720);
     setSceneRect(0,0,1280,720);
     //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
