@@ -4,6 +4,7 @@
 #include <weapon.h>
 #include <enemy.h>
 #include <block.h>
+#include <motionblock.h>
 #include <arrow.h>
 #include <dash.h>
 #include <bow.h>
@@ -16,6 +17,8 @@ qreal Motion::periodo;
 Player *Dash::player;
 //Block
 QVector<Block*> *Block::blocks;
+//MotionBlock
+Player *MotionBlock::player;
 //arrow
 Player *Arrow::player;
 QVector<Block*> *Arrow::blocks;
@@ -50,6 +53,7 @@ Game::Game(QWidget *parent):
     Dash::setPlayer(player);
     Arrow::setPlayer(player);
     Enemy::setPlayer(player);
+    MotionBlock::setPlayer(player);
     //cargando mundo
     world->loadWorld(1, 12*SB, 4*SB);
     setScene(world);
@@ -74,6 +78,8 @@ void Game::initStaticVar()
     Motion::setPeriodo(TTT);
     //Block
     Block::setBlocks(blocks);
+    //MotionBlock
+
     //Arrow
     Arrow::setEnemies(enemies);
     Arrow::setBlocks(blocks);

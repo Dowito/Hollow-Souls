@@ -1,4 +1,5 @@
 #include "motionblock.h"
+#include "player.h"
 #include <QDebug>
 MotionBlock::MotionBlock(qreal posx, qreal posy ,
                          unsigned int width, unsigned int height,
@@ -23,9 +24,16 @@ void MotionBlock::check()
 {
     calculatePos();
     dezplazamiento = r - pos();
-    qDebug() << dezplazamiento;
     setPos(r);
+    collidesWithPlayer();
     checkLimits();
+}
+
+void MotionBlock::collidesWithPlayer()
+{
+    if (collidesWithItem(player)) {
+        player->setPos(player->pos() + dezplazamiento);
+    }
 }
 
 void MotionBlock::checkLimits()
