@@ -6,6 +6,7 @@
 #include "player.h"
 #include "furry.h"
 #include "bow.h"
+#include "demon.h"
 #include "spike.h"
 #include "healthbar.h"
 #include "motionblock.h"
@@ -64,10 +65,9 @@ void World::loadWorld(unsigned short label, qreal posx, qreal posy)
         }
         //Enemies
         QVector<Enemy*> vectorEnemies = {new Furry(9*SB,10*SB,+50+8*SB,50+10*SB,true), new Furry(14*SB,7*SB,13*SB,-48+15*SB,true), new Furry(10*SB,12*SB),
-                                        };
+                                        new Demon(13*SB+54, 8*SB+54,1), new Demon(6*SB,5*SB+54,2)};
         for (int i = 0; i<vectorEnemies.size(); i++) {
             //game->enemies->push_back(arrEnemy[i]);
-            //addItem(arrEnemy[i]);
             addItem(vectorEnemies[i]);
         }
         //Player

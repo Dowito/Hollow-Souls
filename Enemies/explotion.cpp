@@ -5,7 +5,7 @@ Explotion::Explotion(Demon *demon)
 {
     loadSprite(":/new/sprites/sprites/explosion.png", 96,96);
     qreal posx;
-    (demon->getDirection()==1) ? posx = demon->x()-w : posx = demon->x()+demon->getW();
+    (demon->getDirection()==1) ? posx = demon->x()-w : posx = demon->x()+w;
     setX(posx);
     setPixmap(frames[0][2]);
 }

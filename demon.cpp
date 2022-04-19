@@ -1,5 +1,5 @@
 #include "demon.h"
-
+#include "Enemies/explotion.h"
 Demon::Demon(qreal posx, qreal posy, short direction)
     :Enemy(posx, posy, 90, 50, direction)
 {
@@ -23,7 +23,7 @@ void Demon::attack()
 {
     if(delay == 500){
         qDebug() << "Explotion";
-        //scene()->addItem(new Explotion(this));
+        scene()->addItem(new Explotion(this));
         delay = 0;
     }
     else delay++;
