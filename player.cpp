@@ -152,6 +152,7 @@ void Player::collisionsX()
 void Player::updateHealthBarPos()
 {
     healthBar->setPos(game->mapToScene(HBX,HBY));
+    healthBar->posUpdateHealth();
 }
 
 void Player::collisionsY()

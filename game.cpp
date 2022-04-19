@@ -11,6 +11,8 @@
 #include <healthbar.h>
 #include "Utilities/portal.h"
 #include "Screens/loadscreen.h"
+#include "Screens/gameover.h"
+#include "Screens/menu.h"
 #include <QGraphicsRectItem>
 #include "Screens/world.h"
 //motion
@@ -64,7 +66,7 @@ Game::Game(QWidget *parent):
     MotionBlock::setPlayer(player);
     Portal::setPlayer(player);
     //cargando mundo
-    world->loadWorld(1, {6*SB+100, 11*SB+100});
+    world->loadWorld(2, {16*SB,17*SB+100});
     //world->loadWorld(0, {34*SB, 4*SB});
     setScene(world);
     connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
@@ -114,12 +116,31 @@ void Game::initStaticVar()
 
 Game::~Game()
 {
-    delete player;
-    delete timer;
+    for (auto block : qAsConst(*blocks)) {
+        delete block;
+    }
     blocks->clear();
     delete blocks;
+    for (auto enemy : qAsConst(*enemies)) {
+        delete enemy;
+    }
     enemies->clear();
     delete enemies;
-    scene()->clear();
-    delete scene();
+    for (auto portal : qAsConst(*portals)) {
+        delete portal;
+    }
+    portals->clear();
+    delete portals;
+    for (auto arrow : qAsConst(*arrows)) {
+        delete arrow;
+    }
+    arrows->clear();
+    delete arrows;
+    delete player;
+    delete timer;
+    world->clear();
+    delete world;
+    delete gameover;
+    delete loadscreen;
+    delete menu;
 }

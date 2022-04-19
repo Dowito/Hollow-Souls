@@ -20,6 +20,11 @@ HealthBar::HealthBar(Player *owner, QObject *parent)
     update();
 }
 
+void HealthBar::posUpdateHealth()
+{
+    updateHealth->setPos(pos());
+}
+
 unsigned short HealthBar::healthPercent()
 {
     return ((*health)*100)/(*maxHealth);

@@ -1,6 +1,7 @@
 #include "furry.h"
 #include <block.h>
 #include <player.h>
+#include <QBitmap>
 #include <weapon.h>
 Furry::Furry(qreal posx, qreal posy, qreal velx, qreal vely, int maxHealth, int atk)
     :Enemy(posx, posy, maxHealth, atk),

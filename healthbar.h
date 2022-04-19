@@ -13,6 +13,7 @@ public:
     explicit HealthBar(Player *owner, QObject *parent = nullptr);
     void update();
 
+    void posUpdateHealth();
     QGraphicsRectItem *getUpdateHealth() const;
 
 private:
