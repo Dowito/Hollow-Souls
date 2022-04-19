@@ -54,6 +54,7 @@ private:
     unsigned short calculatedFrame();
     void collisionsY();
     void collisionsX();
+    void updateHealthBarPos();
     bool state;
     bool jump;
     bool inmu;

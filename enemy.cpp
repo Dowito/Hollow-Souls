@@ -32,23 +32,7 @@ Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, short direction, b
     stepsDie = 0;
     enemies->push_back(this);
 }
-/*
-Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, bool inmu, bool state, QGraphicsObject *parent)
-    :QGraphicsPixmapItem(parent)
-{
-    maxHealth = new int;
-    health = new int;
-    setPos(posx,posy);
-    *maxHealth = tMaxHealth;
-    *health = *maxHealth;
-    this->atk = atk;
-    if((this->direction<0) | (this->direction>3)) this->direction = 0;
-    this->inmu = inmu;
-    this->state = state;
-    stepsDie = 0;
-    enemies->push_back(this);
-}
-*/
+
 void Enemy::update()
 {
     for (auto enemy : qAsConst(*enemies)) {
@@ -71,8 +55,6 @@ void Enemy::collidesWithWeapon()
         if (player->getWeapon()->getAttacking()) {
             if (collidesWithItem(player->getWeapon())) {
                 inmu = true;
-                qDebug() << *health;
-                qDebug() << inmu;
                 takeDamage(player->getWeapon()->getAtk());
             }
         }
@@ -85,16 +67,6 @@ void Enemy::collidesWithWeapon()
 void Enemy::dealDamage()
 {
     player->takeDamage(atk);
-}
-
-short Enemy::getDirection() const
-{
-    return direction;
-}
-
-bool Enemy::getInmu() const
-{
-    return inmu;
 }
 
 void Enemy::changeDirection()
@@ -140,4 +112,14 @@ void Enemy::setBlocks(QVector<Block *> *newBlocks)
 Player *Enemy::getPlayer()
 {
     return player;
+}
+
+short Enemy::getDirection() const
+{
+    return direction;
+}
+
+bool Enemy::getInmu() const
+{
+    return inmu;
 }

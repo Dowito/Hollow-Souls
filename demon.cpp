@@ -22,7 +22,6 @@ void Demon::check()
 void Demon::attack()
 {
     if(delay == 500){
-        qDebug() << "Explotion";
         scene()->addItem(new Explotion(this));
         delay = 0;
     }

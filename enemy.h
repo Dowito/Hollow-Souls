@@ -29,14 +29,6 @@ public:
           bool inmu = false,
           bool state = true,
           QGraphicsObject *parent = nullptr);
-
-    /*
-    Enemy(qreal posx, qreal posy,   //constructor para enemigos que no importa su direccion
-          int tMaxHealth, int atk,
-          bool inmu = false,
-          bool state = true,
-          QGraphicsObject *parent = nullptr);
-    */
     virtual ~Enemy() {};
 
     static void update();

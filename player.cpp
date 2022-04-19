@@ -37,6 +37,8 @@ void Player::check()
     if(bow != nullptr) bow->animation();
     if(dash->getActivated()) dash->effect();
     game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
+    updateHealthBarPos();
+    //actualizar posicion del HB
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -54,6 +56,7 @@ void Player::keyPressEvent(QKeyEvent *event)
                 }
             }
             game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
+            updateHealthBarPos();
         }
         else if (event->key() == Qt::Key_Right) {
             direction = 2;
@@ -66,6 +69,7 @@ void Player::keyPressEvent(QKeyEvent *event)
                 }
             }
             game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
+            updateHealthBarPos();
         }
         else if (event->key() == Qt::Key_C) {
             if(!jump){
@@ -143,6 +147,11 @@ void Player::collisionsX()
             dash->finish();
         }
     }
+}
+
+void Player::updateHealthBarPos()
+{
+    healthBar->setPos(game->mapToScene(HBX,HBY));
 }
 
 void Player::collisionsY()

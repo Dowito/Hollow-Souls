@@ -12,6 +12,7 @@ class World;
 class Menu;
 class GameOver;
 class LoadScreen;
+class Portal;
 class Game : public QGraphicsView
 {
     Q_OBJECT
@@ -21,9 +22,9 @@ public:
     QTimer *timer;
     Player *player;
     QVector<Block*> *blocks;
+    QVector<Portal*> *portals;
     QList<Enemy*> *enemies;
     QList<Arrow*> *arrows;
-    int pruebaVergas = 10;
     //Screens
     World *world;
     GameOver *gameover;
@@ -36,6 +37,7 @@ public slots:
      * y que denpenden de un tiempo. Por ejemplo el movimiento, las colisiones, animaciones de muerte etc.
      */
     void timeWorld();
+    void loadNextWorld(Portal *portal);
     void initStaticVar();
 };
 

@@ -7,11 +7,12 @@ class World : public QGraphicsScene
 {
 public:
     World(Game *game) { this->game = game;};
-    void loadWorld(unsigned short label, qreal posx, qreal posy);
+    void loadWorld(unsigned short label, QPointF posPlayer);
+    void initPlayer();
 
 private:
     void clearWorld();
-    void initPlayer(qreal posx, qreal posy);
+    void updatePosPlayer(QPointF pos);
     Game *game;
 
 };
