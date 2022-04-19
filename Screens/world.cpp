@@ -10,6 +10,7 @@
 #include "spike.h"
 #include "healthbar.h"
 #include "motionblock.h"
+#include "Utilities/portal.h"
 //extern Game *game; por alguna razon el extern no me funcionaba
 void World::loadWorld(unsigned short label, qreal posx, qreal posy)
 {
@@ -69,6 +70,11 @@ void World::loadWorld(unsigned short label, qreal posx, qreal posy)
         for (int i = 0; i<vectorEnemies.size(); i++) {
             //game->enemies->push_back(arrEnemy[i]);
             addItem(vectorEnemies[i]);
+        }
+        //Portals
+        QVector<Portal*> portals = {new Portal(6*SB+25, 11*SB+100, 34*SB,4*SB,0)};
+        for (auto portal : portals) {
+            addItem(portal);
         }
         //Player
         initPlayer(posx, posy);

@@ -9,11 +9,13 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Enemies/dragon.cpp \
     Enemies/explotion.cpp \
     Screens/gameover.cpp \
     Screens/loadscreen.cpp \
     Screens/menu.cpp \
     Screens/world.cpp \
+    Utilities/portal.cpp \
     arrow.cpp \
     block.cpp \
     bow.cpp \
@@ -34,11 +36,13 @@ SOURCES += \
     weapon.cpp
 
 HEADERS += \
+    Enemies/dragon.h \
     Enemies/explotion.h \
     Screens/gameover.h \
     Screens/loadscreen.h \
     Screens/menu.h \
     Screens/world.h \
+    Utilities/portal.h \
     arrow.h \
     block.h \
     bow.h \

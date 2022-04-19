@@ -9,10 +9,13 @@
 #include <dash.h>
 #include <bow.h>
 #include <healthbar.h>
+#include "Utilities/portal.h"
 #include <QGraphicsRectItem>
 #include "Screens/world.h"
 //motion
 qreal Motion::periodo;
+//Portal
+Player *Portal::player;
 //Dash
 Player *Dash::player;
 //Block
@@ -55,8 +58,9 @@ Game::Game(QWidget *parent):
     Arrow::setPlayer(player);
     Enemy::setPlayer(player);
     MotionBlock::setPlayer(player);
+    Portal::setPlayer(player);
     //cargando mundo
-    world->loadWorld(1, 12*SB, 4*SB);
+    world->loadWorld(1, 6*SB+100, 11*SB+100);
     setScene(world);
     connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     timer->start(CLOCK_GAME);
