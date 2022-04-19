@@ -18,6 +18,11 @@ void Sprite::loadFrames(QPixmap sprite, unsigned short fil, unsigned short col)
     }
 }
 
+unsigned int Sprite::getW() const
+{
+    return w;
+}
+
 void Sprite::loadSprite(QString name, unsigned int w, unsigned int h, unsigned short fil, unsigned short col)
 {
     QPixmap sprite(name);

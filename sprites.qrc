@@ -11,5 +11,6 @@
         <file>sprites/sword - left.png</file>
         <file>sprites/sword - right.png</file>
         <file>sprites/spike.png</file>
+        <file>sprites/explosion.png</file>
     </qresource>
 </RCC>

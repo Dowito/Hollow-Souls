@@ -87,6 +87,11 @@ void Enemy::dealDamage()
     player->takeDamage(atk);
 }
 
+short Enemy::getDirection() const
+{
+    return direction;
+}
+
 bool Enemy::getInmu() const
 {
     return inmu;

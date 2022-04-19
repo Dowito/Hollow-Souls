@@ -10,6 +10,8 @@ public:
     //short getDirection() const {return direction;};
     //void setDirection(short direction) {this->direction = direction;};
 
+    unsigned int getW() const;
+
 protected:
     virtual void loadSprite(QString name, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
     /*!

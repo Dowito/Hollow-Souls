@@ -53,21 +53,22 @@ void World::loadWorld(unsigned short label, qreal posx, qreal posy)
         //dimenciones de la escena
         setSceneRect(0,0,25*SB,16*SB);
         //Bloques
-        Block *arrBlock[18] = {new Block(0,0,25,3), new Block(0,3,5,2), new Block(0,5,4,1), new Block(0,6,7,5), new Block (0,11,6,2), new Block(0,13,25,3),
-                              new Block(6,12,2,1), new Block(13,12,8,1), new Block(16,3,4,8), new Block(21,3,4,10), new Block(11,11,1,1), new Block(12*SB,9*SB,2*SB,50,false),
-                              new Block(11,6,1,1), new Block(9*SB,5*SB,1*SB,50,false), new Block(7,6,1,1),
-                              new MotionBlock(+50+8*SB,11*SB,-100+3*SB,50,false,true,0,0,8*SB,11*SB+50,0,-7),
-                              new MotionBlock(13*SB,8*SB,2*SB,50,false,true,0,0,5*SB,8*SB,0,-7)};
-        for (unsigned long long int i = 0; i<18; i++) {
-            //game->blocks->push_back(arrBlock[i]);
-            qDebug() << sizeof (arrBlock[i]);
-            addItem(arrBlock[i]);
+        QVector<Block*> vecBlock = {new Block(0,0,25,3), new Block(0,3,5,2), new Block(0,5,4,1), new Block(0,6,7,5), new Block (0,11,6,2), new Block(0,13,25,3),
+                                    new Block(6,12,2,1), new Block(13,12,8,1), new Block(16,3,4,8), new Block(21,3,4,10), new Block(11,11,1,1), new Block(12*SB,9*SB,2*SB,50,false),
+                                    new Block(11,6,1,1), new Block(9*SB,5*SB,1*SB,50,false), new Block(7,6,1,1),
+                                    new MotionBlock(+50+8*SB,11*SB,-100+3*SB,50,false,true,0,0,8*SB,11*SB+50,0,-7),
+                                    new MotionBlock(13*SB,8*SB,2*SB,50,false,true,0,0,5*SB,8*SB,0,-7)};
+        for (int i = 0; i<vecBlock.size(); i++) {
+            //game->blocks->push_back(arrBlock[i])
+            addItem(vecBlock[i]);
         }
         //Enemies
-        Enemy *arrEnemy[2] = {new Furry(9*SB,10*SB,+50+8*SB,50+10*SB,true), new Furry(14*SB,7*SB,13*SB,-48+15*SB,true)};
-        for (int i = 0; i<2; i++) {
+        QVector<Enemy*> vectorEnemies = {new Furry(9*SB,10*SB,+50+8*SB,50+10*SB,true), new Furry(14*SB,7*SB,13*SB,-48+15*SB,true), new Furry(10*SB,12*SB),
+                                        };
+        for (int i = 0; i<vectorEnemies.size(); i++) {
             //game->enemies->push_back(arrEnemy[i]);
-            addItem(arrEnemy[i]);
+            //addItem(arrEnemy[i]);
+            addItem(vectorEnemies[i]);
         }
         //Player
         initPlayer(posx, posy);

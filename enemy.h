@@ -50,6 +50,8 @@ public:
 
     bool getInmu() const;
 
+    short getDirection() const;
+
 protected:
     virtual void attack() = 0; //cada enemigo podra tener su propia forma de atacar
     virtual void changeDirection();
