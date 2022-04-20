@@ -5,6 +5,7 @@
 #include "arrow.h"
 #include "player.h"
 #include "furry.h"
+#include "Enemies/audhulma.h"
 #include "bow.h"
 #include "demon.h"
 #include "spike.h"
@@ -48,7 +49,7 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             vecEnemies = {new Furry(9*SB,10*SB,+50+8*SB,50+10*SB,true), new Furry(14*SB,7*SB,13*SB,-48+15*SB,true), new Furry(10*SB,12*SB),
                           new Demon(13*SB+54, 8*SB+54,1), new Demon(6*SB,5*SB+54,2)};
             //Portals
-            vecPortals = {new Portal(6*SB, 11*SB+100, 34*SB, 4*SB+100, 0), new Portal(4*SB,5*SB+100,16*SB,17*SB+100,2)};
+            vecPortals = {new Portal(6*SB,11*SB+100,34*SB,4*SB+100,0), new Portal(4*SB,5*SB+100,16*SB,17*SB+100,2)};
             break;
         }
         case 2: {
@@ -70,9 +71,25 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                           new Demon(14*SB,6*SB+50,1),
                           new Demon(6*SB,16*SB+50,2)};
             //portal
-            vecPortals = {};
+            vecPortals = {new Portal(16*SB+100,17*SB+100,4*SB+100,5*SB+100,1)};
             break;
         }
+    case 3: {
+        //poner fondo
+
+        //dimensiones escena
+        setSceneRect(0,0,29*SB,12*SB);
+        //bloques - pintar, texturas
+        vecBlocks = {new Block(0,0,29,3), new Block(0,3,6,4), new Block(0,7,5,5), new Block(5,8,17,4), new Block(17,12,5,8), new Block(22,17,6,3),
+                     new Block(23,8,6,9), new Block(24,3,5,5),
+                     new Block(9*SB,7*SB,SB+50,50,false), new Block(11*SB,6*SB,SB,50,false), new Block(13*SB,5*SB,SB,50,false), new Block(15*SB,6*SB,SB,50,false),
+                     new Block(17*SB-50,7*SB,SB+50,50,false)};
+        //enemies
+        vecEnemies = {new Audhulma()};
+        //portal
+        vecPortals = {new Portal(22*SB+50,16*SB+100,20*SB+52,3*SB+2,1)};
+        break;
+    }
         default: {
             //poner fondo
 
@@ -115,7 +132,11 @@ void World::clearWorld()
         removeItem(game->blocks->at(i));
         delete game->arrows->at(i);
     }
-    game->arrows->clear();
+    for (int i = 0; i<game->portals->size(); i++) {
+        removeItem(game->portals->at(i));
+        delete game->portals->at(i);
+    }
+    game->portals->clear();
 }
 
 void World::updatePosPlayer(QPointF pos)

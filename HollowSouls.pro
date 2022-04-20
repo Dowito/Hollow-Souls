@@ -12,6 +12,7 @@ SOURCES += \
     Enemies/audhulma.cpp \
     Enemies/dragon.cpp \
     Enemies/explotion.cpp \
+    Enemies/fireball.cpp \
     Screens/gameover.cpp \
     Screens/loadscreen.cpp \
     Screens/menu.cpp \
@@ -40,6 +41,7 @@ HEADERS += \
     Enemies/audhulma.h \
     Enemies/dragon.h \
     Enemies/explotion.h \
+    Enemies/fireball.h \
     Screens/gameover.h \
     Screens/loadscreen.h \
     Screens/menu.h \

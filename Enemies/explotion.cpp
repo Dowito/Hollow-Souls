@@ -8,6 +8,15 @@ Explotion::Explotion(Demon *demon)
     (demon->getDirection()==1) ? posx = demon->x()-w : posx = demon->x()+w;
     setX(posx);
     setPixmap(frames[0][2]);
+    duration = 120;
+}
+
+Explotion::Explotion(qreal posx, qreal posy)
+    :Enemy(posx, posy, 9999, 50, 0, true, true, nullptr)
+{
+    loadSprite(":/new/sprites/sprites/explosion.png", 96,96);
+    setPixmap(frames[0][2]);
+    duration = 120;
 }
 
 void Explotion::check()
@@ -23,7 +32,7 @@ void Explotion::check()
 
 void Explotion::animation()
 {
-    if(stepsDie >= 120){
+    if(stepsDie >= duration){
         state = false;
     }
     else stepsDie++;

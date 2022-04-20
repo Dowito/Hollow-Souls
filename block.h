@@ -10,6 +10,7 @@ public:
     Block() {};
     explicit Block(QPointF pos , unsigned int width, unsigned int height, QObject *parent = nullptr);
     Block(qreal posx, qreal posy , unsigned int width, unsigned int height, bool matriz = true, QObject *parent = nullptr);
+    virtual ~Block() {};
 
     static void update();
     static void setBlocks(QVector<Block *> *newBlocks);

@@ -7,11 +7,15 @@ class Explotion : public Enemy
 {
 public:
     Explotion(Demon *demon);
+    Explotion(qreal posx, qreal posy);
     virtual ~Explotion() {};
     virtual void check() override;
 
-private:
+protected:
+    unsigned int duration;
     void animation();
+
+private:
     virtual void attack() override;
 };
 

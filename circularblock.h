@@ -23,6 +23,8 @@ public:
                   unsigned short direction,
                   float angularVel,
                   float angularAcc = 0);
+    virtual ~CircularBlock() {};
+
 protected:
     virtual void check() override;
 };

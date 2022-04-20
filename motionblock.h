@@ -15,6 +15,7 @@ public:
                 qreal ymin = 0, qreal ymax = 0,
                 qreal velx = 0, qreal vely = 0,
                 qreal accx = 0, qreal accy = 0);
+    virtual ~MotionBlock() {};
 
     static void setPlayer(Player *newPlayer) {player = newPlayer;};
     static void setEnemies(QList<Enemy *> *newEnemies);

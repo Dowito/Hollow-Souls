@@ -21,7 +21,6 @@ Motion::Motion(qreal posx, qreal posy, qreal velx, qreal vely, qreal accx, qreal
 
 void Motion::calculatePos()
 {
-    //a.setY(*gravityTest);
     v = v+(a*periodo);
     r = r+(v*periodo);
 }

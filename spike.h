@@ -15,6 +15,7 @@ public:
           bool inmu = true,
           bool state = true,
           QGraphicsObject *parent = nullptr);
+    virtual ~Spike() {};
     virtual void check() override;
 
 private:
