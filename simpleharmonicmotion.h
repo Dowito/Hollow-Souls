@@ -5,6 +5,7 @@
 class SimpleHarmonicMotion : public Motion
 {
 public:
+    SimpleHarmonicMotion() {};
     SimpleHarmonicMotion(qreal amplitud, qreal frequency, qreal phase, qreal velx);
 
 protected:

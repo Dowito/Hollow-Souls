@@ -6,6 +6,7 @@
 #include "player.h"
 #include "furry.h"
 #include "Enemies/audhulma.h"
+#include "Enemies/dragon.h"
 #include "bow.h"
 #include "demon.h"
 #include "spike.h"
@@ -29,7 +30,8 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                          new Block(6,5,16,4,true), new Block(15,3,4,1), new Block(22,6,4,3), new Block(26,5,12,4), new Block(34,3,4,1), new Block(35,4,3,1)}; //parte derecha
             //Enemigos
             vecEnemies = {new Furry(23*SB,5*SB), new Furry(29*SB,4*SB, 26*SB, 32*SB, true),
-                          new Spike(4*SB, 100+6*SB, 6*SB, 4*SB), new Spike(5*SB, 100+6*SB, 6*SB, 4*SB)};
+                         new Spike(4*SB, 100+6*SB, 6*SB, 4*SB), new Spike(5*SB, 100+6*SB, 6*SB, 4*SB),
+                         new Dragon(11*SB+100,4*SB+100,2,330,0.01,0), new Dragon(true)};
             //Portals
             vecPortals = {new Portal(34*SB+100, 4*SB+100, 6*SB+100, 11*SB+100, 1)};
             break;

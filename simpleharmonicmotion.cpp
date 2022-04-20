@@ -3,7 +3,10 @@
 SimpleHarmonicMotion::SimpleHarmonicMotion(qreal amplitud, qreal frequency, qreal phase, qreal velx)
 {
     r.setX(0);
+    r.setY(0);
     v.setX(velx);
+    v.setY(0);
+    a = {0,0};
     this->amplitud = amplitud;
     this->frequency = frequency;
     this->phase = phase;
