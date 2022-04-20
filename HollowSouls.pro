@@ -33,6 +33,7 @@ SOURCES += \
     motion.cpp \
     motionblock.cpp \
     player.cpp \
+    simpleharmonicmotion.cpp \
     spike.cpp \
     sprite.cpp \
     weapon.cpp
@@ -62,6 +63,7 @@ HEADERS += \
     motion.h \
     motionblock.h \
     player.h \
+    simpleharmonicmotion.h \
     spike.h \
     sprite.h \
     weapon.h

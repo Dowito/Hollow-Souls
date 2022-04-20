@@ -14,5 +14,6 @@
         <file>sprites/explosion.png</file>
         <file>sprites/portal.png</file>
         <file>sprites/boss_dragon.png</file>
+        <file>sprites/dragon.png</file>
     </qresource>
 </RCC>

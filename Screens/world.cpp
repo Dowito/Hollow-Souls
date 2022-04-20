@@ -71,7 +71,7 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                           new Demon(14*SB,6*SB+50,1),
                           new Demon(6*SB,16*SB+50,2)};
             //portal
-            vecPortals = {new Portal(16*SB+100,17*SB+100,4*SB+100,5*SB+100,1)};
+            vecPortals = {new Portal(16*SB+100,17*SB+100,4*SB+100,5*SB+100,1), new Portal(16*SB+100,6*SB+100,5*SB+100,7*SB+100,3)};
             break;
         }
     case 3: {
