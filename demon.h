@@ -15,7 +15,6 @@ public:
 private:
     virtual void attack() override;
     unsigned short delay;
-    int control;
 };
 
 #endif // DEMON_H

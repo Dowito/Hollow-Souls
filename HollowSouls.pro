@@ -9,6 +9,7 @@ CONFIG += c++11
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Enemies/audhulma.cpp \
     Enemies/dragon.cpp \
     Enemies/explotion.cpp \
     Screens/gameover.cpp \
@@ -36,6 +37,7 @@ SOURCES += \
     weapon.cpp
 
 HEADERS += \
+    Enemies/audhulma.h \
     Enemies/dragon.h \
     Enemies/explotion.h \
     Screens/gameover.h \
