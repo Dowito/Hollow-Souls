@@ -36,6 +36,10 @@ Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, short direction, b
 void Enemy::update()
 {
     for (auto enemy : qAsConst(*enemies)) {
+        if(enemy->label == "Explotion") {
+            qDebug() << "tamaño enemies: "<< enemies->size();
+            qDebug() << "chekeando la explotion " << enemy->control;
+        }
         enemy->check();
     }
 }
@@ -87,8 +91,11 @@ void Enemy::takeDamage(int damage, short direction)
 void Enemy::die()
 {
     if (!state) {
+        qDebug() << "muriendo";
         enemies->removeOne(this);
+        qDebug() << control << " removida de la lista";
         scene()->removeItem(this);
+        qDebug() << control << " removida de la escena";
         delete this;
     }
 

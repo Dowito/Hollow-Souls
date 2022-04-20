@@ -58,13 +58,17 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             setSceneRect(0,0,22*SB,22*SB);
             //bloques - pintar, texturas
             vecBlocks = {new Block(14,18,8,1), new Block(17,17,5,1), new Block(16,7,6,10), new Block(8,19,14,3), new Block(7,18,1,4), new Block(6,17,1,5),
-                        new Block(0,11,6,11), new Block(0,9,7,2), new Block(0,8,5,1), new Block(0,3,6,5), new Block(0,0,22,3), new Block(16,3,6,3),
+                        new Block(0,11,6,11), new Block(0,9,7,2), new Block(0,8,5,1), new Block(0,3,6,5), new Block(0,0,22,5), new Block(16,3,6,3),
                         new Block(17,6,5,1), new Block(12,7,4,1),
-                        new Block(11,14,2,3), new Block(14,13,1,1), new Block(15*SB,12*SB,SB,50,false), new Block(12,11,2,1),
+                        new Block(11,14,2,3), new Block(14,13,1,1), new Block(15*SB,12*SB,SB,50,false), new Block(12,11,2,1), new Block(13*SB,10*SB,50,50,false), new Block(12*SB-100,9*SB,200,50,false),
                         new MotionBlock(8*SB,14*SB,2*SB,50,false,true,0,0,13*SB,17*SB,0,-7),
-                        new MotionBlock(8*SB,5*SB,3*SB,SB,false,true,0,0,5*SB,11*SB,0,10)};
+                        new MotionBlock(8*SB,6*SB,3*SB,SB,false,true,0,0,6*SB,11*SB,0,10)};
             //enemies
-            vecEnemies = {new Furry(9*SB,18*SB)};
+            vecEnemies = {new Furry(9*SB,18*SB), new Furry(9*SB,14*SB,8*SB,10*SB-48,true), new Furry(13*SB,10*SB+50,12*SB,14*SB-48,true),
+                          new Furry(9*SB,5*SB+50,8*SB,11*SB-48,true), new Furry(10*SB,5*SB+50,8*SB,11*SB-48,true),
+                          new Demon(12*SB,13*SB+50,1),
+                          new Demon(14*SB,6*SB+50,1),
+                          new Demon(6*SB,16*SB+50,2)};
             //portal
             vecPortals = {};
             break;

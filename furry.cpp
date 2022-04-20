@@ -13,8 +13,8 @@ Furry::Furry(qreal posx, qreal posy, qreal velx, qreal vely, int maxHealth, int 
     limit = false;
 }
 
-Furry::Furry(qreal posx, qreal posy, qreal xmin, qreal xmax, bool limit)
-    :Furry(posx, posy)
+Furry::Furry(qreal posx, qreal posy, qreal xmin, qreal xmax, bool limit, qreal velx)
+    :Furry(posx, posy, velx)
 {
     this->limit = limit;
     this->xmin = xmin;

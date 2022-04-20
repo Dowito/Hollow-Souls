@@ -16,7 +16,8 @@ public:
           int atk = 20);
     Furry(qreal posx, qreal posy,
           qreal xmin, qreal xmax,
-          bool limit);
+          bool limit,
+          qreal velx = 10);
 
     virtual ~Furry() {};
     //Enemy

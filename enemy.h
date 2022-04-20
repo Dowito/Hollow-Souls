@@ -62,6 +62,8 @@ protected:
     static Player *player;
     static QVector<Block*> *blocks;
     static QList<Enemy*> *enemies;
+    int control;
+    QString label = "null";
 };
 
 #endif // ENEMY_H
