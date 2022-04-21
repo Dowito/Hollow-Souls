@@ -18,6 +18,7 @@ SOURCES += \
     Screens/loadscreen.cpp \
     Screens/menu.cpp \
     Screens/world.cpp \
+    Utilities/fairy.cpp \
     Utilities/lever.cpp \
     Utilities/portal.cpp \
     arrow.cpp \
@@ -50,6 +51,7 @@ HEADERS += \
     Screens/loadscreen.h \
     Screens/menu.h \
     Screens/world.h \
+    Utilities/fairy.h \
     Utilities/lever.h \
     Utilities/portal.h \
     arrow.h \
