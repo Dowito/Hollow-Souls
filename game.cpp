@@ -66,11 +66,12 @@ Game::Game(QWidget *parent):
     MotionBlock::setPlayer(player);
     Portal::setPlayer(player);
     //cargando mundo
-    //world->loadWorld(0, {11*SB+100, 4*SB+100});
+    world->loadWorld(0, {11*SB+100, 4*SB+100});
     //world->loadWorld(1, {14*SB,6*SB+100}); //(14,6) , (16,17)
     //world->loadWorld(2, {16*SB,17*SB+100});
     //world->loadWorld(3, {11*SB,7*SB});
-    world->loadWorld(4,{14*SB,19*SB+100});
+    //world->loadWorld(4,{14*SB,4*SB+100}); //world->loadWorld(4,{14*SB,19*SB+100});
+    //world->loadWorld(5,{21*SB,7*SB+100});
     setScene(world);
     connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     timer->start(CLOCK_GAME);

@@ -49,6 +49,8 @@ public:
     Dash *getDash() const;
     void setInmu(bool newInmu);
 
+    bool leverOn;
+
 private:
     void keyPressEvent(QKeyEvent *event) override;
     unsigned short calculatedFrame();

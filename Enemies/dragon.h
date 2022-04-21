@@ -14,17 +14,21 @@ public:
      * phase: cualquier valor, determina la posicion inicial en y respecto a su origen, es un angulo en rad
      * vel: 10 esta bien o 20
      */
-    Dragon(bool spawner);
+    Dragon(bool spawner, unsigned int stepsToSpawn = 200);
     virtual ~Dragon() {};
 
     void move();
     void limitScene();
     void spawn();
 
+private:
+    bool spawner;
+    unsigned int stepsToSpawn;
+    unsigned int steps;
+
     // Motion interface
 public:
     virtual void check() override;
-    bool spawner;
 
     // Enemy interface
 protected:

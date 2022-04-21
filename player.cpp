@@ -27,6 +27,7 @@ Player::Player(QObject *parent)
     v = {0,0};
     a = {0,GRAVEDAD};
     setCarcaj(1);
+    leverOn = false;
 }
 
 void Player::check()

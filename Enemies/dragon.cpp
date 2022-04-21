@@ -1,5 +1,6 @@
 #include "dragon.h"
 #include "game.h"
+#include "player.h"
 #include "QGraphicsView"
 extern Game *game;
 Dragon::Dragon(qreal posx, qreal posy, short direction, qreal amplitud, qreal frequency, qreal phase, qreal velx)
@@ -13,9 +14,12 @@ Dragon::Dragon(qreal posx, qreal posy, short direction, qreal amplitud, qreal fr
     spawner = false;
 }
 
-Dragon::Dragon(bool spawner): Enemy(0,0,9999,0,0,true,true)
+Dragon::Dragon(bool spawner, unsigned int stepsToSpawn): Enemy(0,0,9999,0,0,true,true)
 {
     this->spawner = spawner;
+    setPos(0,0);
+    steps = 0;
+    this->stepsToSpawn = stepsToSpawn;
 }
 
 void Dragon::check()
@@ -46,9 +50,8 @@ void Dragon::limitScene()
 
 void Dragon::spawn()
 {
-    static unsigned int delay = 0;
     if(spawner){
-        if(delay == 200){
+        if(steps == stepsToSpawn){
             short direction;
             qreal posx = 0+rand()%(2-0);
             qreal posy = 50+rand()%((721-50)-50);
@@ -62,9 +65,9 @@ void Dragon::spawn()
             qreal phase = 0+rand()%(180-0);
             phase = qDegreesToRadians(phase);
             scene()->addItem(new Dragon(pos.x(),pos.y(),direction,amplitud,frequency,phase));
-            delay = 0;
+            steps = 0;
         }
-        else delay++;
+        else steps++;
     }
 }
 

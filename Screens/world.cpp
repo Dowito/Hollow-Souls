@@ -67,13 +67,14 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                         new Block(17,6,5,1), new Block(12,7,4,1),
                         new Block(11,14,2,3), new Block(14,13,1,1), new Block(15*SB,12*SB,SB,50,false), new Block(12,11,2,1), new Block(13*SB,10*SB,50,50,false), new Block(12*SB-100,9*SB,200,50,false),
                         new MotionBlock(8*SB,14*SB,2*SB,50,false,true,0,0,13*SB,17*SB,0,-7),
-                        new MotionBlock(8*SB,6*SB,3*SB,SB,false,true,0,0,6*SB,11*SB,0,10)};
+                        new MotionBlock(8*SB,6*SB,3*SB,SB,false,true,0,0,6*SB,11*SB+50,0,10)};
             //enemies
             vecEnemies = {new Furry(9*SB,18*SB), new Furry(9*SB,14*SB,8*SB,10*SB-48,true), new Furry(13*SB,10*SB+50,12*SB,14*SB-48,true),
                           new Furry(9*SB,5*SB+50,8*SB,11*SB-48,true), new Furry(10*SB,5*SB+50,8*SB,11*SB-48,true),
                           new Demon(12*SB,13*SB+50,1),
                           new Demon(14*SB,6*SB+50,1),
-                          new Demon(6*SB,16*SB+50,2)};
+                          new Demon(6*SB,16*SB+50,2),
+                          new Dragon(true)};
             //portal
             vecPortals = {new Portal(16*SB+100,17*SB+100,4*SB+100,5*SB+100,1), new Portal(16*SB+100,6*SB+100,5*SB+100,7*SB+100,3)};
             break;
@@ -98,7 +99,7 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         //poner fondo
 
         //dimeciones escena
-        setSceneRect(0,0,SB,SB);
+        setSceneRect(0,0,21*SB,30*SB);
         //bloques - pintar, texturas
         vecBlocks = {new Block(0,0,21,3), new Block(0,22,5,4), new Block(0,26,21,4), new Block(0,3,6,19), new Block(15,3,6,1), new Block(16,4,5,1), new Block(15,5,6,21),
                     new Block(8*SB,5*SB,7*SB,50,false), new Block(6,6,1,1), new Block(6*SB,7*SB,7*SB,50,false), new Block(14,8,1,1), new Block(8*SB,9*SB,7*SB,50,false),
@@ -113,18 +114,35 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                      new Saw(10*SB,11*SB+75,2,225,0,0.5), new Furry(10*SB,10*SB,9*SB,11*SB-48,true),
                      new Saw(12*SB+75,15*SB+25,2,150,0,-0.5), new Saw(10*SB+75,16*SB+25,2,150,0,0.5),
                      new Saw(10*SB+75,20*SB+10,1,65,0,0.5), new Saw(10*SB+75,20*SB+10,1,65,PI/2,0.5), new Saw(10*SB+75,20*SB+10,1,65,PI,0.5), new Saw(10*SB+75,20*SB+10,1,65,(3*PI)/2,0.5),
-                     new Saw(10*SB+75,20*SB+10-250,1,65,0,0.5), new Saw(10*SB+75,20*SB+10-250,1,65,PI/2,0.5), new Saw(10*SB+75,20*SB+10-250,1,65,PI,0.5), new Saw(10*SB+75,20*SB+10-250,1,65,(3*PI)/2,0.5),
+                     new Saw(10*SB+75,20*SB+10-300,1,65,0,0.5), new Saw(10*SB+75,20*SB+10-300,1,65,PI/2,0.5), new Saw(10*SB+75,20*SB+10-300,1,65,PI,0.5), new Saw(10*SB+75,20*SB+10-300,1,65,(3*PI)/2,0.5),
                      new Saw(12*SB+75,23*SB+25,1,rad4,1.57,0.5), new Saw(12*SB+75,25*SB+25,1,rad4,-1.57,0.5), new Saw(10*SB+75,24*SB+25,1,rad4,1.57,0.5), new Saw(8*SB+75,23*SB+25,1,rad4,0,0.5) ,new Saw(8*SB+75,25*SB+25,1,rad4,-2.40,0.5),
-                     new Spike(10*SB,21*SB+50,8*SB+50,19*SB+50)};
+                     new Spike(10*SB,21*SB+50,8*SB+50,19*SB+50), new Dragon(true)};
         //Spikes
         fillSpikes(vecEnemies,5,8,12,7*SB+50,10*SB+50);
         fillSpikes(vecEnemies,6,9,16,14*SB+50,14*SB+52);
         fillSpikes(vecEnemies,8,7,25,12*SB+50,19*SB+50);
         //portal
-        vecPortals = {};
+        vecPortals = {new Portal(15*SB+100,4*SB+100,3*SB+100,4*SB+100,0), new Portal(5*SB,25*SB+100,21*SB,7*SB+100,5)};
 
 
         break;
+    }
+    case 5: {
+        //poner fondo
+
+        //dimensiones escena
+        setSceneRect(0,0,29*SB,12*SB);
+        //bloques - pintar, texturas
+        vecBlocks = {new Block(0,0,29,3), new Block(0,3,6,4), new Block(0,7,5,5), new Block(5,8,24,4), new Block(24,3,5,5),
+                     new Block(9*SB,7*SB,SB+50,50,false), new Block(11*SB,6*SB,SB,50,false), new Block(13*SB,5*SB,SB,50,false),
+                     new Block(15*SB,6*SB,SB,50,false), new Block(17*SB-50,7*SB,SB+50,50,false), new Block(22,7,2,1),
+                     new Block(21,3,3,4)};
+        //enemies
+        vecEnemies = {new Audhulma(), new Dragon(true,1)};
+        //portal
+        vecPortals = {};
+        break;
+
     }
         default: {
             //poner fondo
