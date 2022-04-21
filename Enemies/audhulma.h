@@ -13,11 +13,14 @@ private:
     void inmulateFloor();
     void fireBall();
     void calculateDirectionPlayer();
+    void limitPlayer();
+    bool limit;
     QPointF directionPlayer;
+
+
     // Enemy interface
 public:
     void check();
-
     QPointF getDirectionPlayer() const;
 
 protected:

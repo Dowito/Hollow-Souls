@@ -14,6 +14,7 @@ protected:
     qreal amplitud;
     qreal frequency;
     qreal phase;
+
     // Motion interface
 protected:
     virtual void calculatePos() override;

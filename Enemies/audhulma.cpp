@@ -8,11 +8,13 @@ Audhulma::Audhulma(qreal posx, qreal posy)
     loadSprite(":/new/sprites/sprites/boss_dragon.png",120,120,1,3);
     setPixmap(frames[0][1]);
     delay = 0;
+    limit = false;
 }
 
 void Audhulma::check()
 {
     if(state){
+        limitPlayer();
         collidesWithPlayer();
         collidesWithWeapon();
         attack();
@@ -38,6 +40,18 @@ void Audhulma::calculateDirectionPlayer()
 {
     QPointF dist = player->pos() - pos();
     directionPlayer = dist/dist.manhattanLength();
+}
+
+void Audhulma::limitPlayer()
+{
+    if(limit) {
+        if(player->pos().x() < 6*SB || player->pos().x()+48 > 21*SB) {
+            (player->pos().x() < 6*SB) ? player->setX(6*SB+2) : player->setX(21*SB-50);
+        }
+    }
+    else{
+        if(player->pos().x() > 6*SB) limit = true;
+    }
 }
 
 void Audhulma::attack()

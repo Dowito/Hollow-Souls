@@ -18,7 +18,6 @@ private:
     void updatePosPlayer(QPointF pos);
     void fillSpikes(QVector<Enemy*> &vecEnemies, unsigned int num, qreal posx, qreal posy, qreal posPlayerX, qreal posPlayerY);
     Game *game;
-
 };
 
 #endif // WORLD_H

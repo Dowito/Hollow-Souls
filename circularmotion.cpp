@@ -11,22 +11,10 @@ CircularMotion::CircularMotion(float radio, float angularVel, float angularAcc)
     this->angularVel = -angularVel;
 }
 
-/*
-CircularMotion::CircularMotion(float radio, float angularPos, float angularVel, float angularAcc)
-{
-    this->radio = radio;
-    this->angularPos = -angularPos;
-    this->angularAcc = -angularAcc;
-    this->angularVel = -angularVel;
-}
-*/
-
 void CircularMotion::calculatePos()
 {
     calculateAngle();
-    r = {radio*qCos(angularPos), radio*qSin(angularPos)}; //Calcula la posicion, c+luego cuando se actualise la Pos en la escena, se haran calculos para que el sprite quede centrado
-    //pos = {radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2};
-    //setPos(radio*qCos(angularPos)-w/2, radio*qSin(angularPos)-h/2);
+    r = {radio*qCos(angularPos), radio*qSin(angularPos)};
     //---------MALO----------------------
     /*
     calculateAceleration();
