@@ -9,6 +9,7 @@
 //Movimiento - Simulacion fisica
 #define TTT 0.1
 #define GRAVEDAD 11
+#define PI 3.14159
 /*
 TTT = 0.1, GRAVEDAD = 10.9 y velY = -61 consigo saltar 3.5 casillas y el tiempo de vuelo es de 1.2
 

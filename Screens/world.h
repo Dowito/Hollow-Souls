@@ -4,6 +4,7 @@
 #include <QGraphicsScene>
 class Game;
 class Block;
+class Enemy;
 class World : public QGraphicsScene
 {
 public:
@@ -15,6 +16,7 @@ public:
 private:
     void clearWorld();
     void updatePosPlayer(QPointF pos);
+    void fillSpikes(QVector<Enemy*> &vecEnemies, unsigned int num, qreal posx, qreal posy, qreal posPlayerX, qreal posPlayerY);
     Game *game;
 
 };
