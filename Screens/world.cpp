@@ -11,6 +11,7 @@
 #include "demon.h"
 #include "spike.h"
 #include "healthbar.h"
+#include "Utilities/lever.h"
 #include "motionblock.h"
 #include "Utilities/portal.h"
 void World::loadWorld(unsigned short label, QPointF posPlayer)
@@ -31,9 +32,9 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             //Enemigos
             vecEnemies = {new Furry(23*SB,5*SB), new Furry(29*SB,4*SB, 26*SB, 32*SB, true),
                          new Spike(4*SB, 100+6*SB, 6*SB, 4*SB), new Spike(5*SB, 100+6*SB, 6*SB, 4*SB),
-                         new Dragon(11*SB+100,4*SB+100,2,330,0.01,0), new Dragon(true)};
+                         new Lever(3*SB+100,4*SB+78)};
             //Portals
-            vecPortals = {new Portal(34*SB+100, 4*SB+100, 6*SB+100, 11*SB+100, 1)};
+            vecPortals = {new Portal(34*SB+100, 4*SB+100, 6*SB+100, 11*SB+100, 1), new Portal(3*SB,4*SB+100,15*SB,4*SB+100,4)};
             break;
         }
         case 1: {
@@ -90,6 +91,25 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         vecEnemies = {new Audhulma()};
         //portal
         vecPortals = {new Portal(22*SB+50,16*SB+100,20*SB+52,3*SB+2,1)};
+        break;
+    }
+    case 4: {
+        //poner fondo
+
+        //dimeciones escena
+        setSceneRect(0,0,SB,SB);
+        //bloques - pintar, texturas
+        vecBlocks = {new Block(0,0,21,3), new Block(0,3,6,19), new Block(15,3,6,1), new Block(16,4,5,1), new Block(15,5,6,21),
+                    new Block(8*SB,5*SB,7*SB,50,false), new Block(6,6,1,1), new Block(6*SB,7*SB,7*SB,50,false), new Block(14,8,1,1), new Block(8*SB,9*SB,7*SB,50,false),
+                    new Block(6,10,1,1), new Block(6,11,2,2), new Block(6,13,8,1), new Block(9,11,2,1), new Block(12,11,1,1), new Block(14*SB,12*SB,1*SB,50,false),
+                    new Block(14*SB+50,14*SB,100,50,false), new Block(14,15,1,1), new Block(12*SB,15*SB,1*SB,50,false), new Block(10*SB,16*SB,1*SB,50,false), new Block(8,17,7,1)
+                    };
+        //enemies
+        vecEnemies = {};
+        //portal
+        vecPortals = {};
+
+
         break;
     }
         default: {
@@ -153,4 +173,9 @@ void World::initPlayer()
     addItem(game->player->getHealthBar());
     addItem(game->player->getHealthBar()->getUpdateHealth()); //que se actualize constantemente segun la posicion del GV
     addItem(game->player->getBow());
+}
+
+void World::addToWorld(Block *block)
+{
+    addItem(block);
 }

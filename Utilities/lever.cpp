@@ -1,0 +1,29 @@
+#include "lever.h"
+#include "block.h"
+
+Lever::Lever(qreal posx, qreal posy)
+    :Enemy(posx,posy,1,0)
+{
+    loadSprite(":/new/sprites/sprites/lever.png",48,48,4,1);
+    setPixmap(frames[0][0]);
+}
+
+void Lever::ON()
+{
+    setPixmap(frames[3][0]);
+    state = true;
+    Block *block = new Block(4,5,2,1);
+    scene()->addItem(block);
+}
+
+void Lever::check()
+{
+    if(!state){
+        ON();
+    }
+}
+
+void Lever::attack()
+{
+    return;
+}

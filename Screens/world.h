@@ -3,12 +3,14 @@
 
 #include <QGraphicsScene>
 class Game;
+class Block;
 class World : public QGraphicsScene
 {
 public:
     World(Game *game) { this->game = game;};
     void loadWorld(unsigned short label, QPointF posPlayer);
     void initPlayer();
+    void addToWorld(Block *block);
 
 private:
     void clearWorld();

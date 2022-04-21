@@ -13,10 +13,12 @@ SOURCES += \
     Enemies/dragon.cpp \
     Enemies/explotion.cpp \
     Enemies/fireball.cpp \
+    Enemies/saw.cpp \
     Screens/gameover.cpp \
     Screens/loadscreen.cpp \
     Screens/menu.cpp \
     Screens/world.cpp \
+    Utilities/lever.cpp \
     Utilities/portal.cpp \
     arrow.cpp \
     block.cpp \
@@ -43,10 +45,12 @@ HEADERS += \
     Enemies/dragon.h \
     Enemies/explotion.h \
     Enemies/fireball.h \
+    Enemies/saw.h \
     Screens/gameover.h \
     Screens/loadscreen.h \
     Screens/menu.h \
     Screens/world.h \
+    Utilities/lever.h \
     Utilities/portal.h \
     arrow.h \
     block.h \

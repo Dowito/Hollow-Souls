@@ -24,10 +24,7 @@ void Portal::update()
 void Portal::collidesWithPlayer()
 {
     if (collidesWithItem(player)) {
-        qDebug() << "colision con player";
-        if (!player->getInmu()) {
-            game->loadNextWorld(this);
-        }
+        game->loadNextWorld(this);
     }
 }
 

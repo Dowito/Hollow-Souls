@@ -48,8 +48,7 @@ void Dragon::spawn()
 {
     static unsigned int delay = 0;
     if(spawner){
-            if(delay == 200){
-            //65+rand()%(91-65);//genera numeros aleatorios en el rango de 65-90
+        if(delay == 200){
             short direction;
             qreal posx = 0+rand()%(2-0);
             qreal posy = 50+rand()%((721-50)-50);
