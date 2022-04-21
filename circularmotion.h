@@ -9,7 +9,7 @@ public:
     CircularMotion(float radio,
                    float angularVel,
                    float angularAcc = 0);
-   /*
+    /*
     CircularMotion(float radio,
                    float angularPos,
                    float angularVel,

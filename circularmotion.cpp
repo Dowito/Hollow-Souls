@@ -20,6 +20,7 @@ CircularMotion::CircularMotion(float radio, float angularPos, float angularVel, 
     this->angularVel = -angularVel;
 }
 */
+
 void CircularMotion::calculatePos()
 {
     calculateAngle();

@@ -16,6 +16,21 @@ Enemy::Enemy(QGraphicsObject *parent)
     enemies->push_back(this);
 }
 
+Enemy::Enemy(int atk, QGraphicsObject *parent)
+    :QGraphicsPixmapItem(parent)
+{
+    this->atk = atk;
+    maxHealth = new int;
+    health = new int;
+    *maxHealth = 9999;
+    *health = *maxHealth;
+    direction = 0;
+    inmu = true;
+    state = true;
+    stepsDie = 0;
+    enemies->push_back(this);
+}
+
 Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, short direction, bool inmu, bool state, QGraphicsObject *parent)
     :QGraphicsPixmapItem(parent)
 {

@@ -16,5 +16,6 @@
         <file>sprites/boss_dragon.png</file>
         <file>sprites/dragon.png</file>
         <file>sprites/lever.png</file>
+        <file>sprites/saw.png</file>
     </qresource>
 </RCC>

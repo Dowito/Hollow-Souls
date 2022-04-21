@@ -10,6 +10,7 @@
 #include "bow.h"
 #include "demon.h"
 #include "spike.h"
+#include "Enemies/saw.h"
 #include "healthbar.h"
 #include "Utilities/lever.h"
 #include "motionblock.h"
@@ -99,13 +100,20 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         //dimeciones escena
         setSceneRect(0,0,SB,SB);
         //bloques - pintar, texturas
-        vecBlocks = {new Block(0,0,21,3), new Block(0,3,6,19), new Block(15,3,6,1), new Block(16,4,5,1), new Block(15,5,6,21),
+        vecBlocks = {new Block(0,0,21,3), new Block(0,22,5,4), new Block(0,26,21,4), new Block(0,3,6,19), new Block(15,3,6,1), new Block(16,4,5,1), new Block(15,5,6,21),
                     new Block(8*SB,5*SB,7*SB,50,false), new Block(6,6,1,1), new Block(6*SB,7*SB,7*SB,50,false), new Block(14,8,1,1), new Block(8*SB,9*SB,7*SB,50,false),
                     new Block(6,10,1,1), new Block(6,11,2,2), new Block(6,13,8,1), new Block(9,11,2,1), new Block(12,11,1,1), new Block(14*SB,12*SB,1*SB,50,false),
-                    new Block(14*SB+50,14*SB,100,50,false), new Block(14,15,1,1), new Block(12*SB,15*SB,1*SB,50,false), new Block(10*SB,16*SB,1*SB,50,false), new Block(8,17,7,1)
-                    };
+                    new Block(14*SB+50,14*SB,100,50,false), new Block(14,15,1,1), new Block(12*SB,15*SB,1*SB,50,false), new Block(10*SB,16*SB,1*SB,50,false), new Block(8,17,7,1),
+                    new Block(6,18,1,1), new Block(6,19,2,1), new Block(6,20,4,2), new Block(11,20,2,2), new Block(10*SB,21*SB+100,1*SB,50,false),
+                    new Block(5,23,2,1), new Block(5,24,1,1), new Block(8*SB,23*SB,1*SB,50,false), new Block(8*SB,25*SB,1*SB,50,false), new Block(10*SB,24*SB,1*SB,50,false), new Block(12*SB,23*SB,1*SB,50,false), new Block(12*SB,25*SB,SB,50,false),
+                    new MotionBlock(14*SB,21*SB,1*SB,50,false,true,0,0,20*SB,25*SB,0,-7)};
         //enemies
-        vecEnemies = {};
+        qreal rad4 = 75+50;
+        vecEnemies = {new Saw(10*SB+75,6*SB+25,4,350,0,0.4), new Furry(10*SB,4*SB+100,8*SB,14*SB,true), new Furry(9*SB,6*SB+100,8*SB,13*SB-48,true), new Furry(11*SB,6*SB+100,8*SB,13*SB-48,true),
+                     new Saw(10*SB,11*SB+75,2,225,0,0.5), new Furry(10*SB,10*SB,9*SB,11*SB-48,true),
+                     new Saw(12*SB+75,15*SB+25,2,150,0,-0.5), new Saw(10*SB+75,16*SB+25,2,150,0,0.5),
+                     new Saw(10*SB+75,20*SB+10,1,65,0,2), new Saw(10*SB+75,20*SB+10-250,1,65,0,2),
+                     new Saw(12*SB+75,23*SB+25,1,rad4,1.57,0.5), new Saw(12*SB+75,25*SB+25,1,rad4,-1.57,0.5), new Saw(10*SB+75,24*SB+25,1,rad4,1.57,0.5), new Saw(8*SB+75,23*SB+25,1,rad4,0,0.5) ,new Saw(8*SB+75,25*SB+25,1,rad4,-2.40,0.5)};
         //portal
         vecPortals = {};
 

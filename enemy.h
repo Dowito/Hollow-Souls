@@ -13,6 +13,7 @@ class Enemy : public QObject, public QGraphicsPixmapItem, public Sprite
     Q_OBJECT
 public:
     explicit Enemy(QGraphicsObject *parent = nullptr);
+    Enemy(int atk, QGraphicsObject *parent = nullptr);
     /*!
      * \brief Enemy constructor que inicia pos, state, maxHealth, health, atk, stepsDie, inmu , direction y state.
      * para generalizar la creacion de enemigos.
