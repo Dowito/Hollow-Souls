@@ -15,7 +15,7 @@ private:
     void showSaveText();
     void saveGame(Player *player);
     unsigned short world;
-    QString file; //nombre del archivo a guardar
+    QString file;
     QGraphicsTextItem *text;
 };
 
