@@ -14,6 +14,7 @@ SOURCES += \
     Enemies/explotion.cpp \
     Enemies/fireball.cpp \
     Enemies/saw.cpp \
+    Screens/button.cpp \
     Screens/gameover.cpp \
     Screens/loadscreen.cpp \
     Screens/menu.cpp \
@@ -47,6 +48,7 @@ HEADERS += \
     Enemies/explotion.h \
     Enemies/fireball.h \
     Enemies/saw.h \
+    Screens/button.h \
     Screens/gameover.h \
     Screens/loadscreen.h \
     Screens/menu.h \
