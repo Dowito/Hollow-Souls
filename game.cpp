@@ -37,6 +37,8 @@ QList<Arrow*> *Arrow::arrows;
 Player* Enemy::player;
 QVector<Block*>* Enemy::blocks;
 QList<Enemy*>* Enemy::enemies;
+//Menu
+Game *Menu::game;
 
 Game::Game(QWidget *parent):
     timer(new QTimer),
@@ -44,8 +46,7 @@ Game::Game(QWidget *parent):
     portals(new QVector<Portal*>),
     enemies(new QList<Enemy*>),
     arrows(new QList<Arrow*>),
-    world(new World(this)),
-    menu(new Menu)
+    world(new World(this))
 {
     //iniciando variables esticas
     initStaticVar();
@@ -87,6 +88,9 @@ Game::Game(QWidget *parent):
     //setScene(world);
     //connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     //timer->start(CLOCK_GAME);
+    //inicianod menu
+    menu = new Menu;
+    menu->setGame(this);
     setScene(menu);
 }
 
@@ -182,6 +186,8 @@ void Game::initStaticVar()
     //Enemy
     Enemy::setBlocks(blocks);
     Enemy::setEnemies(enemies);
+    //Menu
+    Menu::setGame(this);
 }
 
 Game::~Game()

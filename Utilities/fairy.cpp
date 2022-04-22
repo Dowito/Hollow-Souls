@@ -102,8 +102,6 @@ void Fairy::saveGame(Player *player)
     showFeedBack();
     stringFile = readArchivo("../HollowSouls/save_games/saves.txt");
     stringFile.pop_back();
-    cout << stringFile;
-    cout.flush();
     int index = stringFile.find(player->getUser().toStdString());
     string world = to_string(this->world);
     string posx = to_string(int(x()));
@@ -129,10 +127,6 @@ void Fairy::saveGame(Player *player)
         index += 1;
         for (unsigned int i = index; i < stringFile.size(); i++) {
             buffer.push_back(stringFile[i]);
-        }
-        for(unsigned int i = 0; i<buffer.size();i++){
-            cout << buffer[i];
-            cout.flush();
         }
         stringFile = buffer;
     }

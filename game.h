@@ -43,10 +43,10 @@ public slots:
     void timeWorld();
     void loadNextWorld(Portal *portal);
     void loadNextWorld(unsigned short world, qreal posx, qreal posy);
-
-private:
     void newGame();
     void loadGame();
+
+private:
     void initStaticVar();
 };
 
