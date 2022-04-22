@@ -1,5 +1,6 @@
 #include "audhulma.h"
 #include "player.h"
+#include "bow.h"
 #include "fireball.h"
 #include "explotion.h"
 Audhulma::Audhulma(qreal posx, qreal posy)
@@ -66,6 +67,12 @@ void Audhulma::attack()
         delay = 0;
     }
     else delay++;
+}
+
+void Audhulma::die()
+{
+    player->getBow()->setIfEquip(true);
+    Enemy::die();
 }
 
 QPointF Audhulma::getDirectionPlayer() const

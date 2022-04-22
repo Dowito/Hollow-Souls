@@ -30,7 +30,9 @@ public:
     void move();
     void moveX();
     void takeDamage(int damage);
+    void cure(int cure);
     void framesInmu();
+    bool leverOn;
 
     void setJump(bool newJump);
     bool getInmu() const;    
@@ -49,13 +51,11 @@ public:
     void setDash(Dash *newDash);
     Dash *getDash() const;
     void setInmu(bool newInmu);
-
-    bool leverOn;
-
     void setFairy(Fairy *newFairy);
-
     const QString &getUser() const;
     void setUser(const QString &newUser);
+
+    Fairy *getFairy() const;
 
 private:
     void keyPressEvent(QKeyEvent *event) override;

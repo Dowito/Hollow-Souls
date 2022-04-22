@@ -2,29 +2,14 @@
 #include "player.h"
 #include <QDebug>
 #include <bow.h>
-unsigned long long tamArchivo(string name)
-{
-    fstream Archivo;
-    Archivo.open(name, fstream::in | fstream::ate);
-    if(Archivo.is_open()){
-        unsigned long long tamArchivo = Archivo.tellg();
-        Archivo.close();
-        return tamArchivo;
-    }
-    else{
-        cout << "El archivo no existe." << endl;
-        return 0;
-    }
-}
 
-QString readArchivo(string name)
+string readArchivo(string name)
 {
-    unsigned long long tam = tamArchivo(name);
     fstream Archivo;
     Archivo.open(name, fstream::in);
     if(Archivo.is_open()){
-        QString info;
-        for (unsigned long long i=0; i<tam; i++) {
+        string info;
+        while(!Archivo.eof()){
             info.push_back(Archivo.get());
         }
         Archivo.close();
@@ -62,6 +47,22 @@ Fairy::Fairy(unsigned short world, qreal posx, qreal posy, QGraphicsItem *parent
     stepsAnimation = 200;
 }
 
+void Fairy::setFairy(unsigned short world, qreal posx, qreal posy)
+{
+    setVisible(true);
+    this->world = world;
+    setPos(posx,posy);
+    text->setVisible(true);
+    showSaveText();
+}
+
+void Fairy::popFairy()
+{
+    setPos(0,0);
+    setVisible(false);
+    text->setVisible(false);
+}
+
 void Fairy::initText()
 {
     scene()->addItem(text);
@@ -97,53 +98,57 @@ void Fairy::showFeedBack()
 
 void Fairy::saveGame(Player *player)
 {
+    player->cure(9999);
     showFeedBack();
-    //guardar partida
     stringFile = readArchivo("../HollowSouls/save_games/saves.txt");
-    /*
-    for(int i = 0; i<stringFile.size();i++){
-        cout << stringFile[i].toLatin1();
-        cout.flush();
-    }
-    */
-    int index = stringFile.indexOf(player->getUser());
-    QString world = QString::number(this->world);
-    QString posx = QString::number(x());
-    QString posy = QString::number(y());
-    QString bow = QString::number(player->getBow()->getIfEquip());
-    QString user = player->getUser();
-    qDebug() << index;
-    if(index != -1){ //sobreescribir
-        qDebug() << "guardando partida";
-        QString buffer;
+    stringFile.pop_back();
+    cout << stringFile;
+    cout.flush();
+    int index = stringFile.find(player->getUser().toStdString());
+    string world = to_string(this->world);
+    string posx = to_string(int(x()));
+    string posy = to_string(int(y()));
+    string bow = to_string(player->getBow()->getIfEquip());
+    string user = player->getUser().toStdString();
+    if(index != -1){
+        string buffer;
         for (int i = 0; i<index; i++) {
             buffer.push_back(stringFile[i]);
         }
-        buffer.push_back(player->getUser());
+        buffer.append(player->getUser().toStdString());
         buffer.push_back(' ');
-        buffer.push_back(world);
+        buffer.append(world);
         buffer.push_back(' ');
-        buffer.push_back(posx);
+        buffer.append(posx);
         buffer.push_back(' ');
-        buffer.push_back(posy);
+        buffer.append(posy);
         buffer.push_back(' ');
-        buffer.push_back(bow);
+        buffer.append(bow);
         buffer.push_back('\n');
-        index = stringFile.indexOf('\n', index);
+        index = stringFile.find('\n', index);
         index += 1;
-        for (int i = index; i<stringFile.size(); i++) {
+        for (unsigned int i = index; i < stringFile.size(); i++) {
             buffer.push_back(stringFile[i]);
         }
-        for(int i = 0; i<buffer.size();i++){
-            cout << buffer[i].toLatin1();
+        for(unsigned int i = 0; i<buffer.size();i++){
+            cout << buffer[i];
             cout.flush();
         }
         stringFile = buffer;
     }
-    else { //crear nueva partida
-
+    else {
+        stringFile.append(player->getUser().toStdString());
+        stringFile.push_back(' ');
+        stringFile.append(world);
+        stringFile.push_back(' ');
+        stringFile.append(posx);
+        stringFile.push_back(' ');
+        stringFile.append(posy);
+        stringFile.push_back(' ');
+        stringFile.append(bow);
+        stringFile.push_back('\n');
     }
-    writeArchivo("../HollowSouls/save_games/saves.txt", stringFile.toStdString());
+    writeArchivo("../HollowSouls/save_games/saves.txt", stringFile);
 }
 
 bool Fairy::getSaving() const

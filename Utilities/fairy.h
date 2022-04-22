@@ -7,10 +7,10 @@
 #include <QGraphicsTextItem>
 #include "iostream"
 #include <fstream>
+
 using namespace std;
 
-unsigned long long tamArchivo(string name);
-QString readArchivo(string name);
+string readArchivo(string name);
 void writeArchivo(string name, string str);
 
 class Player;
@@ -22,6 +22,8 @@ public:
     void initText();
     void check();
     void saveGame(Player *player);
+    void setFairy(unsigned short world, qreal posx, qreal posy);
+    void popFairy();
 
     bool getSaving() const;
 
@@ -33,7 +35,7 @@ private:
     unsigned short world;
     unsigned short steps;
     unsigned short stepsAnimation;
-    QString stringFile;
+    string stringFile;
     QGraphicsTextItem *text;
 };
 

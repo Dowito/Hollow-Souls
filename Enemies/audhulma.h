@@ -25,6 +25,8 @@ public:
 
 protected:
     void attack();
+    void die();
+
 };
 
 #endif // AUDHULMA_H

@@ -18,8 +18,6 @@
         <file>sprites/lever.png</file>
         <file>sprites/saw.png</file>
         <file>sprites/fairy.png</file>
-    </qresource>
-    <qresource prefix="/texts">
-        <file>save_games/saves.txt</file>
+        <file>sprites/Night.png</file>
     </qresource>
 </RCC>

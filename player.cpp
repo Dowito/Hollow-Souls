@@ -84,7 +84,7 @@ void Player::keyPressEvent(QKeyEvent *event)
             weapon->attack();
         }
         else if (event->key() == Qt::Key_V) {
-            if(0<carcaj) {
+            if(0<carcaj && bow->getIfEquip()) {
                 carcaj -= 1;
                 bow->shoot(pos(), direction);
             }
@@ -163,6 +163,11 @@ void Player::updateHealthBarPos()
     healthBar->posUpdateHealth();
 }
 
+Fairy *Player::getFairy() const
+{
+    return fairy;
+}
+
 void Player::collisionsY()
 {
     for (int i = 0; i < blocks->size(); i++) {
@@ -208,6 +213,18 @@ void Player::takeDamage(int damage)
             inmu = true;
         }
         qDebug() << "current health: " << *health;
+    }
+}
+
+void Player::cure(int cure)
+{
+    if(*health + cure >= *maxHealth) {
+        *health = *maxHealth;
+        healthBar->update();
+    }
+    else {
+        *health = *health + cure;
+        healthBar->update();
     }
 }
 

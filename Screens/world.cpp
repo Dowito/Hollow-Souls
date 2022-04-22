@@ -10,6 +10,7 @@
 #include "bow.h"
 #include "demon.h"
 #include "spike.h"
+#include "Utilities/fairy.h"
 #include "Enemies/saw.h"
 #include "healthbar.h"
 #include "Utilities/lever.h"
@@ -36,6 +37,8 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                          new Lever(3*SB+100,4*SB+78)};
             //Portals
             vecPortals = {new Portal(34*SB+100, 4*SB+100, 6*SB+100, 11*SB+100, 1), new Portal(3*SB,4*SB+100,15*SB,4*SB+100,4)};
+            //Fairy
+            game->player->getFairy()->setFairy(0,11*SB+50, 4*SB+100);
             break;
         }
         case 1: {
@@ -54,6 +57,8 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                           new Demon(13*SB+54, 8*SB+54,1), new Demon(6*SB,5*SB+54,2)};
             //Portals
             vecPortals = {new Portal(6*SB,11*SB+100,34*SB,4*SB+100,0), new Portal(4*SB,5*SB+100,16*SB,17*SB+100,2)};
+            //Fairy
+            game->player->getFairy()->popFairy();
             break;
         }
         case 2: {
@@ -77,6 +82,8 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                           new Dragon(true)};
             //portal
             vecPortals = {new Portal(16*SB+100,17*SB+100,4*SB+100,5*SB+100,1), new Portal(16*SB+100,6*SB+100,5*SB+100,7*SB+100,3)};
+            //Fairy
+            game->player->getFairy()->setFairy(2,5*SB+50,8*SB+100);
             break;
         }
     case 3: {
@@ -90,9 +97,11 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
                      new Block(9*SB,7*SB,SB+50,50,false), new Block(11*SB,6*SB,SB,50,false), new Block(13*SB,5*SB,SB,50,false), new Block(15*SB,6*SB,SB,50,false),
                      new Block(17*SB-50,7*SB,SB+50,50,false)};
         //enemies
-        vecEnemies = {new Audhulma()};
+        if(!game->player->getBow()->getIfEquip()) vecEnemies = {new Audhulma()};
         //portal
         vecPortals = {new Portal(22*SB+50,16*SB+100,20*SB+52,3*SB+2,1)};
+        //Fairy
+        game->player->getFairy()->popFairy();
         break;
     }
     case 4: {
@@ -123,8 +132,8 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         fillSpikes(vecEnemies,8,7,25,12*SB+50,19*SB+50);
         //portal
         vecPortals = {new Portal(15*SB+100,4*SB+100,3*SB+100,4*SB+100,0), new Portal(5*SB,25*SB+100,21*SB,7*SB+100,5)};
-
-
+        //Fairy
+        game->player->getFairy()->setFairy(4,5*SB+50,22*SB+100);
         break;
     }
     case 5: {
@@ -141,6 +150,7 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         vecEnemies = {new Audhulma(), new Dragon(true,1)};
         //portal
         vecPortals = {};
+        game->player->getFairy()->popFairy();
         break;
 
     }

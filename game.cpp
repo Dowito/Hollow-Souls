@@ -44,15 +44,19 @@ Game::Game(QWidget *parent):
     portals(new QVector<Portal*>),
     enemies(new QList<Enemy*>),
     arrows(new QList<Arrow*>),
-    world(new World(this))
+    world(new World(this)),
+    menu(new Menu)
 {
+    //iniciando variables esticas
     initStaticVar();
+    //iniciando GraphicsView aka game
     setParent(parent);
     setGeometry(160,90,1280,720);
     setSceneRect(0,0,1280,720);
-    //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
-    //setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280,720);
+    //iniciando Fairy
     Fairy *fairy = new Fairy(0, 11*SB, 4*SB);
     world->addItem(fairy);
     fairy->initText();
@@ -70,17 +74,20 @@ Game::Game(QWidget *parent):
     Enemy::setPlayer(player);
     MotionBlock::setPlayer(player);
     Portal::setPlayer(player);
-    //cargando mundo
-    world->loadWorld(0, {11*SB+100, 4*SB+100});
-
+    //Cargando juego
+    //newGame();
+    //loadGame();
+    //Iniciando juego
+    //world->loadWorld(0, {11*SB+100, 4*SB+100});
     //world->loadWorld(1, {14*SB,6*SB+100}); //(14,6) , (16,17)
     //world->loadWorld(2, {16*SB,17*SB+100});
     //world->loadWorld(3, {13*SB,7*SB});
     //world->loadWorld(4,{14*SB,4*SB+100}); //world->loadWorld(4,{14*SB,19*SB+100});
     //world->loadWorld(5,{21*SB,7*SB+100});
-    setScene(world);
-    connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
-    timer->start(CLOCK_GAME);
+    //setScene(world);
+    //connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
+    //timer->start(CLOCK_GAME);
+    setScene(menu);
 }
 
 void Game::timeWorld()
@@ -103,6 +110,59 @@ void Game::loadNextWorld(Portal *portal)
     player->setFocus();
     connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
     timer->start(CLOCK_GAME);
+}
+
+void Game::loadNextWorld(unsigned short world, qreal posx, qreal posy)
+{
+    timer->stop();
+    disconnect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
+    player->clearFocus();
+    setScene(nullptr);//poner pantalla de carga.
+    this->world->loadWorld(world, {posx,posy});
+    setScene(this->world);
+    player->setFocus();
+    connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
+    timer->start(CLOCK_GAME);
+}
+
+void Game::newGame()
+{
+    player->getBow()->setIfEquip(false);
+    loadNextWorld(0, 11*SB+100, 4*SB+100);
+    /*
+    timer->stop();
+    disconnect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
+    player->clearFocus();
+    setScene(nullptr);//poner pantalla de carga.
+    world->loadWorld(0, {11*SB+100, 4*SB+100});
+    setScene(world);
+    player->setFocus();
+    connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
+    timer->start(CLOCK_GAME);
+    */
+}
+
+void Game::loadGame()
+{
+    string info = readArchivo("../HollowSouls/save_games/saves.txt");
+    info.pop_back();
+    string world, posx, posy, bow;
+    int index = info.find("David");
+    index = info.find(' ', index);
+    index += 1;
+    world = info.substr(index, info.find(' ', index)-index);
+    index = info.find(' ', index);
+    index += 1;
+    posx = info.substr(index, info.find(' ', index)-index);
+    index = info.find(' ', index);
+    index += 1;
+    posy = info.substr(index, info.find(' ', index)-index);
+    index = info.find(' ', index);
+    index += 1;
+    bow = info.substr(index, info.find('\n', index)-index);
+    player->setPos(stof(posx), stof(posy));
+    player->getBow()->setIfEquip(stoi(bow));
+    loadNextWorld(stoi(world), stof(posx), stof(posy));
 }
 
 void Game::initStaticVar()

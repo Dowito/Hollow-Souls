@@ -3,6 +3,9 @@
 
 #include <QWidget>
 #include <QGraphicsView>
+#include <string>
+using namespace std;
+
 class QTimer;
 class Block;
 class Player;
@@ -19,6 +22,7 @@ class Game : public QGraphicsView
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
+    string user;
     QTimer *timer;
     Player *player;
     QVector<Block*> *blocks;
@@ -38,6 +42,11 @@ public slots:
      */
     void timeWorld();
     void loadNextWorld(Portal *portal);
+    void loadNextWorld(unsigned short world, qreal posx, qreal posy);
+
+private:
+    void newGame();
+    void loadGame();
     void initStaticVar();
 };
 
