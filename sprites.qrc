@@ -17,5 +17,6 @@
         <file>sprites/dragon.png</file>
         <file>sprites/lever.png</file>
         <file>sprites/saw.png</file>
+        <file>sprites/fairy.png</file>
     </qresource>
 </RCC>

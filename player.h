@@ -12,6 +12,7 @@ class HealthBar;
 class Block;
 class Bow;
 class Dash;
+class Fairy;
 class Player : public QObject, public QGraphicsPixmapItem, public Sprite, public Motion
 {
     Q_OBJECT
@@ -51,6 +52,8 @@ public:
 
     bool leverOn;
 
+    void setFairy(Fairy *newFairy);
+
 private:
     void keyPressEvent(QKeyEvent *event) override;
     unsigned short calculatedFrame();
@@ -63,12 +66,13 @@ private:
     short direction;
     int *health;
     int *maxHealth;
-    unsigned short carcaj; //cantidad de flechas del personaje
+    unsigned short carcaj;
     HealthBar *healthBar;
     Dash *dash;
     Bow *bow;
     Weapon *weapon;
     QVector<Block*> *blocks;
+    Fairy *fairy;
 };
 
 #endif // PLAYER_H

@@ -6,6 +6,7 @@
 #include <bow.h>
 #include <Screens/world.h>
 #include <dash.h>
+#include "Utilities/fairy.h"
 #include <QDebug>
 extern Game *game;
 Player::Player(QObject *parent)
@@ -28,6 +29,7 @@ Player::Player(QObject *parent)
     a = {0,GRAVEDAD};
     setCarcaj(1);
     leverOn = false;
+    fairy = nullptr;
 }
 
 void Player::check()
@@ -39,7 +41,7 @@ void Player::check()
     if(dash->getActivated()) dash->effect();
     game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
     updateHealthBarPos();
-    //actualizar posicion del HB
+    if(fairy != nullptr) fairy->check(); //si no hay hado no olvidar poner siempre en nullptr
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
@@ -90,6 +92,11 @@ void Player::keyPressEvent(QKeyEvent *event)
         else if (event->key() == Qt::Key_Z) {
             if (dash->getUsable()) {
                 dash->use();
+            }
+        }
+        else if (event->key() == Qt::Key_Up){
+            if((fairy != nullptr)) {
+                if(collidesWithItem(fairy) && (!fairy->getSaving())) fairy->saveGame(this);
             }
         }
     }
@@ -307,4 +314,9 @@ void Player::setInmu(bool newInmu)
 Dash *Player::getDash() const
 {
     return dash;
+}
+
+void Player::setFairy(Fairy *newFairy)
+{
+    fairy = newFairy;
 }

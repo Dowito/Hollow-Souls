@@ -8,6 +8,7 @@
 #include <arrow.h>
 #include <dash.h>
 #include <bow.h>
+#include "Utilities/fairy.h"
 #include <healthbar.h>
 #include "Utilities/portal.h"
 #include "Screens/loadscreen.h"
@@ -52,6 +53,9 @@ Game::Game(QWidget *parent):
     //setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     //setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     setFixedSize(1280,720);
+    Fairy *fairy = new Fairy(0, 11*SB, 4*SB);
+    world->addItem(fairy);
+    fairy->initText();
     //iniciando player
     player = new Player;
     player->setBlocks(blocks);
@@ -59,6 +63,7 @@ Game::Game(QWidget *parent):
     player->setWeapon(new Weapon(player));
     player->setDash(new Dash);
     player->setBow(new Bow);
+    player->setFairy(fairy);
     world->initPlayer();
     Dash::setPlayer(player);
     Arrow::setPlayer(player);
@@ -67,6 +72,7 @@ Game::Game(QWidget *parent):
     Portal::setPlayer(player);
     //cargando mundo
     world->loadWorld(0, {11*SB+100, 4*SB+100});
+
     //world->loadWorld(1, {14*SB,6*SB+100}); //(14,6) , (16,17)
     //world->loadWorld(2, {16*SB,17*SB+100});
     //world->loadWorld(3, {13*SB,7*SB});
