@@ -54,6 +54,9 @@ public:
 
     void setFairy(Fairy *newFairy);
 
+    const QString &getUser() const;
+    void setUser(const QString &newUser);
+
 private:
     void keyPressEvent(QKeyEvent *event) override;
     unsigned short calculatedFrame();
@@ -67,6 +70,7 @@ private:
     int *health;
     int *maxHealth;
     unsigned short carcaj;
+    QString user = "David";
     HealthBar *healthBar;
     Dash *dash;
     Bow *bow;

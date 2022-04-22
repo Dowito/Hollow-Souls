@@ -13,6 +13,7 @@ Bow::Bow()
     pot = 150.0;
     angle = -10.0;
     atk = 15;
+    ifEquip = true;
 }
 
 Bow::Bow(int atk, qreal pot, qreal angle)
@@ -51,4 +52,14 @@ void Bow::calculateVelDir()
 {
     velDir.setX(qCos(qDegreesToRadians(angle)));
     velDir.setY(qSin(qDegreesToRadians(angle)));
+}
+
+bool Bow::getIfEquip() const
+{
+    return ifEquip;
+}
+
+void Bow::setIfEquip(bool newIfEquip)
+{
+    ifEquip = newIfEquip;
 }

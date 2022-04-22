@@ -6,6 +6,13 @@
 #include <QGraphicsPixmapItem>
 #include <QGraphicsTextItem>
 #include "iostream"
+#include <fstream>
+using namespace std;
+
+unsigned long long tamArchivo(string name);
+QString readArchivo(string name);
+void writeArchivo(string name, string str);
+
 class Player;
 class Fairy : public Sprite, public QGraphicsPixmapItem
 {
@@ -26,7 +33,7 @@ private:
     unsigned short world;
     unsigned short steps;
     unsigned short stepsAnimation;
-    QString file;
+    QString stringFile;
     QGraphicsTextItem *text;
 };
 

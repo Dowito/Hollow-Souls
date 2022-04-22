@@ -84,4 +84,5 @@ FORMS +=
 RESOURCES += \
     sprites.qrc
 
-DISTFILES +=
+DISTFILES += \
+    save_games/saves.txt

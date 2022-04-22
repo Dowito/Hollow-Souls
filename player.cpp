@@ -320,3 +320,13 @@ void Player::setFairy(Fairy *newFairy)
 {
     fairy = newFairy;
 }
+
+const QString &Player::getUser() const
+{
+    return user;
+}
+
+void Player::setUser(const QString &newUser)
+{
+    user = newUser;
+}

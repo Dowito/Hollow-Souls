@@ -15,12 +15,16 @@ public:
     void shoot(QPointF posOwner, short direction); //dispara flecha
     void animation();
 
+    bool getIfEquip() const;
+    void setIfEquip(bool newIfEquip);
+
 private:
     void calculateVelDir();
     int atk;
     unsigned int stepsAnimation;
     qreal angle;
     qreal pot;
+    bool ifEquip;
     QPointF velDir;
 };
 

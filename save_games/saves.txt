@@ -1,0 +1,4 @@
+usuario world posx posy stateBow
+David 0 1700 700 1
+Dragon 2 1394 493 0
+ï¿¿ï¿¿ï¿¿￿￿￿
