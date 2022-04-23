@@ -54,7 +54,6 @@ public:
     void setFairy(Fairy *newFairy);
     const QString &getUser() const;
     void setUser(const QString &newUser);
-
     Fairy *getFairy() const;
 
 private:
@@ -70,7 +69,7 @@ private:
     int *health;
     int *maxHealth;
     unsigned short carcaj;
-    QString user = "David";
+    QString user;
     HealthBar *healthBar;
     Dash *dash;
     Bow *bow;

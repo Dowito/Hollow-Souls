@@ -19,5 +19,13 @@
         <file>sprites/saw.png</file>
         <file>sprites/fairy.png</file>
         <file>sprites/Night.png</file>
+        <file>sprites/Forest.png</file>
+        <file>sprites/Clouds.png</file>
+        <file>sprites/texture_rock.png</file>
+        <file>sprites/DarkClouds.png</file>
+        <file>sprites/Lava.png</file>
+        <file>sprites/texture_forest.png</file>
+        <file>sprites/texture_lava.png</file>
+        <file>sprites/texture_bright.png</file>
     </qresource>
 </RCC>

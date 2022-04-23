@@ -6,7 +6,7 @@
 class QGraphicsTextItem;
 class Button;
 class Game;
-class QMainWindow;
+class UserWindow;
 class Menu : public QGraphicsScene
 {
 
@@ -20,8 +20,14 @@ private:
     Button *newGameButton;
     Button *loadGameButton;
     Button *exitButton;
-    QMainWindow *inUsers;
+    UserWindow *userWindow;
     static Game *game;
+
+private slots:
+    void createUser();
+    void loadUser();
+    void onStartNewGameButton();
+    void onStartSaveGame();
 };
 
 #endif // MENU_H

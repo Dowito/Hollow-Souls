@@ -15,6 +15,7 @@
 #include "Screens/gameover.h"
 #include "Screens/menu.h"
 #include <QGraphicsRectItem>
+#include "Screens/userwindow.h"
 #include "Screens/world.h"
 //motion
 qreal Motion::periodo;
@@ -39,6 +40,8 @@ QVector<Block*>* Enemy::blocks;
 QList<Enemy*>* Enemy::enemies;
 //Menu
 Game *Menu::game;
+//UserWindow
+Game *UserWindow::game;
 
 Game::Game(QWidget *parent):
     timer(new QTimer),
@@ -131,19 +134,9 @@ void Game::loadNextWorld(unsigned short world, qreal posx, qreal posy)
 
 void Game::newGame()
 {
+    player->setUser(user);
     player->getBow()->setIfEquip(false);
     loadNextWorld(0, 11*SB+100, 4*SB+100);
-    /*
-    timer->stop();
-    disconnect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
-    player->clearFocus();
-    setScene(nullptr);//poner pantalla de carga.
-    world->loadWorld(0, {11*SB+100, 4*SB+100});
-    setScene(world);
-    player->setFocus();
-    connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
-    timer->start(CLOCK_GAME);
-    */
 }
 
 void Game::loadGame()
@@ -151,7 +144,7 @@ void Game::loadGame()
     string info = readArchivo("../HollowSouls/save_games/saves.txt");
     info.pop_back();
     string world, posx, posy, bow;
-    int index = info.find("David");
+    int index = info.find(user.toStdString());
     index = info.find(' ', index);
     index += 1;
     world = info.substr(index, info.find(' ', index)-index);
@@ -164,6 +157,7 @@ void Game::loadGame()
     index = info.find(' ', index);
     index += 1;
     bow = info.substr(index, info.find('\n', index)-index);
+    player->setUser(user);
     player->setPos(stof(posx), stof(posy));
     player->getBow()->setIfEquip(stoi(bow));
     loadNextWorld(stoi(world), stof(posx), stof(posy));
@@ -188,6 +182,8 @@ void Game::initStaticVar()
     Enemy::setEnemies(enemies);
     //Menu
     Menu::setGame(this);
+    //UserWindow
+    UserWindow::setGame(this);
 }
 
 Game::~Game()

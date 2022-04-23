@@ -15,6 +15,7 @@ void Lever::ON()
     state = true;
     player->leverOn = true;
     Block *block = new Block(4,5,2,1);
+    block->setBrush(QBrush(QImage(":/new/sprites/sprites/texture_rock.png")));
     scene()->addItem(block);
 }
 

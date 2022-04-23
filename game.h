@@ -22,7 +22,7 @@ class Game : public QGraphicsView
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
-    string user;
+    QString user;
     QTimer *timer;
     Player *player;
     QVector<Block*> *blocks;

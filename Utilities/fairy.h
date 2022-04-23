@@ -27,6 +27,8 @@ public:
 
     bool getSaving() const;
 
+    QGraphicsTextItem *getText() const;
+
 private:
     void showFeedBack();
     void showSaveText();

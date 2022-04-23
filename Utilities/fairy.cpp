@@ -43,6 +43,7 @@ Fairy::Fairy(unsigned short world, qreal posx, qreal posy, QGraphicsItem *parent
     this->world = world;
     setPos(posx+50,posy+100);
     text = new QGraphicsTextItem;
+    text->setDefaultTextColor(Qt::darkMagenta);
     showSaveText();
     stepsAnimation = 200;
 }
@@ -143,6 +144,11 @@ void Fairy::saveGame(Player *player)
         stringFile.push_back('\n');
     }
     writeArchivo("../HollowSouls/save_games/saves.txt", stringFile);
+}
+
+QGraphicsTextItem *Fairy::getText() const
+{
+    return text;
 }
 
 bool Fairy::getSaving() const

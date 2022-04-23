@@ -16,19 +16,30 @@
 #include "Utilities/lever.h"
 #include "motionblock.h"
 #include "Utilities/portal.h"
+#include "QGraphicsTextItem"
+
+#define forest ":/new/sprites/sprites/Forest.png"
+#define lava ":/new/sprites/sprites/Lava.png"
+#define clouds ":/new/sprites/sprites/Clouds.png"
+#define dark_clouds ":/new/sprites/sprites/DarkClouds.png"
+#define texture_rock ":/new/sprites/sprites/texture_rock.png"
+#define texture_forest ":/new/sprites/sprites/texture_forest.png"
+#define texture_lava ":/new/sprites/sprites/texture_lava.png"
 void World::loadWorld(unsigned short label, QPointF posPlayer)
 {
     clearWorld();//limpia todos los contenedores
     QVector<Block*> vecBlocks;
     QVector<Enemy*> vecEnemies;
     QVector<Portal*> vecPortals;
+    QBrush texture;
     switch (label) {
         case 0: {   
-            //poner fondo
-
             //dimenciones de la escena
             setSceneRect(0,0,38*SB,9*SB);
+            //poner fondo
+            setBackgroundBrush(QBrush(QImage(clouds)));
             //Bloques
+            texture.setTextureImage(QImage(texture_rock));
             vecBlocks = {new Block(0,0,38,3,true), new Block(0,3,3,2,true), new Block(0,5,4,4,true), new Block(3,3,1,1,true), new Block(4,7,2,2,true), //parteizquierda
                          new Block(6,5,16,4,true), new Block(15,3,4,1), new Block(22,6,4,3), new Block(26,5,12,4), new Block(34,3,4,1), new Block(35,4,3,1)}; //parte derecha
             //Enemigos
@@ -39,14 +50,17 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             vecPortals = {new Portal(34*SB+100, 4*SB+100, 6*SB+100, 11*SB+100, 1), new Portal(3*SB,4*SB+100,15*SB,4*SB+100,4)};
             //Fairy
             game->player->getFairy()->setFairy(0,11*SB+50, 4*SB+100);
+            game->player->getFairy()->getText()->setDefaultTextColor(Qt::black);
+            tutorial();
             break;
         }
         case 1: {
-            //poner fondo
-
             //dimenciones de la escena
             setSceneRect(0,0,25*SB,16*SB);
+            //poner fondo
+            setBackgroundBrush(QBrush(QImage(forest)));
             //Bloques
+            texture.setTextureImage(QImage(texture_forest));
             vecBlocks = {new Block(0,0,25,3), new Block(0,3,5,2), new Block(0,5,4,1), new Block(0,6,7,5), new Block (0,11,6,2), new Block(0,13,25,3),
                          new Block(6,12,2,1), new Block(13,12,8,1), new Block(16,3,4,8), new Block(21,3,4,10), new Block(11,11,1,1), new Block(12*SB,9*SB,2*SB,50,false),
                          new Block(11,6,1,1), new Block(9*SB,5*SB,1*SB,50,false), new Block(7,6,1,1),
@@ -62,11 +76,12 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             break;
         }
         case 2: {
-            //poner fondo
-
             //dimeciones escena
             setSceneRect(0,0,22*SB,22*SB);
-            //bloques - pintar, texturas
+            //poner fondo
+            setBackgroundBrush(QBrush(QImage(forest)));
+            //bloques
+            texture.setTextureImage(QImage(texture_forest));
             vecBlocks = {new Block(14,18,8,1), new Block(17,17,5,1), new Block(16,7,6,10), new Block(8,19,14,3), new Block(7,18,1,4), new Block(6,17,1,5),
                         new Block(0,11,6,11), new Block(0,9,7,2), new Block(0,8,5,1), new Block(0,3,6,5), new Block(0,0,22,5), new Block(16,3,6,3),
                         new Block(17,6,5,1), new Block(12,7,4,1),
@@ -83,15 +98,19 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             //portal
             vecPortals = {new Portal(16*SB+100,17*SB+100,4*SB+100,5*SB+100,1), new Portal(16*SB+100,6*SB+100,5*SB+100,7*SB+100,3)};
             //Fairy
-            game->player->getFairy()->setFairy(2,5*SB+50,8*SB+100);
+            game->player->getFairy()->setFairy(2,5*SB+100,8*SB+100);
+            game->player->getFairy()->getText()->setDefaultTextColor(Qt::white);
+            //tutorial
+
             break;
         }
     case 3: {
-        //poner fondo
-
         //dimensiones escena
         setSceneRect(0,0,29*SB,12*SB);
+        //poner fondo
+        setBackgroundBrush(QBrush(QImage(dark_clouds)));
         //bloques - pintar, texturas
+        texture.setTextureImage(QImage(texture_rock));
         vecBlocks = {new Block(0,0,29,3), new Block(0,3,6,4), new Block(0,7,5,5), new Block(5,8,17,4), new Block(17,12,5,8), new Block(22,17,6,3),
                      new Block(23,8,6,9), new Block(24,3,5,5),
                      new Block(9*SB,7*SB,SB+50,50,false), new Block(11*SB,6*SB,SB,50,false), new Block(13*SB,5*SB,SB,50,false), new Block(15*SB,6*SB,SB,50,false),
@@ -105,11 +124,12 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         break;
     }
     case 4: {
-        //poner fondo
-
         //dimeciones escena
         setSceneRect(0,0,21*SB,30*SB);
+        //poner fondo
+        setBackgroundBrush(QBrush(QImage(lava)));
         //bloques - pintar, texturas
+        texture.setTextureImage(QImage(texture_lava));
         vecBlocks = {new Block(0,0,21,3), new Block(0,22,5,4), new Block(0,26,21,4), new Block(0,3,6,19), new Block(15,3,6,1), new Block(16,4,5,1), new Block(15,5,6,21),
                     new Block(8*SB,5*SB,7*SB,50,false), new Block(6,6,1,1), new Block(6*SB,7*SB,7*SB,50,false), new Block(14,8,1,1), new Block(8*SB,9*SB,7*SB,50,false),
                     new Block(6,10,1,1), new Block(6,11,2,2), new Block(6,13,8,1), new Block(9,11,2,1), new Block(12,11,1,1), new Block(14*SB,12*SB,1*SB,50,false),
@@ -133,15 +153,17 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
         //portal
         vecPortals = {new Portal(15*SB+100,4*SB+100,3*SB+100,4*SB+100,0), new Portal(5*SB,25*SB+100,21*SB,7*SB+100,5)};
         //Fairy
-        game->player->getFairy()->setFairy(4,5*SB+50,22*SB+100);
+        game->player->getFairy()->setFairy(4,5*SB+150,22*SB+100);
+        game->player->getFairy()->getText()->setDefaultTextColor(Qt::white);
         break;
     }
     case 5: {
-        //poner fondo
-
         //dimensiones escena
         setSceneRect(0,0,29*SB,12*SB);
+        //poner fondo
+        setBackgroundBrush(QBrush(QImage(lava)));
         //bloques - pintar, texturas
+        texture.setTextureImage(QImage(texture_lava));
         vecBlocks = {new Block(0,0,29,3), new Block(0,3,6,4), new Block(0,7,5,5), new Block(5,8,24,4), new Block(24,3,5,5),
                      new Block(9*SB,7*SB,SB+50,50,false), new Block(11*SB,6*SB,SB,50,false), new Block(13*SB,5*SB,SB,50,false),
                      new Block(15*SB,6*SB,SB,50,false), new Block(17*SB-50,7*SB,SB+50,50,false), new Block(22,7,2,1),
@@ -168,9 +190,19 @@ void World::loadWorld(unsigned short label, QPointF posPlayer)
             break;
         }        
     }
+    //hacienod pincel
+    QPen pen;
+    pen.setColor(Qt::transparent);
     for (auto block : qAsConst(vecBlocks)) {
+        block->setBrush(texture);
+        block->setPen(pen);
         addItem(block);
     }
+    //para que la barra siempre este encima de los bloques
+    removeItem(game->player->getHealthBar());
+    removeItem(game->player->getHealthBar()->getUpdateHealth());
+    addItem(game->player->getHealthBar());
+    addItem(game->player->getHealthBar()->getUpdateHealth());
     for (auto enemy: qAsConst(vecEnemies)) {
         addItem(enemy);
     }
@@ -207,6 +239,33 @@ void World::updatePosPlayer(QPointF pos)
 {
     game->player->setPos(pos);
     game->player->setRPos(game->player->pos());
+}
+
+void World::tutorial()
+{
+    qreal he = 30;
+    qreal wi = 50;
+    int i = 0;
+    QGraphicsTextItem *tuMove = new QGraphicsTextItem("Press Left '<' or Right '>' to move");
+    tuMove->setPos(10*SB+wi,4*SB+he*i);
+    i += 1;
+    QGraphicsTextItem *tuAttack = new QGraphicsTextItem("Press 'X' to attack");
+    tuAttack->setPos(23*SB+wi,4*SB+he*i);
+    i += 1;
+    QGraphicsTextItem *tuDash = new QGraphicsTextItem("Press 'Z' to use the dash");
+    tuDash->setPos(23*SB+wi,4*SB+he*i);
+    i += 1;
+    QGraphicsTextItem *tuJump = new QGraphicsTextItem("Press 'C' to jump");
+    tuJump->setPos(23*SB+wi,4*SB+he*i);
+    i += 1;
+    QGraphicsTextItem *tuAction = new QGraphicsTextItem("You can use the dash while jumping");
+    tuAction->setPos(23*SB+wi,4*SB+he*i);
+    addItem(tuAction);
+    addItem(tuDash);
+    addItem(tuJump);
+    addItem(tuAttack);
+    addItem(tuMove);
+
 }
 
 void World::fillSpikes(QVector<Enemy*> &vecEnemies, unsigned int num, qreal posx, qreal posy, qreal posPlayerX, qreal posPlayerY)
