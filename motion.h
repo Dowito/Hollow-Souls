@@ -1,42 +1,40 @@
 #ifndef MOTION_H
 #define MOTION_H
+#include <QtMath>
+#include <QPointF>
 #include <macros.h>
-#include <sprite.h>
-#include <QVector2D>
-#include <math.h>
-#include <QTimer>
-extern float *gravityTest;
-class Block;
-class Motion : public Sprite
+extern qreal *gravityTest;
+class Motion
 {
-    Q_OBJECT
 public:
-    Motion(QObject *parent = nullptr);
-    Motion(QVector2D r, QVector2D v, QVector2D a, QObject *parent = nullptr);
+    Motion();
+    Motion(QPointF pos, QPointF vel, QPointF acc);
+    Motion(qreal posx, qreal posy,
+           qreal velx = 0, qreal vely = 0,
+           qreal accx = 0, qreal accy = GRAVEDAD);
+    virtual ~Motion() {};
 
-    void setAce(const QVector2D &newA);
-    void setVel(const QVector2D &newV);
-    void setVel(float vx, float vy);
-    void setPeriodo(float newPeriodo);
-    void setBlocks(QVector<Block *> *newBlocks);
-    short getDirectionX() const;
+    virtual void check() = 0;
 
-public slots:
-    virtual void move();
+    void setAce(const QPointF &newA);
+    void setAce(qreal ax, qreal ay);
+    void setVel(const QPointF &newV);
+    void setVel(qreal vx, qreal vy);
+    static void setPeriodo(qreal newPeriodo);
+    QPointF getRPos() const;
+    void setRPos(QPointF newR);
+    QPointF getVel() const;
 
 protected:
-    virtual void collisions();
-    virtual void collisionsX();
-    virtual void collisionsY();
-    virtual void calculateAceleration();
-    void calculateAcelerationTest();
-    int speed;
-    short directionX;
-    float periodo;
-    QVector2D a; //vector aceleracion
-    QVector2D v; //vector velocidad
-    QVector<Block*> *blocks;
-    QTimer *timer;
+    /*!
+     * \brief calculatePos actualiza los vectores a, v y a para el siguiente instante de "tiempo".
+     */
+    virtual void calculatePos(); //funcion que actualiza los vectores a, v y r, luegos e actualiza la Pos de la scene con rpero en otra clase.
+    int speed; //magnitud del vector velocidad, esto tambien sobra. Tambien tocaria darle una direcction.
+    QPointF a; //vector aceleracion
+    QPointF v; //vector velocidad
+    QPointF r; //vector posicion
+    static qreal periodo;
 };
 
 #endif // MOTION_H

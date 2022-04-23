@@ -6,45 +6,65 @@
 #include <QDebug>
 extern Game *game;
 Weapon::Weapon(Player *owner, QObject *parent)
-    :Sprite(parent)
+    :QObject(parent)
 {
-    //slash special sword5
-    //bblow phisical
-    setSprite(":/new/sprites/sprites/sword.png");
-    setSize(96*2,96);
+    loadSpriteWeapon(":/new/sprites/sprites/sword - right.png", ":/new/sprites/sprites/sword - left.png", 96*2, 96, 5, 5);
     atk = WEAPON_ATK;
     steps = 0;
-    usable = true;
+    attacking = false;
     this->owner = owner;
-    this->timer = game->timer;
 }
 
 void Weapon::attack()
 {
-    if(usable){
-        usable = false;
-        direction = owner->getDirectionX();
+    if(!attacking){
+        direction = owner->getDirection();
         setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
-        setFrame(4,0);
+        setPixmap(frames[direction-1][0]);
         owner->scene()->addItem(this);
-        connect(timer, SIGNAL(timeout()), this, SLOT(animation()));
+        attacking = true;
     }
 }
 
 void Weapon::animation()
 {
-    setPos(owner->x()-20*GAME_SCALE, owner->y()-30*GAME_SCALE);
-    if(steps == STEPS_WEAPON_ANIMATION){
-        disconnect(timer, SIGNAL(timeout()), this, SLOT(animation()));
-        usable = true;
+    static unsigned short i = 0;
+    (direction == 2) ? setPos(owner->x()-10*GAME_SCALE, owner->y()-30*GAME_SCALE) : setPos(owner->x()-135*GAME_SCALE, owner->y()-30*GAME_SCALE);
+    if(steps >= 32){
+        attacking = false;
         steps = 0;
+        i = 0;
         scene()->removeItem(this);
-    }else steps++;
+    }
+    else if(steps%8 == 0) {
+        setPixmap(frames[direction-1][i]);
+        i += 1;
+        steps++;
+    }
+    else steps++;
 }
 
-short Weapon::getDirection() const
+void Weapon::loadSpriteWeapon(QString nameR, QString nameL, unsigned int w, unsigned int h, unsigned short fil, unsigned short col)
 {
-    return direction;
+    Sprite::loadSprite(nameR, w, h, fil, col);
+    Sprite::loadSprite(nameL, w, h, fil, col);
+    QVector<QPixmap> imBuffer;
+    QVector<QVector<QPixmap>> framesBuffer;
+    //frames izquierda
+    imBuffer.push_back(frames[0+5][1]);
+    imBuffer.push_back(frames[0+5][0]);
+    imBuffer.push_back(frames[1+5][4]);
+    imBuffer.push_back(frames[1+5][3]);
+    framesBuffer.push_back(imBuffer);
+    //frames derecha
+    imBuffer.clear();
+    imBuffer.push_back(frames[0][3]);
+    imBuffer.push_back(frames[0][4]);
+    imBuffer.push_back(frames[1][0]);
+    imBuffer.push_back(frames[1][1]);
+    framesBuffer.push_back(imBuffer);
+    frames.clear();
+    frames = framesBuffer;
 }
 
 unsigned short Weapon::getAtk() const
@@ -52,7 +72,12 @@ unsigned short Weapon::getAtk() const
     return atk;
 }
 
-bool Weapon::getUsable() const
+bool Weapon::getAttacking() const
 {
-    return usable;
+    return attacking;
+}
+
+short Weapon::getDirection() const
+{
+    return direction;
 }

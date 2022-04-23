@@ -18,13 +18,21 @@ HealthBar::HealthBar(Player *owner, QObject *parent)
     setPos(20,20);
     updateHealth->setPos(pos());
     update();
-    owner->scene()->addItem(this);
-    owner->scene()->addItem(updateHealth);
+}
+
+void HealthBar::posUpdateHealth()
+{
+    updateHealth->setPos(pos());
 }
 
 unsigned short HealthBar::healthPercent()
 {
     return ((*health)*100)/(*maxHealth);
+}
+
+QGraphicsRectItem *HealthBar::getUpdateHealth() const
+{
+    return updateHealth;
 }
 
 void HealthBar::update()

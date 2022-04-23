@@ -5,5 +5,27 @@
         <file>sprites/hombre_lobo.png</file>
         <file>sprites/personaje.png</file>
         <file>sprites/sword.png</file>
+        <file>sprites/bomba.png</file>
+        <file>sprites/Bow - left.png</file>
+        <file>sprites/Bow - right.png</file>
+        <file>sprites/sword - left.png</file>
+        <file>sprites/sword - right.png</file>
+        <file>sprites/spike.png</file>
+        <file>sprites/explosion.png</file>
+        <file>sprites/portal.png</file>
+        <file>sprites/boss_dragon.png</file>
+        <file>sprites/dragon.png</file>
+        <file>sprites/lever.png</file>
+        <file>sprites/saw.png</file>
+        <file>sprites/fairy.png</file>
+        <file>sprites/Night.png</file>
+        <file>sprites/Forest.png</file>
+        <file>sprites/Clouds.png</file>
+        <file>sprites/texture_rock.png</file>
+        <file>sprites/DarkClouds.png</file>
+        <file>sprites/Lava.png</file>
+        <file>sprites/texture_forest.png</file>
+        <file>sprites/texture_lava.png</file>
+        <file>sprites/texture_bright.png</file>
     </qresource>
 </RCC>

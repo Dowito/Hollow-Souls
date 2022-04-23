@@ -1,119 +1,66 @@
 #include "motion.h"
-#include <block.h>
-#include <QDebug>
-Motion::Motion(QObject *parent)
-    :Sprite(parent)
+#include <macros.h>
+Motion::Motion()
 {
     a.setY(GRAVEDAD);
-    periodo = TTT;
 }
 
-Motion::Motion(QVector2D r, QVector2D v, QVector2D a, QObject *parent)
-    :Sprite(parent)
+Motion::Motion(QPointF pos, QPointF vel, QPointF acc)
 {
-    setPos(r.toPointF());
-    this->v = v;
-    this->a = a;
+    this->r = pos;
+    this->v = vel;
+    this->a = acc;
 }
 
-void Motion::move()
+Motion::Motion(qreal posx, qreal posy, qreal velx, qreal vely, qreal accx, qreal accy)
 {
-    calculateAceleration();
-    v = v+(a*periodo); //v = v+(a*TTT);
-    //setPos(pos() + v.toPointF()); //v = v+(a*TTT);
-    setY(y() + v.y());
-    collisionsY();
-    setX(x() + v.x());
-    collisionsX();
+    r = {posx,posy};
+    v = {velx,vely};
+    a = {accx,accy};
 }
 
-void Motion::collisions()
+void Motion::calculatePos()
 {
-    for (int i = 0; i < blocks->size(); i++) {
-        if(collidesWithItem(blocks->at(i))) {
-            /*
-            if(pos().x() < blocks->at(i)->pos().x() + blocks->at(i)->rect().width()) {
-                setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
-                v.setX(v.x()*(-1));
-            }
-            else if (pos().x() + boundingRect().width() > blocks->at(i)->pos().x()) {
-                setX(blocks->at(i)->x() - boundingRect().width() - 1);
-                v.setX(v.x()*(-1));
-            }
-            */
-        }
-    }
+    v = v+(a*periodo);
+    r = r+(v*periodo);
 }
 
-void Motion::collisionsX()
+QPointF Motion::getVel() const
 {
-    for (int i = 0; i < blocks->size(); i++) {
-        if(collidesWithItem(blocks->at(i))) {
-            if (v.x()<0) {
-                setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
-            }
-            else if (v.x()>0) {
-                setX(blocks->at(i)->x() - w - 1);
-            }
-            directionX *= (-1);
-            //v.setX(v.x()*(-1));
-            v.setX(v.x()*directionX);
-        }
-    }
+    return v;
 }
 
-void Motion::collisionsY()
+QPointF Motion::getRPos() const
 {
-    for (int i = 0; i < blocks->size(); i++) {
-        if(collidesWithItem(blocks->at(i))){
-            if (v.y() <= 0) { //si colisiona hacia arriba
-                setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1 );
-            }
-            else { //si colisiona hacia abajo
-                setY(blocks->at(i)->y() - h -1);
-            }
-            v.setY(0);
-            v.setX(speed*directionX);
-        }
-    }
+    return r;
 }
 
-void Motion::calculateAceleration()
+void Motion::setRPos(QPointF newR)
 {
-    a = {0, GRAVEDAD};
+    r = newR;
 }
 
-void Motion::calculateAcelerationTest()
-{
-    a.setY(*gravityTest);
-}
-
-short Motion::getDirectionX() const
-{
-    return directionX;
-}
-
-void Motion::setBlocks(QVector<Block *> *newBlocks)
-{
-    blocks = newBlocks;
-}
-
-void Motion::setPeriodo(float newPeriodo)
+void Motion::setPeriodo(qreal newPeriodo)
 {
     periodo = newPeriodo;
 }
 
-void Motion::setAce(const QVector2D &newA)
+void Motion::setAce(const QPointF &newA)
 {
     a = newA;
 }
 
-void Motion::setVel(const QVector2D &newV)
+void Motion::setAce(qreal ax, qreal ay)
+{
+    a = {ax, ay};
+}
+
+void Motion::setVel(const QPointF &newV)
 {
     v = newV;
 }
 
-void Motion::setVel(float vx, float vy)
+void Motion::setVel(qreal vx, qreal vy)
 {
     v = {vx, vy};
 }

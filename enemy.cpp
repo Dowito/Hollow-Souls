@@ -1,106 +1,144 @@
 #include "enemy.h"
 #include <player.h>
-#include <healthbar.h>
 #include <weapon.h>
-#include <block.h>
-#include <game.h>
-#include <QDebug>
-extern Game *game;
-Enemy::Enemy(QObject *parent)
-    :Motion(parent)
+Enemy::Enemy(QGraphicsObject *parent)
+    :QGraphicsPixmapItem(parent)
 {
-    state = true;
-}
-
-Enemy::Enemy(QString name, float px, float py, QObject *parent)
-    :Motion(parent)
-{
+    loadSprite(":/new/sprites/sprites/bomba.png");
+    setPos(0,0);
     state = true;
     inmu = false;
-    atk = 20;
-    health = 95;
-    //sprites
-    setSprite(name);
-    setSize(48,48);
-    setFrame(1);
-    //cinematica
-    speed = 2;
-    directionX = -1;
-    setPos(px, py);
-    setVel(speed*directionX, 0);
-    calculateAcelerationTest();
-    //exterior
-    blocks = game->blocks;
-    player = game->player;
-    connect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
+    direction = 0;
+    atk = 10;
+    *maxHealth = 100;
+    *health = *maxHealth;
+    stepsDie = 0;
+    enemies->push_back(this);
 }
 
-void Enemy::move()
+Enemy::Enemy(int atk, QGraphicsObject *parent)
+    :QGraphicsPixmapItem(parent)
 {
-    //changeDirectionX();
-    Motion::move();
-    collisionsPlayer();
-    collisionsWeapon();
+    this->atk = atk*player->getDifficulty();
+    maxHealth = new int;
+    health = new int;
+    *maxHealth = 9999;
+    *health = *maxHealth;
+    direction = 0;
+    inmu = true;
+    state = true;
+    stepsDie = 0;
+    enemies->push_back(this);
 }
 
-void Enemy::collisionsPlayer()
+Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, short direction, bool inmu, bool state, QGraphicsObject *parent)
+    :QGraphicsPixmapItem(parent)
+{
+    maxHealth = new int;
+    health = new int;
+    setPos(posx,posy);
+    *maxHealth = tMaxHealth*player->getDifficulty();
+    *health = *maxHealth;
+    this->atk = atk*player->getDifficulty();
+    this->direction = direction;
+    if((this->direction<0) | (this->direction>3)) this->direction = 0;
+    this->inmu = inmu;
+    this->state = state;
+    stepsDie = 0;
+    enemies->push_back(this);
+}
+
+void Enemy::update()
+{
+    for (int i = 0; i<enemies->size(); i++) {
+        if(!enemies->at(i)->state){
+            enemies->at(i)->check();
+            i -= 1;
+        }
+        else enemies->at(i)->check();
+    }
+}
+
+void Enemy::collidesWithPlayer()
 {
     if(state){
         if (collidesWithItem(player)) {
-            if (!player->getInmu()) attack();
+            if (!player->getInmu()) dealDamage();
         }
     }
 }
 
-void Enemy::collisionsWeapon()
+void Enemy::collidesWithWeapon()
 {
     if (!inmu) {
-        if (!player->getWeapon()->getUsable()) {
+        if (player->getWeapon()->getAttacking()) {
             if (collidesWithItem(player->getWeapon())) {
                 inmu = true;
-                setVel(2*player->getWeapon()->getDirection(), -3);
-                damage(player->getWeapon()->getAtk());
+                takeDamage(player->getWeapon()->getAtk());
             }
         }
     }
     else {
-        if(player->getWeapon()->getUsable()) inmu = false;
+        if(!player->getWeapon()->getAttacking()) inmu = false; //con esto me aseguro que solo reciba un golpe por cada ataque que se haga con la espada
     }
 }
 
-void Enemy::changeDirectionX()
+void Enemy::dealDamage()
 {
-    if(directionX < 0){ //izquierda
-        if(scene()->items({x()-2, y()+h+2}).isEmpty()) directionX *= (-1); //solucion momentanea.
-    }
-    else {
-        if(scene()->items({x()+w+2, y()+h+2}).isEmpty()) directionX *= (-1);
-    }
-}
-
-
-void Enemy::attack()
-{
-    /*
-    if (player->x() + (player->getW()/2) > this->x()) {
-        player->setPos(player->x()+3, player->y()-3);
-    }
-    else {
-        player->setPos(player->x()-3, player->y()-3);
-    }
-    */
     player->takeDamage(atk);
 }
 
-void Enemy::damage(int damage)
+void Enemy::changeDirection()
 {
-    if (health - damage < 0){
+    return;
+}
+
+void Enemy::takeDamage(int damage, short direction)
+{
+    if (*health - damage < 0) {
+        *health = 0;
         state = false;
-        health = 0;
-        disconnect(game->timer, SIGNAL(timeout()), this, SLOT(move()));
-        //die animation;
+        //mirar die y check, Talvez Hacer la animacion de muerte en paralelo
+    }
+    else *health -= damage;
+}
+
+void Enemy::die()
+{
+    if (!state) {
+        enemies->removeOne(this);
         scene()->removeItem(this);
         delete this;
     }
-    else health -= damage;
+
+}
+
+void Enemy::setPlayer(Player *newPlayer)
+{
+    player = newPlayer;
+}
+
+void Enemy::setEnemies(QList<Enemy *> *newEnemies)
+{
+    enemies = newEnemies;
+}
+
+void Enemy::setBlocks(QVector<Block *> *newBlocks)
+{
+    blocks = newBlocks;
+}
+
+Player *Enemy::getPlayer()
+{
+    return player;
+}
+
+short Enemy::getDirection() const
+{
+    return direction;
+}
+
+bool Enemy::getInmu() const
+{
+    return inmu;
 }

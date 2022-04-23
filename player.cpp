@@ -3,62 +3,254 @@
 #include <block.h>
 #include <weapon.h>
 #include <healthbar.h>
+#include <bow.h>
+#include <Screens/world.h>
+#include <dash.h>
+#include "Utilities/fairy.h"
 #include <QDebug>
 extern Game *game;
-Player::Player()
+Player::Player(QObject *parent)
+    :QObject(parent)
 {
-    maxHealth = new int;
-    health = new int;
-    jump = false;
-    inmu = false;
-    *maxHealth  = 200;
-    *health = *maxHealth;
-    setSprite(":/new/sprites/sprites/personaje.png");
-    setSize(48, 48);
-    setFrame(2,2);
+    loadSprite(":/new/sprites/sprites/personaje.png");
+    setPixmap(frames[0][1]);
     setFlags(ItemIsFocusable);
     setFocus();
+    maxHealth = new int;
+    health = new int;
+    *maxHealth  = 200;
+    *health = *maxHealth;
+    direction = 1;
+    state = false;
+    jump = false;
+    inmu = false;
     speed = SPEED_PLAYER;
     v = {0,0};
-    calculateAcelerationTest();
-    blocks = game->blocks;
-    timer = game->timer;
-    connect(timer, SIGNAL(timeout()), this, SLOT(move()));
+    a = {0,GRAVEDAD};
+    setCarcaj(1);
+    leverOn = false;
+    fairy = nullptr;
+}
+
+void Player::check()
+{
+    if(weapon->getAttacking()) weapon->animation(); //poner & !=nullptr
+    if(getInmu()) framesInmu();
+    move();
+    if(bow != nullptr) bow->animation();
+    if(dash->getActivated()) dash->effect();
+    game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
+    updateHealthBarPos();
+    if(fairy != nullptr) fairy->check(); //si no hay hado no olvidar poner siempre en nullptr
 }
 
 void Player::keyPressEvent(QKeyEvent *event)
 {
-    if (event->key() == Qt::Key_Left) {
-        directionX = -1;
-        setFrame(1,1);
-        setX(x() - speed);
-        for (int i = 0; i < blocks->size(); i++) {
-            if(collidesWithItem(blocks->at(i))){
-                setX(blocks->at(i)->x() + blocks->at(i)->rect().width());
-                break;
+    if(!dash->getActivated())
+    {
+        if (event->key() == Qt::Key_Left) {
+            direction = 1;
+            setPixmap(frames[1][calculatedFrame()]);
+            setX(x() - speed);
+            for (int i = 0; i < blocks->size(); i++) {
+                if(collidesWithItem(blocks->at(i))){
+                    setX(blocks->at(i)->x() + blocks->at(i)->rect().width());
+                    break;
+                }
+            }
+            game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
+            updateHealthBarPos();
+        }
+        else if (event->key() == Qt::Key_Right) {
+            direction = 2;
+            setPixmap(frames[2][calculatedFrame()]);
+            setX(x() + speed);
+            for (int i = 0; i < blocks->size(); i++) {
+                if(collidesWithItem(blocks->at(i))){
+                    setX(blocks->at(i)->x() - boundingRect().width());
+                    break;
+                }
+            }
+            game->setSceneRect(pos().x()+48/2, pos().y()+48/2, 0.1, 0.1);
+            updateHealthBarPos();
+        }
+        else if (event->key() == Qt::Key_C) {
+            if(!jump){
+                jump = true;
+                v.setY(VEL_JUMP);
+            }
+        }
+        else if (event->key() == Qt::Key_X){
+            weapon->attack();
+        }
+        else if (event->key() == Qt::Key_V) {
+            if(0<carcaj && bow->getIfEquip()) {
+                carcaj -= 1;
+                bow->shoot(pos(), direction);
+            }
+        }
+        else if (event->key() == Qt::Key_Z) {
+            if (dash->getUsable()) {
+                dash->use();
+            }
+        }
+        else if (event->key() == Qt::Key_Up){
+            if((fairy != nullptr)) {
+                if(collidesWithItem(fairy) && (!fairy->getSaving())) fairy->saveGame(this);
             }
         }
     }
-    else if (event->key() == Qt::Key_Right) {
-        directionX = 1;
-        setFrame(1,2);
-        setX(x() + speed);
-        for (int i = 0; i < blocks->size(); i++) {
-            if(collidesWithItem(blocks->at(i))){
-                setX(blocks->at(i)->x() - boundingRect().width());
-                break;
+}
+
+unsigned short Player::calculatedFrame()
+{
+    static unsigned short j = 0;
+    static short increment = 1;
+    if(j == 2){
+        increment = -1;
+    }
+    else if(j == 0){
+        increment = 1;
+    }
+    j += increment;
+    return j;
+}
+
+void Player::move() //solo tendra simulacion fisica su movimiento en Y, o en x si se esta usando el dash
+{
+    v.setY(v.y()+(a.y()*periodo));
+    r.setY(r.y()+(v.y()*periodo));
+    setY(r.y());
+    collisionsY();
+}
+
+void Player::moveX()
+{
+    v.setX(v.x()+(a.x()*periodo));
+    r.setX(r.x()+(v.x()*periodo));
+    setX(r.x());
+    collisionsX();
+}
+
+void Player::collisionsX()
+{
+    for (int i = 0; i < blocks->size(); i++) {
+        if(collidesWithItem(blocks->at(i))) {
+            if (v.x()<0) { //Colision hacia la izquierda
+                r.setX(blocks->at(i)->x() + blocks->at(i)->rect().width() + 1);
             }
+            else if (v.x()>0) { //colision hacia la derecha
+                r.setX(blocks->at(i)->x() - w - 1);
+            }
+            v.setX(0);
+            setX(r.x());
+            dash->finish();
         }
     }
-    else if (event->key() == Qt::Key_C) {
-        if(!jump){
-            jump = true;
-            v.setY(VEL_JUMP);
+}
+
+void Player::updateHealthBarPos()
+{
+    healthBar->setPos(game->mapToScene(HBX,HBY));
+    healthBar->posUpdateHealth();
+}
+
+int Player::getDifficulty() const
+{
+    return difficulty;
+}
+
+void Player::setDifficulty(int newDifficulty)
+{
+    difficulty = newDifficulty;
+}
+
+Fairy *Player::getFairy() const
+{
+    return fairy;
+}
+
+void Player::collisionsY()
+{
+    for (int i = 0; i < blocks->size(); i++) {
+        if(collidesWithItem(blocks->at(i))){
+            if (v.y() < 0) { //si colisiona hacia arriba
+                r.setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1);
+                setY(r.y());
+                v.setY(0);
+            }
+            else { //si colisiona hacia abajo
+                if(jump) jump = false;
+                r.setY(blocks->at(i)->y() - h -1);
+                setY(r.y());
+                dash->setUsable(true); //al tocar el piso, el dash se puede volver a usar.
+                v.setY(0);
+            }
+            break;
         }
     }
-    else if (event->key() == Qt::Key_X){
-        weapon->attack();
+}
+
+void Player::framesInmu()
+{
+    static unsigned short stepsInmu = 0;
+    stepsInmu++;
+    if(stepsInmu >= STEPS_PLAYER_INMU) {
+        inmu = false;
+        stepsInmu = 0;
     }
+}
+
+void Player::takeDamage(int damage)
+{
+    if(!inmu){
+        if (*health - damage < 0) {
+            *health = 0;
+            healthBar->update();
+            state = false;//animacion de muerte
+        }
+        else {
+            *health -= damage;
+            healthBar->update();
+            inmu = true;
+        }
+    }
+}
+
+void Player::cure(int cure)
+{
+    if(*health + cure >= *maxHealth) {
+        *health = *maxHealth;
+        healthBar->update();
+    }
+    else {
+        *health = *health + cure;
+        healthBar->update();
+    }
+}
+
+Player::~Player()
+{
+    delete healthBar;
+    delete dash;
+    delete bow;
+    delete weapon;
+    delete fairy;
+}
+
+void Player::setDash(Dash *newDash)
+{
+    dash = newDash;
+}
+
+void Player::setBow(Bow *newBow)
+{
+    bow = newBow;
+}
+
+void Player::setBlocks(QVector<Block *> *newBlocks)
+{
+    blocks = newBlocks;
 }
 
 int *Player::getHealth() const
@@ -106,56 +298,6 @@ Weapon *Player::getWeapon() const
     return weapon;
 }
 
-void Player::move() //solo tendra simulacion fisica su movimiento en Y
-{
-    v.setY(v.y()+(a.y()*periodo));
-    setY(y()+(v.y()*periodo));
-    for (int i = 0; i < blocks->size(); i++) {
-        if(collidesWithItem(blocks->at(i))){
-            if (v.y() <= 0) { //si colisiona hacia arriba
-                setY(blocks->at(i)->y() + blocks->at(i)->rect().height() + 1 );
-                v.setY(0);
-            }
-            else { //si colisiona hacia abajo
-                if(jump) jump = false;
-                setY(blocks->at(i)->y() - h -1);
-                v.setY(0);
-                //a.setY(a.y() - a.y()); //Accion reaccion
-            }
-            break;
-        }
-    }
-}
-
-void Player::framesInmu()
-{
-    static unsigned short stepsInmu;
-    stepsInmu++;
-    if(stepsInmu >= STEPS_PLAYER_INMU) {
-        inmu = false;
-        stepsInmu = 0;
-        disconnect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
-    }
-}
-
-void Player::takeDamage(int damage)
-{
-    if(!inmu){
-        if (*health - damage < 0) {
-            *health = 0;
-            healthBar->update();
-            //animacion de muerte
-        }
-        else {
-            inmu = true;
-            *health -= damage;
-            healthBar->update();
-            connect(timer, SIGNAL(timeout()), this, SLOT(framesInmu()));
-        }
-        qDebug() << "current health: " << *health;
-    }
-}
-
 void Player::setWeapon(Weapon *newWeapon)
 {
     weapon = newWeapon;
@@ -169,4 +311,49 @@ bool Player::getAir() const
 void Player::setAir(bool newAir)
 {
     jump = newAir;
+}
+
+int Player::getCarcaj() const
+{
+    return carcaj;
+}
+
+void Player::setCarcaj(unsigned short newCarcaj)
+{
+    carcaj = newCarcaj;
+}
+
+Bow *Player::getBow() const
+{
+    return bow;
+}
+
+short Player::getDirection() const
+{
+    return direction;
+}
+
+void Player::setInmu(bool newInmu)
+{
+    inmu = newInmu;
+}
+
+Dash *Player::getDash() const
+{
+    return dash;
+}
+
+void Player::setFairy(Fairy *newFairy)
+{
+    fairy = newFairy;
+}
+
+const QString &Player::getUser() const
+{
+    return user;
+}
+
+void Player::setUser(const QString &newUser)
+{
+    user = newUser;
 }

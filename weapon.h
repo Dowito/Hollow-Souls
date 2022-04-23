@@ -2,32 +2,29 @@
 #define WEAPON_H
 
 #include <sprite.h>
+#include <QObject>
+#include <QGraphicsPixmapItem>
 class Game;
 class Player;
-class Weapon : public Sprite
+class Weapon : public QObject, public Sprite, public QGraphicsPixmapItem
 {
     Q_OBJECT
 public:
     Weapon(Player *owner, QObject *parent = nullptr);
     void attack();
-
-    bool getUsable() const;
-
-    unsigned short getAtk() const;
-
-    short getDirection() const;
-
-private slots:
     void animation();
 
+    bool getAttacking() const;
+    unsigned short getAtk() const;
+    short getDirection() const;
+
 private:
-    //QString type;
-    bool usable;
-    unsigned int steps;
+    void loadSpriteWeapon(QString nameR, QString nameL, unsigned int w = SIZE_BLOCK, unsigned int h = SIZE_BLOCK, unsigned short fil = 4, unsigned short col = 3);
+    bool attacking;
+    unsigned int steps; //contador hasta terminar la animacion
     int atk;
     short direction;
     Player *owner;
-    QTimer *timer;
 };
 
 #endif // WEAPON_H
