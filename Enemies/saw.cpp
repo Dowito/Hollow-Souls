@@ -10,8 +10,6 @@ Saw::Saw(qreal posx, qreal posy, unsigned int width, unsigned int height, float 
     setScale(scale);
     w *= scale;
     h *= scale;
-    qDebug() << "h: " << h/2;
-    qDebug() << "w: " << w/2;
     width = w;
     height = h;
     if(direction == 0) {//0 abajo
