@@ -5,6 +5,7 @@
 #define SIZE_BLOCK 48
 #define GAME_SCALE 1
 #define CLOCK_GAME 10
+int difficulty;
 
 //Movimiento - Simulacion fisica
 #define TTT 0.1
