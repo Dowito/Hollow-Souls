@@ -1,7 +1,7 @@
 #include "saw.h"
 
 Saw::Saw(qreal posx, qreal posy, unsigned int width, unsigned int height, float radio, unsigned short direction, float angularVel, qreal scale, float angularAcc)
-    :Enemy(60),
+    :Enemy(17),
       CircularMotion(radio, angularVel, angularAcc)
 
 {
@@ -42,7 +42,7 @@ Saw::Saw(qreal posx, qreal posy, unsigned int width, unsigned int height, float 
 }
 
 Saw::Saw(qreal oposx, qreal oposy, qreal scale, qreal radio, qreal angularPos, qreal angularVel, qreal angularAcc)
-    :Enemy(60),
+    :Enemy(17),
       CircularMotion(radio, angularVel, angularAcc)
 {
     this->angularPos = angularPos;

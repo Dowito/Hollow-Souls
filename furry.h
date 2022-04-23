@@ -12,8 +12,8 @@ public:
     Furry(QGraphicsObject *parent);
     Furry(qreal posx, qreal posy,
           qreal velx = 10, qreal vely = 0,
-          int maxHealth = 65,
-          int atk = 20);
+          int maxHealth = 22,
+          int atk = 7);
     Furry(qreal posx, qreal posy,
           qreal xmin, qreal xmax,
           bool limit,

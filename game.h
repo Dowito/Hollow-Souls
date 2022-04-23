@@ -22,6 +22,7 @@ class Game : public QGraphicsView
 public:
     explicit Game(QWidget *parent = nullptr);
     ~Game();
+    short difficulty;
     QString user;
     QTimer *timer;
     Player *player;

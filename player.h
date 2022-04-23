@@ -18,6 +18,7 @@ class Player : public QObject, public QGraphicsPixmapItem, public Sprite, public
     Q_OBJECT
 public:
     Player(QObject *parent = nullptr);
+    virtual ~Player();
 
     bool getAir() const;
     void setAir(bool newAir);
@@ -56,12 +57,16 @@ public:
     void setUser(const QString &newUser);
     Fairy *getFairy() const;
 
+    int getDifficulty() const;
+    void setDifficulty(int newDifficulty);
+
 private:
     void keyPressEvent(QKeyEvent *event) override;
     unsigned short calculatedFrame();
     void collisionsY();
     void collisionsX();
     void updateHealthBarPos();
+    int difficulty;
     bool state;
     bool jump;
     bool inmu;
@@ -74,8 +79,8 @@ private:
     Dash *dash;
     Bow *bow;
     Weapon *weapon;
-    QVector<Block*> *blocks;
     Fairy *fairy;
+    QVector<Block*> *blocks;
 };
 
 #endif // PLAYER_H

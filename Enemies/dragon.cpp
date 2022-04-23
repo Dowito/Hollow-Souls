@@ -4,7 +4,7 @@
 #include "QGraphicsView"
 extern Game *game;
 Dragon::Dragon(qreal posx, qreal posy, short direction, qreal amplitud, qreal frequency, qreal phase, qreal velx)
-    :Enemy(posx-24, posy-24, 10, 10, direction),
+    :Enemy(posx-24, posy-24, 1, 4, direction),
     SimpleHarmonicMotion(amplitud, frequency, phase, velx)
 {
     loadSprite(":/new/sprites/sprites/dragon.png",48,48,2,3);

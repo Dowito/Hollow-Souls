@@ -122,14 +122,6 @@ void Player::move() //solo tendra simulacion fisica su movimiento en Y, o en x s
     r.setY(r.y()+(v.y()*periodo));
     setY(r.y());
     collisionsY();
-    /*
-    if (dash->getActivated()) {
-        v.setX(v.x()+(a.x()*periodo));
-        r.setY(r.x()+(v.x()*periodo));
-        setX(r.x());
-        collisionsX();
-    }
-    */
 }
 
 void Player::moveX()
@@ -161,6 +153,16 @@ void Player::updateHealthBarPos()
 {
     healthBar->setPos(game->mapToScene(HBX,HBY));
     healthBar->posUpdateHealth();
+}
+
+int Player::getDifficulty() const
+{
+    return difficulty;
+}
+
+void Player::setDifficulty(int newDifficulty)
+{
+    difficulty = newDifficulty;
 }
 
 Fairy *Player::getFairy() const
@@ -212,7 +214,6 @@ void Player::takeDamage(int damage)
             healthBar->update();
             inmu = true;
         }
-        qDebug() << "current health: " << *health;
     }
 }
 
@@ -226,6 +227,15 @@ void Player::cure(int cure)
         *health = *health + cure;
         healthBar->update();
     }
+}
+
+Player::~Player()
+{
+    delete healthBar;
+    delete dash;
+    delete bow;
+    delete weapon;
+    delete fairy;
 }
 
 void Player::setDash(Dash *newDash)

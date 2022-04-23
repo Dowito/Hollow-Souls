@@ -78,20 +78,7 @@ Game::Game(QWidget *parent):
     Enemy::setPlayer(player);
     MotionBlock::setPlayer(player);
     Portal::setPlayer(player);
-    //Cargando juego
-    //newGame();
-    //loadGame();
-    //Iniciando juego
-    //world->loadWorld(0, {11*SB+100, 4*SB+100});
-    //world->loadWorld(1, {14*SB,6*SB+100}); //(14,6) , (16,17)
-    //world->loadWorld(2, {16*SB,17*SB+100});
-    //world->loadWorld(3, {13*SB,7*SB});
-    //world->loadWorld(4,{14*SB,4*SB+100}); //world->loadWorld(4,{14*SB,19*SB+100});
-    //world->loadWorld(5,{21*SB,7*SB+100});
-    //setScene(world);
-    //connect(timer, SIGNAL(timeout()), this, SLOT(timeWorld()));
-    //timer->start(CLOCK_GAME);
-    //inicianod menu
+    //Menu
     menu = new Menu;
     menu->setGame(this);
     setScene(menu);
@@ -135,6 +122,7 @@ void Game::loadNextWorld(unsigned short world, qreal posx, qreal posy)
 void Game::newGame()
 {
     player->setUser(user);
+    player->setDifficulty(difficulty);
     player->getBow()->setIfEquip(false);
     loadNextWorld(0, 11*SB+100, 4*SB+100);
 }
@@ -158,6 +146,7 @@ void Game::loadGame()
     index += 1;
     bow = info.substr(index, info.find('\n', index)-index);
     player->setUser(user);
+    player->setDifficulty(difficulty);
     player->setPos(stof(posx), stof(posy));
     player->getBow()->setIfEquip(stoi(bow));
     loadNextWorld(stoi(world), stof(posx), stof(posy));
@@ -212,7 +201,8 @@ Game::~Game()
     delete timer;
     world->clear();
     delete world;
+    menu->clear();
+    delete menu;
     delete gameover;
     delete loadscreen;
-    delete menu;
 }

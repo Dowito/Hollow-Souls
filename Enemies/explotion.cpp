@@ -1,7 +1,7 @@
 #include "explotion.h"
 #include "demon.h"
 Explotion::Explotion(Demon *demon)
-    :Enemy(0, demon->y(), 9999, 30, demon->getDirection(), true, true, nullptr)
+    :Enemy(0, demon->y(), 999, 10, demon->getDirection(), true, true, nullptr)
 {
     loadSprite(":/new/sprites/sprites/explosion.png", 96,96);
     qreal posx;
@@ -12,7 +12,7 @@ Explotion::Explotion(Demon *demon)
 }
 
 Explotion::Explotion(qreal posx, qreal posy)
-    :Enemy(posx, posy, 9999, 50, 0, true, true, nullptr)
+    :Enemy(posx, posy, 999, 17, 0, true, true, nullptr)
 {
     loadSprite(":/new/sprites/sprites/explosion.png", 96,96);
     setPixmap(frames[0][2]);

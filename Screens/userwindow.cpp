@@ -6,7 +6,7 @@
 #include <QPushButton>
 #include <QLabel>
 #include <QtDebug>
-#include <QDialog>
+#include <QCheckBox>
 #include "Utilities/fairy.h"
 UserWindow::UserWindow(QWidget *parent)
     : QWidget{parent}
@@ -20,31 +20,55 @@ UserWindow::UserWindow(QWidget *parent)
     //construyendo interfaz
     layout = new QVBoxLayout(this);
     layoutUser = new QHBoxLayout;
+    layoutCheckBox = new QHBoxLayout;
     layoutButton = new QHBoxLayout;
+    //Button
     start = new QPushButton("Start");
     cancel = new QPushButton("Cancel");
+    //In User
     label = new QLabel("User: ");
     inUser = new QLineEdit("ingrese usuario...");
+    //Dificulties
+    easy = new QCheckBox("Easy");
+    connect(easy, SIGNAL(clicked()), this, SLOT(selectEasy()));
+    medium= new QCheckBox("Medium");
+    connect(medium, SIGNAL(clicked()), this, SLOT(selectMedium()));
+    hard = new QCheckBox("Hard");
+    connect(hard, SIGNAL(clicked()), this, SLOT(selectHard()));
+    //Layout
     layoutUser->addWidget(label);
     layoutUser->addWidget(inUser);
+    layoutCheckBox->addWidget(easy);
+    layoutCheckBox->addWidget(medium);
+    layoutCheckBox->addWidget(hard);
     layoutButton->addWidget(start);
     layoutButton->addWidget(cancel);
+    //order
     layout->addLayout(layoutUser);
+    layout->addLayout(layoutCheckBox);
     layout->addLayout(layoutButton);
     connect(cancel, SIGNAL(clicked()), this, SLOT(close()));
 }
 
 void UserWindow::createNewUser()
 {
+    disconnect(start, SIGNAL(clicked()), this, SLOT(onStartSaveGameButton()));
     setWindowTitle("Create New User");
     inUser->setText("ingrese nuevo usuario...");
+    easy->setChecked(false);
+    medium->setChecked(true);
+    hard->setChecked(false);
     connect(start, SIGNAL(clicked()), this, SLOT(onStartNewGameButton()));
 }
 
 void UserWindow::loadUser()
 {
+    disconnect(start, SIGNAL(clicked()), this, SLOT(onStartNewGameButton()));
     setWindowTitle("Load User");
     inUser->setText("ingrese usuario...");
+    easy->setChecked(false);
+    medium->setChecked(true);
+    hard->setChecked(false);
     connect(start, SIGNAL(clicked()), this, SLOT(onStartSaveGameButton()));
 }
 
@@ -65,6 +89,8 @@ void UserWindow::onStartNewGameButton()
         inUser->setText("Usuario ya registrado, ingrese un nuevo usuario...");
     }
     else {
+        game->difficulty = readDifficulty();
+        qDebug() << "Dificultad: " << game->difficulty;
         game->user = reUser;
         game->newGame();
         close();
@@ -82,10 +108,32 @@ void UserWindow::onStartSaveGameButton()
         inUser->setText("¡Usuario no registrado, ingrese un usuario registrado!");
     }
     else {
+        game->difficulty = readDifficulty();
         game->user = reUser;
         game->loadGame();
         close();
     }
+}
+
+void UserWindow::selectEasy()
+{
+    easy->setChecked(true);
+    medium->setChecked(false);
+    hard->setChecked(false);
+}
+
+void UserWindow::selectMedium()
+{
+    easy->setChecked(false);
+    medium->setChecked(true);
+    hard->setChecked(false);
+}
+
+void UserWindow::selectHard()
+{
+    easy->setChecked(false);
+    medium->setChecked(false);
+    hard->setChecked(true);
 }
 
 int UserWindow::validateNewUser(QString &reUser, string &fileString)
@@ -108,6 +156,19 @@ int UserWindow::validateNewUser(QString &reUser, string &fileString)
     }
 }
 
+int UserWindow::readDifficulty()
+{
+    if (easy->isChecked()) {
+        return 1;
+    }
+    else if (medium->isChecked()) {
+        return 2;
+    }
+    else {
+        return 3;
+    }
+}
+
 bool UserWindow::ifLet(QString &reUser)
 {
     bool condition;
@@ -118,6 +179,20 @@ bool UserWindow::ifLet(QString &reUser)
         }
     }
     return true;
+}
+
+UserWindow::~UserWindow()
+{
+    delete start;
+    delete cancel;
+    delete label;
+    delete inUser;
+    delete layoutUser;
+    delete layoutButton;
+    delete easy;
+    delete medium;
+    delete hard;
+    delete layout;
 }
 
 void UserWindow::setGame(Game *newGame)

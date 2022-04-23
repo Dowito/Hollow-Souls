@@ -19,7 +19,7 @@ Enemy::Enemy(QGraphicsObject *parent)
 Enemy::Enemy(int atk, QGraphicsObject *parent)
     :QGraphicsPixmapItem(parent)
 {
-    this->atk = atk;
+    this->atk = atk*player->getDifficulty();
     maxHealth = new int;
     health = new int;
     *maxHealth = 9999;
@@ -37,9 +37,9 @@ Enemy::Enemy(qreal posx, qreal posy, int tMaxHealth, int atk, short direction, b
     maxHealth = new int;
     health = new int;
     setPos(posx,posy);
-    *maxHealth = tMaxHealth;
+    *maxHealth = tMaxHealth*player->getDifficulty();
     *health = *maxHealth;
-    this->atk = atk;
+    this->atk = atk*player->getDifficulty();
     this->direction = direction;
     if((this->direction<0) | (this->direction>3)) this->direction = 0;
     this->inmu = inmu;

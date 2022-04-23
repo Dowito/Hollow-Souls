@@ -44,42 +44,6 @@ CircularBlock::CircularBlock(qreal posx, qreal posy,
         this->angularAcc = 0;
         this->radio = 0;
     }
-    /*
-    periodo = TTT;
-    this->radio = radio;
-    this->angularAcc = -angularAcc;
-    this->angularVel = -angularVel;
-    setSprite(":/new/sprites/sprites/demonio.png");
-    setSize(48,48);
-    setFrame(1);
-    //direccion
-    if(direction == 0) {//0 abajo
-        setOffset(posx + w/2, posy + h/2 + radio );
-        angularPos = (-1)*qDegreesToRadians(90.0);
-        setPos(-w/2, h/2 + radio);
-    }
-    else if(direction == 1) {//1 izquierda
-        setOffset(posx + w/2 + radio, posy + h/2);
-        angularPos = (-1)*qDegreesToRadians(180.0);
-        setPos(-w/2-radio, -h/2);
-    }
-    else if(direction == 2){//2 derecha
-        setOffset(posx + w/2 - radio, posy + h/2);
-        angularPos = (-1)*qDegreesToRadians(0.0);
-        setPos(radio - w/2, -h/2);
-    }
-    else if (direction == 3) { //arriba
-        setOffset(posx + w/2, posy + h/2 - radio);
-        angularPos = (-1)*qDegreesToRadians(270.0);
-        setPos(- w/2, -h/2 + radio);
-    }
-    else {
-        setPos(posx, posy);
-        this->angularVel = 0;
-        this->angularAcc = 0;
-        this->radio = 0;
-    }
-    */
 }
 
 void CircularBlock::check()

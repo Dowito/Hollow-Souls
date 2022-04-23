@@ -4,7 +4,7 @@
 #include "fireball.h"
 #include "explotion.h"
 Audhulma::Audhulma(qreal posx, qreal posy)
-    :Enemy(posx,posy,600,60)
+    :Enemy(posx,posy,200,20)
 {
     loadSprite(":/new/sprites/sprites/boss_dragon.png",120,120,1,3);
     setPixmap(frames[0][1]);

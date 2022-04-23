@@ -12,7 +12,7 @@ class Menu : public QGraphicsScene
 
 public:
     Menu();
-
+    virtual ~Menu();
     static void setGame(Game *newGame);
 
 private:

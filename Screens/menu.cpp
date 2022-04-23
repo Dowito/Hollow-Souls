@@ -32,14 +32,12 @@ Menu::Menu()
     posx = width()/2 - newGameButton->boundingRect().width()/2;
     newGameButton->setPos(posx, alto);
     connect(newGameButton, &Button::clicked, this, &Menu::createUser);
-    //connect(newGameButton, &Button::clicked, game, &Game::newGame);
     addItem(newGameButton);
 
     //crear Load Game Button
     loadGameButton = new Button(QString("Load Game"));
     loadGameButton->setPos(posx, alto+30+loadGameButton->boundingRect().height());
     connect(loadGameButton, &Button::clicked, this, &Menu::loadUser);
-    //connect(loadGameButton, &Button::clicked, game, &Game::loadGame);
     addItem(loadGameButton);
 
     //crear Exit Button
@@ -50,9 +48,6 @@ Menu::Menu()
 
     //UserWindow
     userWindow = new UserWindow();
-
-    //conections
-
 }
 
 void Menu::createUser()
@@ -67,6 +62,15 @@ void Menu::loadUser()
     userWindow->loadUser();
     userWindow->setGeometry(sceneRect().center().x(), sceneRect().center().y(), 500, 200);
     userWindow->show();
+}
+
+Menu::~Menu()
+{
+    delete tittle;
+    delete newGameButton;
+    delete loadGameButton;
+    delete exitButton;
+    delete userWindow;
 }
 
 void Menu::setGame(Game *newGame)
