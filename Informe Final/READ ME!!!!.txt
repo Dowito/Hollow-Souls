@@ -1,0 +1,3 @@
+La carpte modelamiento de clases no se ha modificado desde la fecha antes de la fecha de entrega.
+El archivo .zip es un comprimido de la misma carpeta que genere despues para poder visualisar el dicho documento en overleaf.
+El modelamiento de clases lo hiso por medio d eun editor externo a overleaf, por eso quedo en ese formato.
