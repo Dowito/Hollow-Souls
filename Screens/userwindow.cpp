@@ -90,7 +90,6 @@ void UserWindow::onStartNewGameButton()
     }
     else {
         game->difficulty = readDifficulty();
-        qDebug() << "Dificultad: " << game->difficulty;
         game->user = reUser;
         game->newGame();
         close();
