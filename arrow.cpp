@@ -2,6 +2,8 @@
 #include <enemy.h>
 #include <player.h>
 #include <block.h>
+#include <QBrush>
+#include <QColor>
 #include <QGraphicsScene>
 Arrow::Arrow(qreal posx, qreal posy, qreal velx, qreal vely, qreal atk, bool from)
     :Motion(posx, posy, velx, vely)
@@ -12,6 +14,7 @@ Arrow::Arrow(qreal posx, qreal posy, qreal velx, qreal vely, qreal atk, bool fro
     this->atk = atk;
     this->from = from;
     state = true;
+    setBrush(QBrush(QColor(Qt::gray)));
     arrows->push_back(this);
 }
 
