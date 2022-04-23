@@ -16,7 +16,6 @@ SOURCES += \
     Enemies/saw.cpp \
     Screens/button.cpp \
     Screens/gameover.cpp \
-    Screens/loadscreen.cpp \
     Screens/menu.cpp \
     Screens/userwindow.cpp \
     Screens/world.cpp \
@@ -51,7 +50,6 @@ HEADERS += \
     Enemies/saw.h \
     Screens/button.h \
     Screens/gameover.h \
-    Screens/loadscreen.h \
     Screens/menu.h \
     Screens/userwindow.h \
     Screens/world.h \
