@@ -11,7 +11,6 @@
 #include "Utilities/fairy.h"
 #include <healthbar.h>
 #include "Utilities/portal.h"
-#include "Screens/loadscreen.h"
 #include "Screens/gameover.h"
 #include "Screens/menu.h"
 #include <QGraphicsRectItem>
@@ -204,5 +203,4 @@ Game::~Game()
     menu->clear();
     delete menu;
     delete gameover;
-    delete loadscreen;
 }
